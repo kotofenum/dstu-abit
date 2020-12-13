@@ -1,0 +1,45 @@
+.tag {
+  display: flex;
+  align-items: center;
+  padding: 2px 8px 2px 8px;
+  width: fit-content; // TODO: постараться убрать
+  background: #eea243;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(151, 151, 151, 0.22);
+  border-radius: 4px;
+
+  &--button {
+    background: #91aec4;
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($color: #91aec4, $amount: 10);
+    }
+  }
+
+  &--connect {
+    background: #51a55a;
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($color: #51a55a, $amount: 10);
+    }
+  }
+
+  &--disabled {
+    background: #cecece;
+  }
+
+  &__remove {
+    height: 10px;
+    width: 10px;
+    margin-left: 8px;
+    cursor: pointer;
+    
+    &:hover {
+      color: #cccccc;
+    }
+  }
+}

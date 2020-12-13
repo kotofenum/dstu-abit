@@ -1,0 +1,39 @@
+.education-relation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 600;
+
+  &__type {
+    margin-right: 6px;
+  }
+
+  &__code {
+    font-weight: 500;
+    color: #6a6969;
+    padding: 1px 6px;
+    margin-right: 6px;
+    background: #d8d8d8;
+    border: 1px solid rgba(151, 151, 151, 0.17);
+    border-radius: 4px;
+  }
+
+  &__name {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+
+    &--major {
+      border-bottom-color: #eca448;
+    }
+
+    &--specialty {
+      border-bottom-color: #7e64ed;
+    }
+
+    &--program {
+      border-bottom-color: #4b92cb;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@mixin gap {
+  @for $i from 0 through 12 {
+    .gap-#{$i},
+    .gap-#{$i}-0 {
+      width: $i * 8px;
+    }
+
+    .gap-#{$i}-5 {
+      width: $i * 8px + 4px;
+    }
+  }
+}
+
+@include gap;

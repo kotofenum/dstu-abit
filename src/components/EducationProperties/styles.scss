@@ -1,0 +1,14 @@
+.education-properties {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 500;
+  margin-bottom: 32px;
+
+  &__property {
+    white-space: nowrap;
+  }
+}

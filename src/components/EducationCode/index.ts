@@ -1,0 +1,1 @@
+export {EducationCode} from './EducationCode'

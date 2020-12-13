@@ -1,0 +1,1 @@
+export {EducationSummarySmart as EducationSummary} from './EducationSummary'

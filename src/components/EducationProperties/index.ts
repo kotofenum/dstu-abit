@@ -1,0 +1,1 @@
+export {EducationProperties} from './EducationProperties'

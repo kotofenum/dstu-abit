@@ -1,0 +1,14 @@
+@mixin brick {
+  @for $i from 0 through 12 {
+    .brick-#{$i},
+    .brick-#{$i}-0 {
+      height: $i * 8px;
+    }
+
+    .brick-#{$i}-5 {
+      height: $i * 8px + 4px;
+    }
+  }
+}
+
+@include brick;

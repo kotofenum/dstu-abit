@@ -1,0 +1,72 @@
+.education-summary {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  padding-top: 16px;
+  z-index: 1; // TODO: осторожно
+
+  &__button {
+    // TODO: вынести в компонент
+    width: fit-content;
+    padding: 4px 32px;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 4px;
+    background: #5189a5;
+    color: #ffffff;
+    transition: background 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($color: #5189a5, $amount: 5);
+    }
+  }
+
+  &__summary {
+    display: flex;
+    margin: 8px 0;
+  }
+
+  &__title {
+    font-size: 36px;
+    line-height: 49px;
+    flex: 1;
+    margin-right: 8px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin-top: 17px;
+  }
+
+  &__type {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px 40px;
+    border-radius: 4px;
+    color: #ffffff;
+    margin-bottom: 16px;
+    
+    &--major {
+      background: #eca448;
+    }
+
+    &--specialty {
+      background: #7e64ed;
+    }
+
+    &--program {
+      background: #4b92cb;
+    }
+  }
+
+  &__relations {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 12px;
+  }
+}

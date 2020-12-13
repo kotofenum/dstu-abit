@@ -1,0 +1,1 @@
+export {MajorPage} from './MajorPage'

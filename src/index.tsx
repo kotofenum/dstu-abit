@@ -1,14 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import { config } from "./store";
+import { createOvermind } from "overmind";
+import { Provider } from "overmind-react";
+
+import moment from 'moment'
+import 'moment/locale/ru'
+
+moment.locale('ru')
+
+export const overmind = createOvermind(config, { devtools: false });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider value={overmind}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

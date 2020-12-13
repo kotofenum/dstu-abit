@@ -1,0 +1,1 @@
+export {SpecialtyPage} from './SpecialtyPage'

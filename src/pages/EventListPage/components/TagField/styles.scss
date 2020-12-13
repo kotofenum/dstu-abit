@@ -1,0 +1,13 @@
+.tag-field {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 120px;
+  min-height: 38px;
+  padding: 8px 64px 8px 6px;
+  border-radius: 4px;
+  border: 1px solid #7e979d;
+
+  > * {
+    margin-right: 8px;
+  }
+}

@@ -1,0 +1,42 @@
+.menu {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 24px;
+  position: fixed;
+  top: 154px;
+  left: 36px;
+  width: 60px;
+  padding: 24px 10px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  background: rgba(65, 94, 129, 0.38);
+  transition: opacity 0.2s;
+
+  &--inactive {
+    opacity: 0.5;
+  }
+
+  &__menu-item {
+    color: rgba(100, 114, 125, 0.57);
+    width: 40px;
+    height: 40px;
+    transition: color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: rgba(100, 114, 125, 0.97);
+    }
+
+    > svg {
+      width: 100%;
+    }
+
+    &--active {
+      color: #324a6c;
+
+      &:hover {
+        color: darken($color: #324a6c, $amount: 10)
+      }
+    }
+  }
+}

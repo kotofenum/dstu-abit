@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  margin: 36px 36px 0 36px;
+
+  &__logo {
+    width: 64px;
+    height: 64px;
+
+    > img {
+      height: 100%;
+    }
+  }
+
+  &__user-panel {
+    display: flex;
+    align-items: center;
+    height: 48px;
+  }
+
+  &__notifications {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    transition: opacity 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8; // TODO: make it without opacity
+    }
+  }
+
+  &__userpic {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: url("https://avatars2.githubusercontent.com/u/17946487?s=460&u=09d4804651d04d789bdc31c02d38ec18055464cf&v=4");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: opacity 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8; // TODO: make it without opacity
+    }
+  }
+}

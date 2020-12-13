@@ -1,0 +1,95 @@
+.event-info-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 795px;
+  margin: auto;
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__type {
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  &__title {
+    font-size: 30px;
+    line-height: 41px;
+    margin-bottom: 2px;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  &__date {
+    font-size: 30px;
+    line-height: 41px;
+  }
+
+  &__time-range {
+    font-size: 36px;
+    line-height: 49px;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-bottom: 2px;
+  }
+
+  &__place {
+    display: flex;
+    color: #4a6b99;
+    font-size: 14px;
+    line-height: 17px;
+    height: 17px;
+
+    &--online {
+      color: #3c9858;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+
+    > * {
+      margin-right: 8px;
+    }
+  }
+
+  &__places-left {
+    font-size: 11px;
+    line-height: 15px;
+
+    &--joined {
+      color: #64ab64;
+    }
+
+    &--low {
+      color: #cb5858;
+    }
+  }
+
+  &__icon {
+    // TODO: copied from card, reuse
+    display: inline-block;
+    height: 100%;
+    margin-right: 8px;
+  }
+}

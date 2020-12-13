@@ -1,0 +1,39 @@
+.major-page {
+  display: flex;
+  flex-direction: column;
+  max-width: 959px;
+  margin: auto;
+  margin-top: 124px;
+
+  &__programs-description {
+    font-weight: 500;
+  }
+
+  &__program {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 8px;
+
+    &:before {
+      content: "";
+      display: block;
+      width: 6px;
+      height: 6px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: #4b92cb;
+    }
+  }
+
+  &__specialty {
+    margin-bottom: 8px;
+  }
+
+  &__specialty-name {
+    margin-left: 8px;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 500;
+  }
+}
