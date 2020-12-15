@@ -8,6 +8,7 @@ import { ReactComponent as ProgramIcon } from "../../assets/svg/program.svg";
 
 import "./styles.scss";
 import { Brick } from "../../components/utility/Brick";
+import { Link } from "react-router-dom";
 
 const block = cn("education-page");
 
@@ -28,21 +29,27 @@ export function EducationPage() {
       </span>
       <Brick size={3} />
       <div className={block("options")}>
-        <OptionBlock
-          name="УГН"
-          icon={<UgnIcon />}
-          color={OptionBlock.color.orange}
-        />
-        <OptionBlock
-          name="Направление"
-          icon={<DirectionIcon />}
-          color={OptionBlock.color.purple}
-        />
-        <OptionBlock
-          name="Образовательная программа"
-          icon={<ProgramIcon />}
-          color={OptionBlock.color.blue}
-        />
+        <Link to="/education/majors" style={{ textDecoration: "none" }}>
+          <OptionBlock
+            name="УГН"
+            icon={<UgnIcon />}
+            color={OptionBlock.color.orange}
+          />
+        </Link>
+        <Link to="/education/specialties" style={{ textDecoration: "none" }}>
+          <OptionBlock
+            name="Направление"
+            icon={<DirectionIcon />}
+            color={OptionBlock.color.purple}
+          />
+        </Link>
+        <Link to="/education/programs" style={{ textDecoration: "none" }}>
+          <OptionBlock
+            name="Образовательная программа"
+            icon={<ProgramIcon />}
+            color={OptionBlock.color.blue}
+          />
+        </Link>
       </div>
       <Brick size={3} />
       <span className={block("introduction")}>
