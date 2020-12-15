@@ -11,6 +11,10 @@ export interface JoinEventInput {
   eventId: string;
 }
 
+export interface SpecialtiesOfMajorInput {
+  majorId: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

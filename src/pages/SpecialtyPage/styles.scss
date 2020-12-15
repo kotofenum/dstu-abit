@@ -26,8 +26,20 @@
     }
   }
 
-  &__specialty {
-    margin-bottom: 8px;
+  &__specialty { // TODO: то же самое, что и в major page
+    display: flex;
+    margin-bottom: 12px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+
+      .major-list-page__item-title {
+        text-decoration: underline;
+      }
+    }
   }
 
   &__specialty-name {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { cn } from "../../services/helpers/classname";
 import { EducationProperties } from "../../components/EducationProperties";
 import { EducationRelation } from "../../components/EducationRelation";
@@ -7,24 +7,39 @@ import { EducationSummary } from "../../components/EducationSummary";
 import "./styles.scss";
 import { Brick } from "../../components/utility/Brick";
 import { EducationCode } from "../../components/EducationCode";
+import { useOvermind } from "../../store";
+import { useRouteMatch } from "react-router-dom";
+import { specialty } from "../../store/specialties/effects/gql/queries";
 
 const block = cn("specialty-page");
 
 export function SpecialtyPage() {
-  return (
+  const { state, actions } = useOvermind();
+
+  const { params } = useRouteMatch();
+  const specialtyId = (params as any)["id"] as string;
+
+  useEffect(() => {
+    actions.specialties.getSpecialty(specialtyId);
+  }, [actions.specialties, specialtyId]);
+
+  const specialty = state.specialties.currentSpecialty;
+
+  return specialty ? (
     <div className={block()}>
       <EducationSummary
-        title="Информационные системы и технологии"
+        title={specialty.title}
         type={EducationSummary.type.specialty}
         relations={
           <EducationRelation
+            id={specialty.major.uid}
             type={EducationSummary.type.major}
-            code="09.00.00"
-            name="Информатика и вычислительная техника"
+            code={specialty.major.code}
+            name={specialty.major.title}
           />
         }
       />
-      <EducationProperties list={[{ name: "Код", value: "09.03.02" }]} />
+      <EducationProperties list={[{ name: "Код", value: specialty.code }]} />
       <Brick size={4} />
       <span className={block("programs-description")}>
         К данному направлению относятся следующие образовательные программы
@@ -70,5 +85,5 @@ export function SpecialtyPage() {
         <span className={block("specialty-name")}>Программная инженерия</span>
       </div>
     </div>
-  );
+  ) : null;
 }

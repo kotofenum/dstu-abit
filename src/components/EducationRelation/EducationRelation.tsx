@@ -9,12 +9,14 @@ import "./styles.scss";
 const block = cn("education-relation");
 
 interface IEducationRelationProps {
+  id: string;
   type: EducationType;
   code: string;
   name: string;
 }
 
 export function EducationRelation({
+  id,
   type,
   code,
   name,
@@ -31,7 +33,7 @@ export function EducationRelation({
   }
 
   return (
-    <Link to={`/education/${mapping[key]}/1`} className={block()}>
+    <Link to={`/education/${mapping[key]}/${id}`} className={block()}>
       <span className={block("type")}>{type}:</span>
       <EducationCode code={code} />
       <span className={block("name", { ...(key && { [key]: true }) })}>

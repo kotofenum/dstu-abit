@@ -17,11 +17,13 @@ export function ProgramPage() {
         relations={
           <>
             <EducationRelation
+              id="1"
               type={EducationSummary.type.specialty}
               code="01.03.04"
               name="Прикладная математика"
             />
             <EducationRelation
+              id="1"
               type={EducationSummary.type.major}
               code="01.00.00"
               name="Математика и механика"
