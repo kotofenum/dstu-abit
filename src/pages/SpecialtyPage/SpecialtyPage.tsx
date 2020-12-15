@@ -8,7 +8,7 @@ import "./styles.scss";
 import { Brick } from "../../components/utility/Brick";
 import { EducationCode } from "../../components/EducationCode";
 import { useOvermind } from "../../store";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { specialty } from "../../store/specialties/effects/gql/queries";
 
 const block = cn("specialty-page");
@@ -21,9 +21,22 @@ export function SpecialtyPage() {
 
   useEffect(() => {
     actions.specialties.getSpecialty(specialtyId);
+    actions.programs.getProgramsOfSpecialty(specialtyId);
   }, [actions.specialties, specialtyId]);
 
+  useEffect(() => {
+    if (state.specialties.currentSpecialty) {
+      actions.specialties.getSpecialtiesOfMajor(
+        state.specialties.currentSpecialty.major.uid
+      );
+    }
+  }, [state.specialties.currentSpecialty]);
+
   const specialty = state.specialties.currentSpecialty;
+
+  const otherSpecialties = state.specialties.listOfMajor.filter(
+    (specialty) => specialty.uid !== specialtyId
+  );
 
   return specialty ? (
     <div className={block()}>
@@ -45,45 +58,31 @@ export function SpecialtyPage() {
         К данному направлению относятся следующие образовательные программы
       </span>
       <Brick size={2} />
-      <span className={block("program")}>
-        Web-ориентированные информационно-аналитические системы
-      </span>
-      <span className={block("program")}>
-        Интеллектуальные информационные системы в технике и технологиях
-      </span>
-      <span className={block("program")}>
-        Информационные системы и технологии
-      </span>
-      <span className={block("program")}>
-        Информационные системы и технологии (заочная)
-      </span>
-      <span className={block("program")}>
-        Искусственный интеллект и математическое моделирование в информационных
-        системах
-      </span>
-      <span className={block("program")}>
-        Интеллектуальные информационные системы в технике и технологиях
-      </span>
+      {state.programs.listOfSpecialty.map((program) => (
+        <Link
+          to={`/education/programs/${program.uid}`}
+          key={program.uid}
+          className={block("program")}
+        >
+          {program.title}
+        </Link>
+      ))}
       <Brick size={4} />
       <span className={block("specialties-description")}>
         Другие направления, относящиеся к УГН «Информатика и вычислительная
         техника»
       </span>
       <Brick size={2} />
-      <div className={block("specialty")}>
-        <EducationCode code="09.03.01" />
-        <span className={block("specialty-name")}>
-          Информатика и вычислительная техника
-        </span>
-      </div>
-      <div className={block("specialty")}>
-        <EducationCode code="09.03.03" />
-        <span className={block("specialty-name")}>Прикладная информатика</span>
-      </div>
-      <div className={block("specialty")}>
-        <EducationCode code="09.03.04" />
-        <span className={block("specialty-name")}>Программная инженерия</span>
-      </div>
+      {otherSpecialties.map((specialty) => (
+        <Link
+          to={`/education/specialties/${specialty.uid}`}
+          key={specialty.uid}
+          className={block("specialty")}
+        >
+          <EducationCode code={specialty.code} />
+          <span className={block("specialty-name")}>{specialty.title}</span>
+        </Link>
+      ))}
     </div>
   ) : null;
 }

@@ -11,6 +11,10 @@ export interface JoinEventInput {
   eventId: string;
 }
 
+export interface ProgramsOfSpecialtyInput {
+  specialtyId: string;
+}
+
 export interface SpecialtiesOfMajorInput {
   majorId: string;
 }
