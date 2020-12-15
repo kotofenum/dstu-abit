@@ -23,7 +23,7 @@ export interface IEventCardProps {
   placesLeft: number;
   userIsJoined?: boolean;
   reward?: number;
-  tags?: string[];
+  tags: string[]
 }
 
 export function EventCard(props: IEventCardProps) {
@@ -43,9 +43,9 @@ export function EventCard(props: IEventCardProps) {
 
   const { actions } = useOvermind();
 
-  const tgs = (tags as unknown) as string;
-  var json = tgs.replace(/([^\[\],\s]+)/g, '"$&"');
-  var array = JSON.parse(json);
+  // const tgs = (tags as unknown) as string;
+  // var json = tgs.replace(/([^\[\],\s]+)/g, '"$&"');
+  // var array = JSON.parse(json);
 
   return (
     <Link to={`/events/${id}`} className={block()}>
@@ -101,7 +101,7 @@ export function EventCard(props: IEventCardProps) {
           )}
         </div>
         <div className={block("tags")}>
-          {array.length ? array.map((tag: string) => <Tag name={tag} />) : null}
+          {tags.length ? tags.map((tag: string) => <Tag name={tag} />) : null}
         </div>
       </div>
     </Link>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
 import { EducationType } from "../../types/EducationType";
 import { EducationCode } from "../EducationCode";
@@ -21,15 +22,21 @@ export function EducationRelation({
   const key = Object.keys(EducationType).find(
     // TODO: get rid of it
     (key) => EducationType[key as keyof typeof EducationType] === type
-  );
+  ) as keyof typeof EducationType;
+
+  const mapping = {
+    major: 'majors',
+    specialty: 'specialties',
+    program: 'programs'
+  }
 
   return (
-    <div className={block()}>
+    <Link to={`/education/${mapping[key]}/1`} className={block()}>
       <span className={block("type")}>{type}:</span>
       <EducationCode code={code} />
       <span className={block("name", { ...(key && { [key]: true }) })}>
         {name}
       </span>
-    </div>
+    </Link>
   );
 }

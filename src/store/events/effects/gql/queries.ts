@@ -15,7 +15,6 @@ export const events: Query<Events> = gql`
       place
       userIsJoined
       reward
-      tags
     }
   }
 `
@@ -33,7 +32,6 @@ export const event: Query<Event, {uid: string}> = gql`
       place
       userIsJoined
       reward
-      tags
     }
   }
 `

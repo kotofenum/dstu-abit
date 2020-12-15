@@ -9,7 +9,7 @@ export const onInitialize: OnInitialize = ({ effects }) => {
   if (userData) {
     token = JSON.parse(userData)["body"]["id_token"];
   }
-  effects.events.gql.initialize(
+  effects.tags.gql.initialize(
     {
       // query and mutation options
       endpoint: `${process.env.REACT_APP_API_URL}/graphql`,

@@ -18,7 +18,6 @@ export interface Events_events {
   place: string | null;
   userIsJoined: boolean;
   reward: number;
-  tags: any | null;
 }
 
 export interface Events {

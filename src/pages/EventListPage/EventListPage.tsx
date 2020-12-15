@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Brick } from "../../components/utility/Brick";
 import { cn } from "../../services/helpers/classname"; // TODO: fix root path
 import { EventCard } from "./components/EventCard";
@@ -14,29 +14,73 @@ import groupBy from "lodash.groupby";
 import { Events_events } from "../../store/events/effects/gql/graphql-types/Events";
 import moment from "moment";
 import { Tag } from "./components/Tag/Tag";
+import { EducationTypePlain } from "../../types/EducationType";
 
 const block = cn("event-list-page");
+
+interface IFlattenTag {
+  uid: string;
+  title: string;
+  type: EducationTypePlain;
+}
 
 export function EventListPage() {
   const { state, actions } = useOvermind();
 
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<IFlattenTag[]>([]);
 
   console.log(state.events);
 
+  const getFlattenTags = useCallback(() => {
+    const majorTags: IFlattenTag[] = state.tags.tags
+      ? state.tags.tags.majors.map((tag) => ({
+          ...tag,
+          type: EducationTypePlain.major,
+        }))
+      : [];
+
+    const specialtyTags: IFlattenTag[] = state.tags.tags
+      ? state.tags.tags.specialties.map((tag) => ({
+          ...tag,
+          type: EducationTypePlain.specialty,
+        }))
+      : [];
+
+    const programTags: IFlattenTag[] = state.tags.tags
+      ? state.tags.tags.programs.map((tag) => ({
+          ...tag,
+          type: EducationTypePlain.program,
+        }))
+      : [];
+
+    return [...majorTags, ...specialtyTags, ...programTags];
+  }, [state.tags.tags]);
+
+  useEffect(() => {
+    setTags(getFlattenTags());
+  }, [getFlattenTags]);
+
+  // const normalizedTags = [
+  //   ...state.tags.tags?.majors!,
+  //   ...state.tags.tags?.specialties!,
+  //   ...state.tags.tags?.programs!,
+  // ];
+
   useEffect(() => {
     actions.events.getEvents();
-  }, [actions.events]);
+    actions.tags.getMyTags();
+  }, [actions.events, actions.tags]);
 
   const filteredEvents = tags.length
-    ? state.events.events.filter((event) => {
-        const str = (event.tags as unknown) as string;
-        var json = str.replace(/([^\[\],\s]+)/g, '"$&"');
-        var arr = JSON.parse(json) as Array<string>;
+    ? // ? state.events.events.filter((event) => {
+      //     const str = (event.tags as unknown) as string;
+      //     var json = str.replace(/([^\[\],\s]+)/g, '"$&"');
+      //     var arr = JSON.parse(json) as Array<string>;
 
-        const result = tags.find((tag) => arr.includes(tag));
-        return !!result;
-      })
+      //     const result = tags.find((tag) => arr.includes(tag));
+      //     return !!result;
+      //   })
+      state.events.events
     : state.events.events;
 
   const sortedEvents = [...filteredEvents].sort(
@@ -62,12 +106,16 @@ export function EventListPage() {
           }}
           onChange={(tags) => setTags(tags)}
           renderTag={(props) => (
-            <Tag name={props.tag} onRemove={() => props.onRemove(props.key)} />
+            <Tag
+              name={props.tag.title}
+              type={props.tag.type}
+              // onRemove={() => props.onRemove(props.key)}
+            />
           )}
           renderLayout={(tags, input) => (
             <TagField>
               {tags}
-              {input}
+              {/* {input} */}
             </TagField>
           )}
         />
@@ -92,6 +140,7 @@ export function EventListPage() {
               <>
                 <EventCard
                   {...event}
+                  tags={[]}
                   id={event.uid}
                   date={new Date(event.startsAt)}
                   timeRange={

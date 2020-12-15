@@ -3,7 +3,7 @@
   align-items: center;
   padding: 2px 8px 2px 8px;
   width: fit-content; // TODO: постараться убрать
-  background: #eea243;
+  background: #aaaaaa;
   color: #ffffff;
   font-size: 12px;
   font-weight: 500;
@@ -32,12 +32,24 @@
     background: #cecece;
   }
 
+  &--major {
+    background: #eca448;
+  }
+
+  &--specialty {
+    background: #7e64ed;
+  }
+
+  &--program {
+    background: #4b92cb;
+  }
+
   &__remove {
     height: 10px;
     width: 10px;
     margin-left: 8px;
     cursor: pointer;
-    
+
     &:hover {
       color: #cccccc;
     }
