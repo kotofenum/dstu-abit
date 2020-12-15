@@ -6,10 +6,12 @@ type ProgramsState = {
   list: Programs_programs[];
   listOfSpecialty: ProgramsOfSpecialty_programsOfSpecialty[];
   currentProgram: Program_program | null;
+  loading: boolean;
 };
 
 export const state: ProgramsState = {
   list: [],
   listOfSpecialty: [],
   currentProgram: null,
+  loading: false,
 };

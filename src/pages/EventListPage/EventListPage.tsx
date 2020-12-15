@@ -106,11 +106,13 @@ export function EventListPage() {
           }}
           onChange={(tags) => setTags(tags)}
           renderTag={(props) => (
+            <div style={{marginBottom: '6px'}}>
             <Tag
               name={props.tag.title}
               type={props.tag.type}
               // onRemove={() => props.onRemove(props.key)}
             />
+            </div>
           )}
           renderLayout={(tags, input) => (
             <TagField>

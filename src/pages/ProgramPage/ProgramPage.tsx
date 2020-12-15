@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 import { EducationProperties } from "../../components/EducationProperties";
 import { EducationRelation } from "../../components/EducationRelation";
@@ -16,13 +16,21 @@ export function ProgramPage() {
   const { params } = useRouteMatch();
   const programId = (params as any)["id"] as string;
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
-    actions.programs.getProgram(programId);
+    const job = async () => {
+      setLoading(true);
+      await actions.programs.getProgram(programId);
+      setLoading(false);
+    };
+
+    job();
   }, [actions.programs, programId]);
 
   const program = state.programs.currentProgram;
 
-  return program ? (
+  return !loading && program ? (
     <div className={block()}>
       <EducationSummary
         title={program.title}
@@ -30,16 +38,16 @@ export function ProgramPage() {
         relations={
           <>
             <EducationRelation
-              id="1"
+              id={program.specialty.uid}
               type={EducationSummary.type.specialty}
-              code="01.03.04"
-              name="Прикладная математика"
+              code={program.specialty.code}
+              name={program.specialty.title}
             />
             <EducationRelation
-              id="1"
+              id={program.specialty.major.uid}
               type={EducationSummary.type.major}
-              code="01.00.00"
-              name="Математика и механика"
+              code={program.specialty.major.code}
+              name={program.specialty.major.title}
             />
           </>
         }
@@ -57,7 +65,10 @@ export function ProgramPage() {
       />
       <div className={block("text-block")}>
         <span className={block("text-block-title")}>Описание программы</span>
-        <span className={block("text-block-content")} dangerouslySetInnerHTML={{__html: program.description}}/>
+        <span
+          className={block("text-block-content")}
+          dangerouslySetInnerHTML={{ __html: program.description }}
+        />
       </div>
       <div className={block("text-block")}>
         <span className={block("text-block-title")}>

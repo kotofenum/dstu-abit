@@ -6,10 +6,12 @@ type SpecialtiesState = {
   list: Specialties_specialties[];
   listOfMajor: SpecialtiesOfMajor_specialtiesOfMajor[];
   currentSpecialty: Specialty_specialty | null;
+  loading: boolean;
 };
 
 export const state: SpecialtiesState = {
   list: [],
   listOfMajor: [],
   currentSpecialty: null,
+  loading: false,
 };

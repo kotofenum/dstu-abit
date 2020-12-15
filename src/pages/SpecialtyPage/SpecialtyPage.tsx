@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 import { EducationProperties } from "../../components/EducationProperties";
 import { EducationRelation } from "../../components/EducationRelation";
@@ -19,9 +19,17 @@ export function SpecialtyPage() {
   const { params } = useRouteMatch();
   const specialtyId = (params as any)["id"] as string;
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
-    actions.specialties.getSpecialty(specialtyId);
-    actions.programs.getProgramsOfSpecialty(specialtyId);
+    const job = async () => {
+      setLoading(true);
+      await actions.specialties.getSpecialty(specialtyId);
+      await actions.programs.getProgramsOfSpecialty(specialtyId);
+      setLoading(false);
+    };
+
+    job();
   }, [actions.specialties, specialtyId]);
 
   useEffect(() => {
@@ -38,7 +46,7 @@ export function SpecialtyPage() {
     (specialty) => specialty.uid !== specialtyId
   );
 
-  return specialty ? (
+  return !loading && specialty ? (
     <div className={block()}>
       <EducationSummary
         title={specialty.title}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 import { EducationProperties } from "../../components/EducationProperties";
 import { EducationRelation } from "../../components/EducationRelation";
@@ -19,16 +19,24 @@ export function MajorPage() {
   const { params } = useRouteMatch();
   const majorId = (params as any)["id"] as string;
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
-    if (majorId) {
-      actions.majors.getMajor(majorId);
-      actions.specialties.getSpecialtiesOfMajor(majorId);
-    }
+    const job = async () => {
+      if (majorId) {
+        setLoading(true);
+        await actions.majors.getMajor(majorId);
+        await actions.specialties.getSpecialtiesOfMajor(majorId);
+        setLoading(false);
+      }
+    };
+
+    job();
   }, [actions.majors, actions.specialties, majorId]);
 
   const major = state.majors.currentMajor;
 
-  return major ? (
+  return !loading && major ? (
     <div className={block()}>
       <EducationSummary
         title={major.title}
