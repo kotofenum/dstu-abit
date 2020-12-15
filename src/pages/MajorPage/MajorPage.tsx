@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { cn } from "../../services/helpers/classname";
 import { EducationProperties } from "../../components/EducationProperties";
 import { EducationRelation } from "../../components/EducationRelation";
@@ -8,18 +8,37 @@ import { Brick } from "../../components/utility/Brick";
 import { EducationCode } from "../../components/EducationCode";
 
 import "./styles.scss";
+import { useOvermind } from "../../store";
+import { useRouteMatch } from "react-router-dom";
 
 const block = cn("major-page");
 
 export function MajorPage() {
-  return (
+  const { state, actions } = useOvermind();
+
+  const { params } = useRouteMatch();
+  const majorId = (params as any)["id"] as string;
+
+  useEffect(() => {
+    actions.majors.getMajor(majorId);
+  }, [actions.majors, majorId]);
+
+  const major = state.majors.currentMajor;
+
+  return major ? (
     <div className={block()}>
       <EducationSummary
-        title="Информатика и вычислительная техника"
+        title={major.title}
         type={EducationSummary.type.major}
-        relations={<span>Количество бюджетных мест: 90</span>}
+        relations={
+          <span>
+            Количество бюджетных мест: {major.fundedPlaces}
+          </span>
+        }
       />
-      <EducationProperties list={[{ name: "Код", value: "09.00.00" }]} />
+      <EducationProperties
+        list={[{ name: "Код", value: major.code }]}
+      />
       <Brick size={4} />
       <span className={block("specialties-description")}>
         К данной укрупненной группе направлений подготовки относятся следующие
@@ -47,5 +66,5 @@ export function MajorPage() {
         <span className={block("specialty-name")}>Программная инженерия</span>
       </div>
     </div>
-  );
+  ) : null;
 }

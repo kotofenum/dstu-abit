@@ -6,8 +6,9 @@ import * as ui from './ui'
 import * as logger from './logger'
 import {config as events} from './events'
 import {config as tags} from './tags'
+import {config as majors} from './majors'
 
-export const config = namespaced({ui, logger, events, tags})
+export const config = namespaced({ui, logger, events, tags, majors})
 
 declare module 'overmind' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
