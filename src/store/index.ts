@@ -9,6 +9,7 @@ import { config as tags } from "./tags";
 import { config as majors } from "./majors";
 import { config as specialties } from "./specialties";
 import { config as programs } from "./programs";
+import { config as auth } from "./auth";
 
 export const config = namespaced({
   ui,
@@ -18,6 +19,7 @@ export const config = namespaced({
   majors,
   specialties,
   programs,
+  auth,
 });
 
 declare module "overmind" {

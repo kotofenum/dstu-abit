@@ -6,7 +6,7 @@ export const onInitialize: OnInitialize = ({ effects, state }) => {
     state.auth.token = token;
   }
 
-  effects.events.gql.initialize(
+  effects.auth.gql.initialize(
     {
       // query and mutation options
       endpoint: `${process.env.REACT_APP_API_URL}/graphql`,

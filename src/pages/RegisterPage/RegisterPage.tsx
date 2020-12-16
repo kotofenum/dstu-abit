@@ -21,16 +21,48 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Gap } from "../../components/utility/Gap";
 import { Checkbox } from "@material-ui/core";
+import { useOvermind } from "../../store";
 
 const block = cn("register-page");
+
+enum AccountType {
+  enrolee = "enrolee",
+  parent = "parent",
+  teacher = "teacher",
+}
 
 export function RegisterPage() {
   const [awaitingCode, setAwaitingCode] = useState<boolean>(false);
   const [showForm, setShowForm] = useState<boolean>(false);
+
+  const [accountType, setAccountType] = useState<AccountType | null>(null);
+
+  const [phone, setPhone] = useState<string | null>(null);
+  const truncatedPhone = (phone || "").replace(/\D/g, "");
+
+  const [code, setCode] = useState<string | null>(null);
+
+  const [lastName, setLastName] = useState<string | null>();
+  const [firstName, setFirstName] = useState<string | null>();
+  const [patronym, setPatronym] = useState<string | null>();
+  const [country, setCountry] = useState<string | null>();
+  const [location, setLocation] = useState<string | null>();
   const [birthdate, setBirthdate] = useState(null);
+  const [school, setSchool] = useState<string | null>();
+  const [email, setEmail] = useState<string | null>();
+  const [password, setPassword] = useState<string | null>();
+  const [repeatedPassword, setRepeatedPassword] = useState<string | null>();
+  const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
+
+  const [position, setPosition] = useState<string | null>(null);
+  const [child, setChild] = useState<string | null>(null);
+
+  const { actions, state } = useOvermind();
+
+  /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 
   return (
     <div className={block()}>
@@ -68,11 +100,23 @@ export function RegisterPage() {
                 justifyContent: "space-between",
               }}
             >
-              <TextField label="Фамилия" />
+              <TextField
+                label="Фамилия"
+                // value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
               {/* <Gap size={2} /> */}
-              <TextField label="Имя" />
+              <TextField
+                label="Имя"
+                // value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
               {/* <Gap size={2} /> */}
-              <TextField label="Отчество" />
+              <TextField
+                label="Отчество"
+                // value={patronym}
+                onChange={(e) => setPatronym(e.target.value)}
+              />
             </div>
             <div
               style={{
@@ -85,11 +129,19 @@ export function RegisterPage() {
             >
               {/* <Brick size={1} /> */}
               <div style={{ marginBottom: "8px" }}>
-                <TextField label="Страна" />
+                <TextField
+                  label="Страна"
+                  // value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
               </div>
               {/* <Brick size={1} /> */}
               <div style={{ marginBottom: "8px" }}>
-                <TextField label="Населенный пункт" />
+                <TextField
+                  label="Населенный пункт"
+                  // value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
               </div>
               {/* <Brick size={2} /> */}
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -112,6 +164,8 @@ export function RegisterPage() {
               <TextField
                 style={{ width: "100%" }}
                 label="Образовательное учреждение"
+                // value={school}
+                onChange={(e) => setSchool(e.target.value)}
               />
             </div>
 
@@ -124,28 +178,56 @@ export function RegisterPage() {
               }}
             >
               <Brick />
-              <TextField style={{ marginRight: "49px" }} label="E-mail" />
+              <TextField
+                style={{ marginRight: "49px" }}
+                label="E-mail"
+                // value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               {/* <Gap size={2} /> */}
-              <TextField style={{ marginRight: "49px" }} label="Пароль" />
+              <TextField
+                style={{ marginRight: "49px" }}
+                label="Пароль"
+                // value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
               {/* <Gap size={2} /> */}
-              <TextField label="Повторите пароль" />
+              <TextField
+                label="Повторите пароль"
+                // value={repeatedPassword}
+                onChange={(e) => setRepeatedPassword(e.target.value)}
+              />
               <div />
             </div>
             <Brick size={4} />
             <FormControlLabel
               control={
                 <Checkbox
-                  defaultChecked
                   color="primary"
+                  value={acceptTerms}
                   // inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />
               }
               label="Я даю согласие на обработку персональных данных"
+              onChange={(e, checked) => setAcceptTerms(checked)}
             />
 
             <Brick />
             <Button
-              onClick={() => setShowForm(true)}
+              onClick={() => {
+                actions.auth.updateUser({
+                  firstName: firstName!,
+                  lastName: lastName!,
+                  patronym: patronym!,
+                  birthDate: birthdate!,
+                  country: country!,
+                  locality: location!,
+                  email: email!,
+                  pwd: password!,
+                  school: school,
+                })
+                setShowForm(true)}
+              }
               variant="outlined"
               color="primary"
             >
@@ -163,69 +245,118 @@ export function RegisterPage() {
           <span className={block("account-type")}>Тип аккаунта:</span>
           <Brick size={1} plusHalf />
           <div className={block("options")}>
-            <Link to="/education/majors" style={{ textDecoration: "none" }}>
+            <div
+              style={{
+                textDecoration: "none",
+                opacity:
+                  !accountType || accountType === AccountType.enrolee
+                    ? 1
+                    : 0.25,
+                transition: "0.3s",
+              }}
+              onClick={() => setAccountType(AccountType.enrolee)}
+            >
               <OptionBlock
                 name="Абитуриент"
                 icon={<StudentIcon />}
                 color={OptionBlock.color.orange}
               />
-            </Link>
-            <Link
-              to="/education/specialties"
-              style={{ textDecoration: "none", opacity: 0.25 }}
+            </div>
+            <div
+              style={{
+                textDecoration: "none",
+                opacity:
+                  !accountType || accountType === AccountType.parent ? 1 : 0.25,
+                transition: "0.3s",
+              }}
+              onClick={() => setAccountType(AccountType.parent)}
             >
               <OptionBlock
                 name="Родитель"
                 icon={<ParentIcon />}
                 color={OptionBlock.color.purple}
               />
-            </Link>
-            <Link
-              to="/education/programs"
-              style={{ textDecoration: "none", opacity: 0.25 }}
+            </div>
+            <div
+              style={{
+                textDecoration: "none",
+                opacity:
+                  !accountType || accountType === AccountType.teacher
+                    ? 1
+                    : 0.25,
+                transition: "0.3s",
+              }}
+              onClick={() => setAccountType(AccountType.teacher)}
             >
               <OptionBlock
                 name="Педагог"
                 icon={<TeacherIcon />}
                 color={OptionBlock.color.blue}
               />
-            </Link>
+            </div>
           </div>
-          <Brick size={3} />
-          <span className={block("introduction")}>
-            Для регистрации и входа на платформу используется мобильный телефон.
-            Введите номер телефона и мы отправим на него СМС с кодом
-            подтверждения.
-          </span>
-          <Brick size={1} />
-          {awaitingCode ? (
-            <form
-              className={block("form")}
-              noValidate
-              autoComplete="off"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <TextField
-                label="Код подтверждения"
-                InputProps={{ inputComponent: CodeMaskCustom }}
-              />
-              <Gap size={1} />
-              <Button onClick={() => setShowForm(true)}>Подтвердить</Button>
-            </form>
-          ) : (
-            <form
-              className={block("form")}
-              noValidate
-              autoComplete="off"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <TextField
-                label="Номер телефона"
-                InputProps={{ inputComponent: TextMaskCustom }}
-              />
-              <Gap size={1} />
-              <Button onClick={() => setAwaitingCode(true)}>Отправить</Button>
-            </form>
+          {!!accountType && (
+            <>
+              <Brick size={3} />
+              <span className={block("introduction")}>
+                Для регистрации и входа на платформу используется мобильный
+                телефон. Введите номер телефона и мы отправим на него СМС с
+                кодом подтверждения.
+              </span>
+              <Brick size={1} />
+              {awaitingCode ? (
+                <form
+                  className={block("form")}
+                  noValidate
+                  autoComplete="off"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <TextField
+                    label="Код подтверждения"
+                    InputProps={{ inputComponent: CodeMaskCustom }}
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                  <Gap size={1} />
+                  <Button
+                    onClick={async () => {
+                      await actions.auth.confirmCode({
+                        phone: truncatedPhone,
+                        code: code!,
+                      });
+                      if (state.auth.token) {
+                        setShowForm(true);
+                      }
+                    }}
+                  >
+                    Подтвердить
+                  </Button>
+                </form>
+              ) : (
+                <form
+                  className={block("form")}
+                  noValidate
+                  autoComplete="off"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <TextField
+                    label="Номер телефона"
+                    InputProps={{ inputComponent: TextMaskCustom }}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                  <Gap size={1} />
+                  <Button
+                    onClick={() => {
+                      actions.auth.sendCode(truncatedPhone);
+                      setAwaitingCode(true);
+                    }}
+                  >
+                    Отправить
+                  </Button>
+                </form>
+              )}
+            </>
           )}
         </>
       )}
@@ -278,7 +409,7 @@ function CodeMaskCustom(props: any) {
         inputRef(ref ? ref.inputElement : null);
       }}
       guide={false}
-      mask={[/\d/, /\d/, /\d/, /\d/]}
+      mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
       placeholderChar={"\u2000"}
       showMask
     />
