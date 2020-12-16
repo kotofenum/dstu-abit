@@ -7,8 +7,15 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum AccountType {
+  enrolee = "enrolee",
+  parent = "parent",
+  teacher = "teacher",
+}
+
 export interface CodeInput {
   phone: string;
+  type: AccountType;
 }
 
 export interface ConfirmCodeInput {
@@ -18,6 +25,11 @@ export interface ConfirmCodeInput {
 
 export interface JoinEventInput {
   eventId: string;
+}
+
+export interface LoginInput {
+  phone: string;
+  password: string;
 }
 
 export interface ProgramsOfSpecialtyInput {

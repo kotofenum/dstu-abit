@@ -1,11 +1,15 @@
 import { AsyncAction } from "overmind";
-import { UpdateUserInput } from "../graphql-global-types";
+import {
+  CodeInput,
+  LoginInput,
+  UpdateUserInput,
+} from "../graphql-global-types";
 
-export const sendCode: AsyncAction<string> = async (
+export const sendCode: AsyncAction<CodeInput> = async (
   { state, effects },
-  phone
+  input
 ) => {
-  const resp = await effects.auth.gql.mutations.sendCode({ input: { phone } });
+  const resp = await effects.auth.gql.mutations.sendCode({ input });
   console.log(resp);
 
   // state.majors.list = majors;
@@ -42,13 +46,25 @@ export const updateUser: AsyncAction<UpdateUserInput> = async (
   // state.auth.token = resp.confirmCode.access_token;
 };
 
-// export const getMajor: AsyncAction<string> = async (
-//   { state, effects },
-//   uid
-// ) => {
-//   state.specialties.loading = true;
-//   const { major } = await effects.majors.gql.queries.major({ uid });
+export const login: AsyncAction<LoginInput> = async (
+  { state, effects },
+  { phone, password }
+) => {
+  const resp = await effects.auth.gql.mutations.login({
+    input: { phone, password },
+  });
+  console.log(resp);
 
-//   state.majors.currentMajor = major;
-//   state.specialties.loading = false;
-// };
+  // state.majors.list = majors;
+  if (resp.login.access_token) {
+    state.auth.token = resp.login.access_token;
+    localStorage.setItem("token", resp.login.access_token);
+  } else {
+    throw new Error("Неверный код");
+  }
+};
+
+export const logout: AsyncAction = async ({ state, effects }) => {
+  localStorage.removeItem("token");
+  state.auth.token = null;
+};

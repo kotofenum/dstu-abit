@@ -1,5 +1,6 @@
 import { gql, Query } from "overmind-graphql";
 import { ConfirmCode, ConfirmCodeVariables } from "./graphql-types/ConfirmCode";
+import { Login, LoginVariables } from "./graphql-types/Login";
 import { SendCode, SendCodeVariables } from "./graphql-types/SendCode";
 import { UpdateUser, UpdateUserVariables } from "./graphql-types/UpdateUser";
 
@@ -33,6 +34,7 @@ export const updateUser: Query<UpdateUser, UpdateUserVariables> = gql`
       firstName
       lastName
       patronym
+      type
       birthDate
       country
       locality
@@ -42,6 +44,14 @@ export const updateUser: Query<UpdateUser, UpdateUserVariables> = gql`
       position
       child
       course
+    }
+  }
+`;
+
+export const login: Query<Login, LoginVariables> = gql`
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
+      access_token
     }
   }
 `;

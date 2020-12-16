@@ -8,7 +8,7 @@ import { ReactComponent as TeacherIcon } from "../../assets/svg/teacher.svg";
 
 import "./styles.scss";
 import { Brick } from "../../components/utility/Brick";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -62,6 +62,28 @@ export function RegisterPage() {
 
   const { actions, state } = useOvermind();
 
+  const history = useHistory();
+
+  const baseValidation =
+    lastName &&
+    firstName &&
+    patronym &&
+    country &&
+    location &&
+    birthdate &&
+    school &&
+    email &&
+    password &&
+    repeatedPassword &&
+    acceptTerms;
+
+  const validation =
+    accountType === AccountType.parent
+      ? baseValidation && child
+      : accountType === AccountType.teacher
+      ? baseValidation && position
+      : baseValidation;
+
   /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 
   return (
@@ -77,13 +99,20 @@ export function RegisterPage() {
           <div
             style={{
               padding: "4px",
-              background: "#eca448",
+              background:
+                accountType === AccountType.enrolee
+                  ? "#eca448"
+                  : accountType === AccountType.parent
+                  ? "#7e64ed"
+                  : "#4b92cb",
               color: "#ffffff",
               borderRadius: "4px",
               alignSelf: "flex-start",
             }}
           >
-            Абитуриент
+            {accountType === AccountType.enrolee && <>Абитуриент</>}
+            {accountType === AccountType.parent && <>Родитель</>}
+            {accountType === AccountType.teacher && <>Педагог</>}
           </div>
           <Brick />
           <form
@@ -160,14 +189,35 @@ export function RegisterPage() {
                 />
               </MuiPickersUtilsProvider>
             </div>
-            <div>
-              <TextField
-                style={{ width: "100%" }}
-                label="Образовательное учреждение"
-                // value={school}
-                onChange={(e) => setSchool(e.target.value)}
-              />
-            </div>
+            {accountType !== AccountType.parent ? (
+              <div>
+                <TextField
+                  style={{ width: "100%" }}
+                  label="Образовательное учреждение"
+                  // value={school}
+                  onChange={(e) => setSchool(e.target.value)}
+                />
+              </div>
+            ) : (
+              <div>
+                <TextField
+                  style={{ width: "100%" }}
+                  label="ФИО ребенка"
+                  // value={school}
+                  onChange={(e) => setChild(e.target.value)}
+                />
+              </div>
+            )}
+            {accountType === AccountType.teacher && (
+              <div>
+                <TextField
+                  style={{ width: "100%" }}
+                  label="Должность"
+                  // value={school}
+                  onChange={(e) => setPosition(e.target.value)}
+                />
+              </div>
+            )}
 
             <Brick />
             <div
@@ -214,8 +264,8 @@ export function RegisterPage() {
 
             <Brick />
             <Button
-              onClick={() => {
-                actions.auth.updateUser({
+              onClick={async () => {
+                await actions.auth.updateUser({
                   firstName: firstName!,
                   lastName: lastName!,
                   patronym: patronym!,
@@ -225,9 +275,12 @@ export function RegisterPage() {
                   email: email!,
                   pwd: password!,
                   school: school,
-                })
-                setShowForm(true)}
-              }
+                  child: child,
+                });
+                history.push("/");
+                setShowForm(true);
+              }}
+              disabled={!validation}
               variant="outlined"
               color="primary"
             >
@@ -348,7 +401,10 @@ export function RegisterPage() {
                   <Gap size={1} />
                   <Button
                     onClick={() => {
-                      actions.auth.sendCode(truncatedPhone);
+                      actions.auth.sendCode({
+                        phone: truncatedPhone,
+                        type: accountType,
+                      });
                       setAwaitingCode(true);
                     }}
                   >

@@ -5,6 +5,8 @@ import { Menu } from "../components/Menu";
 import { EducationPage } from "../pages/EducationPage";
 import { EventInfoPage } from "../pages/EventInfoPage";
 import { EventListPage } from "../pages/EventListPage";
+import { LoginPage } from "../pages/LoginPage";
+import { LogoutPage } from "../pages/LogoutPage/inedx";
 import { MajorListPage } from "../pages/MajorListPage";
 import { MajorPage } from "../pages/MajorPage";
 import { ProgramPage } from "../pages/ProgramPage";
@@ -18,6 +20,8 @@ function MainRouting() {
     <>
       <Switch>
         <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/education" component={EducationPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />
