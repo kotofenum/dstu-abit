@@ -1,0 +1,49 @@
+.register-page {
+  display: flex;
+  flex-direction: column;
+  max-width: 596px;
+  margin: auto;
+  margin-top: 180px;
+
+  &__welcome {
+    font-size: 36px;
+    line-height: 49px;
+  }
+
+  &__introduction {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  &__options {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__marked {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+
+    &--orange {
+      border-bottom-color: #eca448;
+    }
+
+    &--purple {
+      border-bottom-color: #7e64ed;
+    }
+
+    &--blue {
+      border-bottom-color: #4b92cb;
+    }
+  }
+
+  &__accent {
+    font-weight: 600;
+    color: #51a55a;
+  }
+
+  &__form {
+    display: flex;
+    align-items: flex-end;
+  }
+}

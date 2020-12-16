@@ -8,6 +8,7 @@ import { EventListPage } from "../pages/EventListPage";
 import { MajorListPage } from "../pages/MajorListPage";
 import { MajorPage } from "../pages/MajorPage";
 import { ProgramPage } from "../pages/ProgramPage";
+import { RegisterPage } from "../pages/RegisterPage";
 import { SpecialtyPage } from "../pages/SpecialtyPage";
 
 import { browserHistory } from "./browserHistory";
@@ -16,6 +17,7 @@ function MainRouting() {
   return (
     <>
       <Switch>
+        <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/education" component={EducationPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />
