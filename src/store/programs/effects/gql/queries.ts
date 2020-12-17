@@ -1,6 +1,9 @@
 import { ProgramsOfSpecialtyInput } from "./../../../graphql-global-types";
 import { gql, Query } from "overmind-graphql";
-import { ProgramsOfSpecialty, ProgramsOfSpecialtyVariables } from "./graphql-types/ProgramsOfSpecialty";
+import {
+  ProgramsOfSpecialty,
+  ProgramsOfSpecialtyVariables,
+} from "./graphql-types/ProgramsOfSpecialty";
 import { Program } from "./graphql-types/Program";
 import { Programs } from "./graphql-types/Programs";
 
@@ -9,11 +12,6 @@ export const programs: Query<Programs> = gql`
     programs {
       uid
       title
-      attendance
-      degree
-      studyPeriod
-      languages
-      description
       specialty {
         uid
         title
@@ -22,9 +20,28 @@ export const programs: Query<Programs> = gql`
           uid
           title
           code
-          fundedPlaces
         }
       }
+      fullTimePlaces
+      fullTimeMeta
+      mixedPlaces
+      mixedMeta
+      extramuralPlaces
+      extramuralMeta
+      fullTimeForm
+      mixedForm
+      extramuralForm
+      degree
+      studyPeriod
+      languages
+      description
+      advantages
+      partners
+      projectsAndPractices
+      leadProfessors
+      graduates
+      unit
+      supervisor
     }
   }
 `;
@@ -34,11 +51,6 @@ export const program: Query<Program, { uid: string }> = gql`
     program(uid: $uid) {
       uid
       title
-      attendance
-      degree
-      studyPeriod
-      languages
-      description
       specialty {
         uid
         title
@@ -47,9 +59,28 @@ export const program: Query<Program, { uid: string }> = gql`
           uid
           title
           code
-          fundedPlaces
         }
       }
+      fullTimePlaces
+      fullTimeMeta
+      mixedPlaces
+      mixedMeta
+      extramuralPlaces
+      extramuralMeta
+      fullTimeForm
+      mixedForm
+      extramuralForm
+      degree
+      studyPeriod
+      languages
+      description
+      advantages
+      partners
+      projectsAndPractices
+      leadProfessors
+      graduates
+      unit
+      supervisor
     }
   }
 `;

@@ -13,6 +13,21 @@ export enum AccountType {
   teacher = "teacher",
 }
 
+export enum PlacesMeta {
+  hasDegree = "hasDegree",
+  secondaryMajor = "secondaryMajor",
+  shortTerm = "shortTerm",
+  undeveloped = "undeveloped",
+  unknown = "unknown",
+  unobtainable = "unobtainable",
+}
+
+export enum ProgramDegree {
+  bachelor = "bachelor",
+  certified = "certified",
+  master = "master",
+}
+
 export interface CodeInput {
   phone: string;
   type: AccountType;

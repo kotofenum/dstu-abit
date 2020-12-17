@@ -75,22 +75,26 @@ export function SpecialtyPage() {
           {program.title}
         </Link>
       ))}
-      <Brick size={4} />
-      <span className={block("specialties-description")}>
-        Другие направления, относящиеся к УГН «Информатика и вычислительная
-        техника»
-      </span>
-      <Brick size={2} />
-      {otherSpecialties.map((specialty) => (
-        <Link
-          to={`/education/specialties/${specialty.uid}`}
-          key={specialty.uid}
-          className={block("specialty")}
-        >
-          <EducationCode code={specialty.code} />
-          <span className={block("specialty-name")}>{specialty.title}</span>
-        </Link>
-      ))}
+      {!!otherSpecialties?.length && (
+        <>
+          <Brick size={4} />
+          <span className={block("specialties-description")}>
+            Другие направления, относящиеся к УГН «Информатика и вычислительная
+            техника»
+          </span>
+          <Brick size={2} />
+          {otherSpecialties.map((specialty) => (
+            <Link
+              to={`/education/specialties/${specialty.uid}`}
+              key={specialty.uid}
+              className={block("specialty")}
+            >
+              <EducationCode code={specialty.code} />
+              <span className={block("specialty-name")}>{specialty.title}</span>
+            </Link>
+          ))}
+        </>
+      )}
     </div>
   ) : null;
 }

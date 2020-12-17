@@ -41,7 +41,8 @@ export function MajorPage() {
       <EducationSummary
         title={major.title}
         type={EducationSummary.type.major}
-        relations={<span>Количество бюджетных мест: {major.fundedPlaces}</span>}
+        // relations={<span>Количество бюджетных мест: {major.fundedPlaces}</span>}
+        relations={<span></span>}
       />
       <EducationProperties list={[{ name: "Код", value: major.code }]} />
       <Brick size={4} />

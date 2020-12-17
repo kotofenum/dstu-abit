@@ -8,7 +8,12 @@ export const majors: Query<Majors> = gql`
       uid
       title
       code
-      fundedPlaces
+      fullTimePlaces
+      fullTimeMeta
+      mixedPlaces
+      mixedMeta
+      extramuralPlaces
+      extramuralMeta
     }
   }
 `;
@@ -19,7 +24,12 @@ export const major: Query<Major, {uid: string}> = gql`
       uid
       title
       code
-      fundedPlaces
+      fullTimePlaces
+      fullTimeMeta
+      mixedPlaces
+      mixedMeta
+      extramuralPlaces
+      extramuralMeta
     }
   }
 `;

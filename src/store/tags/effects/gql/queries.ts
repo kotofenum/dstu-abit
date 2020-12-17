@@ -7,21 +7,47 @@ export const myTags: Query<MyTags> = gql`
       majors {
         uid
         title
-        code
-        fundedPlaces
+        fullTimePlaces
+        fullTimeMeta
+        mixedPlaces
+        mixedMeta
+        extramuralPlaces
+        extramuralMeta
       }
       specialties {
         uid
         title
         code
+        fullTimePlaces
+        fullTimeMeta
+        mixedPlaces
+        mixedMeta
+        extramuralPlaces
+        extramuralMeta
       }
       programs {
         uid
         title
-        attendance
+        fullTimePlaces
+        fullTimeMeta
+        mixedPlaces
+        mixedMeta
+        extramuralPlaces
+        extramuralMeta
+        fullTimeForm
+        mixedForm
+        extramuralForm
         degree
         studyPeriod
         languages
+        description
+        advantages
+        partners
+        projectsAndPractices
+        leadProfessors
+        graduates
+        unit
+        supervisor
       }
     }
   }
