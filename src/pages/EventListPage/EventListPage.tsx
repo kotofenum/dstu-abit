@@ -66,6 +66,8 @@ export function EventListPage() {
   //   ...state.tags.tags?.programs!,
   // ];
 
+  const [showPersonal, setShowPersonal] = useState<boolean>(true);
+
   useEffect(() => {
     const job = async () => {
       await actions.tags.getMyTags();
@@ -76,18 +78,22 @@ export function EventListPage() {
     job();
   }, [actions.events, actions.tags]);
 
-  const filteredEvents = tags.length
-    ? // ? state.events.events.filter((event) => {
-      //     const str = (event.tags as unknown) as string;
-      //     var json = str.replace(/([^\[\],\s]+)/g, '"$&"');
-      //     var arr = JSON.parse(json) as Array<string>;
+  const otherEvents = state.events.events.filter((event) =>
+    state.events.personalEvents.some((pEvent) => pEvent.uid === event.uid)
+  );
 
-      //     const result = tags.find((tag) => arr.includes(tag));
-      //     return !!result;
-      //   })
-      // state.events.personalEvents
-      state.events.events
-    : state.events.events;
+  const filteredEvents =
+    tags.length && showPersonal
+      ? // ? state.events.events.filter((event) => {
+        //     const str = (event.tags as unknown) as string;
+        //     var json = str.replace(/([^\[\],\s]+)/g, '"$&"');
+        //     var arr = JSON.parse(json) as Array<string>;
+
+        //     const result = tags.find((tag) => arr.includes(tag));
+        //     return !!result;
+        //   })
+        state.events.personalEvents
+      : state.events.events;
 
   const sortedEvents = [...filteredEvents].sort(
     (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
@@ -98,43 +104,93 @@ export function EventListPage() {
   );
   console.log(groupedEvents);
 
+  const sortedOtherEvents = [...otherEvents].sort(
+    (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+  );
+
+  const groupedOtherEvents = groupBy(sortedOtherEvents, (event) =>
+    moment(event.startsAt).format("YYYY-MM-DD")
+  );
+  // console.log();
+
   return (
     <div className={block()}>
       <h1>Список мероприятий</h1>
-      {/* <div className={block("search")}>
+      <div className={block("search")}>
         <Brick size={0} plusHalf />
         <span>
           Подборка по вашим тегам:{" "}
-          <span style={{ textDecoration: "underline" }}>отключить</span>
+          <span
+            style={{ textDecoration: "underline", cursor: "pointer" }}
+            onClick={() => setShowPersonal(!showPersonal)}
+          >
+            {showPersonal ? "отключить" : "включить"}
+          </span>
         </span>
         <Brick size={0} plusHalf />
-        <TagsInput
-          value={tags}
-          inputProps={{
-            placeholder: "Новый тег",
-          }}
-          onChange={(tags) => setTags(tags)}
-          renderTag={(props) => (
-            <div>
-              <Tag
-                name={props.tag.title}
-                type={props.tag.type}
-                // onRemove={() => props.onRemove(props.key)}
-              />
-            </div>
-          )}
-          renderLayout={(tags, input) => <TagField>{tags}</TagField>}
-        /> */}
-      {/* <Brick size={3} />
+        {showPersonal && (
+          <TagsInput
+            value={tags}
+            inputProps={{
+              placeholder: "Новый тег",
+            }}
+            onChange={(tags) => setTags(tags)}
+            renderTag={(props) => (
+              <div style={{ marginBottom: "6px" }}>
+                <Tag
+                  name={props.tag.title}
+                  type={props.tag.type}
+                  // onRemove={() => props.onRemove(props.key)}
+                />
+              </div>
+            )}
+            renderLayout={(tags, input) => <TagField>{tags}</TagField>}
+          />
+        )}
+        {/* <Brick size={3} />
         <span>
           Сортировка: <u>по дате</u>
         </span> */}
-      <Brick size={6} />
-      {/* </div> */}
+        <Brick size={6} />
+      </div>
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);
 
         const events = groupedEvents[key];
+
+        return (
+          <>
+            <span className={block("group-date")}>
+              {date.format("D MMMM, dddd")}
+            </span>
+            <Brick size={2} />
+            {events.map((event) => (
+              <>
+                <EventCard
+                  {...event}
+                  tags={[]}
+                  id={event.uid}
+                  key={event.uid}
+                  date={new Date(event.startsAt)}
+                  timeRange={
+                    new Date(event.startsAt).toLocaleTimeString().substr(0, 5) +
+                    " — " +
+                    new Date(event.endsAt).toLocaleTimeString().substr(0, 5)
+                  }
+                />
+                <Brick size={3} />
+              </>
+            ))}
+          </>
+        );
+      })}
+
+      <Brick size={2} />
+      <h1>Еще мероприятия не из ваших тегов:</h1>
+      {Object.keys(groupedOtherEvents).map((key) => {
+        const date = moment(key);
+
+        const events = groupedOtherEvents[key];
 
         return (
           <>
