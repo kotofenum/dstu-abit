@@ -55,6 +55,12 @@ export enum ProgramDegree {
   master = "master",
 }
 
+export enum TagRelationType {
+  major = "major",
+  program = "program",
+  specialty = "specialty",
+}
+
 export interface CodeInput {
   phone: string;
   type: AccountType;
@@ -91,6 +97,11 @@ export interface UpdateUserInput {
   position?: string | null;
   child?: string | null;
   course?: string | null;
+}
+
+export interface UserTagInput {
+  relationId: string;
+  relationType: TagRelationType;
 }
 
 //==============================================================

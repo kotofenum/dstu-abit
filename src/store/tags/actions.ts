@@ -1,3 +1,4 @@
+import { UserTagInput } from "./../graphql-global-types";
 import { AsyncAction } from "overmind";
 
 export const getMyTags: AsyncAction = async ({ state, effects }) => {
@@ -9,4 +10,21 @@ export const getMyTags: AsyncAction = async ({ state, effects }) => {
 
     state.tags.tags = myUserTags;
   }
+};
+
+export const addTag: AsyncAction<UserTagInput> = async ({ effects }, input) => {
+  const resp = await effects.tags.gql.mutations.createUserTag({
+    input,
+  });
+  console.log(resp);
+};
+
+export const removeTag: AsyncAction<UserTagInput> = async (
+  { effects },
+  input
+) => {
+  const resp = await effects.tags.gql.mutations.removeUserTag({
+    input,
+  });
+  console.log(resp);
 };

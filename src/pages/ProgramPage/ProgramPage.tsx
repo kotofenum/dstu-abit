@@ -57,6 +57,7 @@ export function ProgramPage() {
   return !loading && program ? (
     <div className={block()}>
       <EducationSummary
+        uid={program.uid}
         title={program.title}
         type={EducationSummary.type.program}
         relations={

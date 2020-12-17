@@ -49,6 +49,7 @@ export function SpecialtyPage() {
   return !loading && specialty ? (
     <div className={block()}>
       <EducationSummary
+        uid={specialty.uid}
         title={specialty.title}
         type={EducationSummary.type.specialty}
         relations={

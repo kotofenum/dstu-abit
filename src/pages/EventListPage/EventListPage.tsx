@@ -67,8 +67,13 @@ export function EventListPage() {
   // ];
 
   useEffect(() => {
-    actions.events.getEvents();
-    actions.tags.getMyTags();
+    const job = async () => {
+      await actions.tags.getMyTags();
+      await actions.events.getEvents();
+      await actions.events.getEventsForUserTags();
+    };
+
+    job();
   }, [actions.events, actions.tags]);
 
   const filteredEvents = tags.length
@@ -80,6 +85,7 @@ export function EventListPage() {
       //     const result = tags.find((tag) => arr.includes(tag));
       //     return !!result;
       //   })
+      // state.events.personalEvents
       state.events.events
     : state.events.events;
 
@@ -97,7 +103,10 @@ export function EventListPage() {
       <h1>Список мероприятий</h1>
       {/* <div className={block("search")}>
         <Brick size={0} plusHalf />
-        <span>Поиск по тегам:</span>
+        <span>
+          Подборка по вашим тегам:{" "}
+          <span style={{ textDecoration: "underline" }}>отключить</span>
+        </span>
         <Brick size={0} plusHalf />
         <TagsInput
           value={tags}
@@ -106,25 +115,21 @@ export function EventListPage() {
           }}
           onChange={(tags) => setTags(tags)}
           renderTag={(props) => (
-            <div style={{marginBottom: '6px'}}>
-            <Tag
-              name={props.tag.title}
-              type={props.tag.type}
-              // onRemove={() => props.onRemove(props.key)}
-            />
+            <div>
+              <Tag
+                name={props.tag.title}
+                type={props.tag.type}
+                // onRemove={() => props.onRemove(props.key)}
+              />
             </div>
           )}
-          renderLayout={(tags, input) => (
-            <TagField>
-              {tags}
-            </TagField>
-          )}
+          renderLayout={(tags, input) => <TagField>{tags}</TagField>}
         /> */}
-        {/* <Brick size={3} />
+      {/* <Brick size={3} />
         <span>
           Сортировка: <u>по дате</u>
         </span> */}
-        <Brick size={6} />
+      <Brick size={6} />
       {/* </div> */}
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);

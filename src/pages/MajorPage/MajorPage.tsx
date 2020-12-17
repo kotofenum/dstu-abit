@@ -39,6 +39,7 @@ export function MajorPage() {
   return !loading && major ? (
     <div className={block()}>
       <EducationSummary
+        uid={major.uid}
         title={major.title}
         type={EducationSummary.type.major}
         // relations={<span>Количество бюджетных мест: {major.fundedPlaces}</span>}

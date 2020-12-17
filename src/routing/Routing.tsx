@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Router, Redirect } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Menu } from "../components/Menu";
@@ -12,10 +12,19 @@ import { MajorPage } from "../pages/MajorPage";
 import { ProgramPage } from "../pages/ProgramPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { SpecialtyPage } from "../pages/SpecialtyPage";
+import { useOvermind } from "../store";
 
 import { browserHistory } from "./browserHistory";
 
 function MainRouting() {
+  const { state, actions } = useOvermind();
+
+  useEffect(() => {
+    if (state.auth.token) {
+      actions.tags.getMyTags();
+    }
+  }, []);
+
   return (
     <>
       <Switch>

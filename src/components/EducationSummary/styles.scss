@@ -20,6 +20,14 @@
     &:hover {
       background: darken($color: #5189a5, $amount: 5);
     }
+
+    &--red {
+      background: #ab6464;
+
+      &:hover {
+        background: darken($color: #ab6464, $amount: 5);
+      }
+    }
   }
 
   &__summary {
@@ -52,7 +60,7 @@
     border-radius: 4px;
     color: #ffffff;
     margin-bottom: 16px;
-    
+
     &--major {
       background: #eca448;
     }

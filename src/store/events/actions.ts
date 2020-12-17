@@ -15,6 +15,13 @@ export const getEvent: AsyncAction<string> = async ({state, effects}, uid) => {
   state.events.currentEvent = event
 }
 
+export const getEventsForUserTags: AsyncAction = async ({state, effects}) => {
+  const {eventsForUserTags} = await effects.events.gql.queries.eventsForUserTags()
+  console.log(eventsForUserTags)
+
+  state.events.personalEvents = eventsForUserTags
+}
+
 // export const joinEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
 //   const {joinEvent} = await effects.events.gql.mutations.joinEvent({input})
 
