@@ -1,0 +1,128 @@
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 120px;
+  font-family: "Open Sans", sans-serif;
+
+  @media (max-width: 1040px) {
+    max-width: 620px;
+  }
+
+  &__welcome {
+    font-size: 36px;
+    line-height: 49px;
+    text-align: center;
+    font-weight: 800;
+    color: rgb(34, 88, 161);
+  }
+
+  &__date {
+    font-size: 25px;
+    line-height: 36px;
+    font-weight: 800;
+    text-align: center;
+    color: rgb(34, 88, 161);
+  }
+
+  &__introduction {
+    font-size: 18px;
+    line-height: 25px;
+    max-width: 596px;
+    margin: auto;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 1040px) {
+      grid-template-columns: 1fr;
+    }
+
+    border-radius: 4px;
+  }
+
+  &__cell {
+    display: flex;
+    flex-direction: column;
+    background: rgb(241, 156, 56);
+    color: #ffffff;
+    padding: 24px 24px 40px 24px;
+    transition: transform 0.13s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.3s;
+    }
+
+    &--one {
+      background: rgb(241, 156, 56);
+    }
+    &--two {
+      background: rgb(73, 168, 238);
+    }
+    &--three {
+      background: rgb(143, 53, 171);
+    }
+    &--four {
+      background: rgb(88, 164, 57);
+    }
+    &--five {
+      background: rgb(245, 194, 68);
+    }
+    &--six {
+      background: rgb(214, 57, 100);
+    }
+    &--sever {
+      background: rgb(65, 82, 175);
+    }
+    &--eight {
+      background: rgb(226, 82, 66);
+    }
+  }
+
+  &__cell-header {
+    // font-family: Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    line-height: 49px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  &__cell-row {
+    font-size: 18px;
+    line-height: 29px;
+    margin-top: 14px;
+    font-weight: 600;
+  }
+
+  &__options {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__marked {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+
+    &--orange {
+      border-bottom-color: #eca448;
+    }
+
+    &--purple {
+      border-bottom-color: #7e64ed;
+    }
+
+    &--blue {
+      border-bottom-color: #4b92cb;
+    }
+  }
+
+  &__accent {
+    font-weight: 600;
+    color: #51a55a;
+  }
+}

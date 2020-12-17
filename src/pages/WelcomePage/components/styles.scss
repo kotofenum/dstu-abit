@@ -1,0 +1,52 @@
+.option-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 186px;
+  height: 186px;
+  padding: 32px 52px 0 52px;
+  color: #ffffff;
+  border-radius: 4px;
+  transition: background 0.2s;
+  cursor: pointer;
+
+  &--orange {
+    background: #eca448;
+
+    &:hover {
+      background: darken($color: #eca448, $amount: 8);
+    }
+  }
+
+  &--purple {
+    background: #7e64ed;
+
+    &:hover {
+      background: darken($color: #7e64ed, $amount: 8);
+    }
+  }
+
+  &--blue {
+    background: #4b92cb;
+
+    &:hover {
+      background: darken($color: #4b92cb, $amount: 8);
+    }
+  }
+
+  &__icon {
+    width: 82px;
+    height: 82px;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+    text-align: center;
+  }
+}

@@ -12,6 +12,7 @@ import { MajorPage } from "../pages/MajorPage";
 import { ProgramPage } from "../pages/ProgramPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { SpecialtyPage } from "../pages/SpecialtyPage";
+import { WelcomePage } from "../pages/WelcomePage";
 import { useOvermind } from "../store";
 
 import { browserHistory } from "./browserHistory";
@@ -26,13 +27,14 @@ function MainRouting() {
       actions.auth.getMe()
       actions.tags.getMyTags();
     } else {
-      history.push('/register')
+      // history.push('/register')
     }
   }, []);
 
   return (
     <>
       <Switch>
+        <Route exact path="/welcome" component={WelcomePage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={LogoutPage} />
@@ -47,7 +49,7 @@ function MainRouting() {
         <Route exact path="/education/programs/:id" component={ProgramPage} />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
-        <Redirect path="/" to="/events" />
+        <Redirect path="/" to="/welcome" />
       </Switch>
     </>
   );
