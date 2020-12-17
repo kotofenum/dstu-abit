@@ -25,6 +25,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Gap } from "../../components/utility/Gap";
 import { Checkbox } from "@material-ui/core";
 import { useOvermind } from "../../store";
+import moment from "moment";
 
 const block = cn("register-page");
 
@@ -174,12 +175,13 @@ export function RegisterPage() {
               {/* <Brick size={2} /> */}
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
+                  // disableToolbar
+                  // variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
                   id="date-picker-inline"
                   label="Дата рождения"
+                  defaultValue="2000-01-01T00:00"
                   value={birthdate}
                   onChange={(v: any) => setBirthdate(v)}
                   KeyboardButtonProps={{
