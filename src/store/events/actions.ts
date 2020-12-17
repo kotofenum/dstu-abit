@@ -1,3 +1,4 @@
+import { ModuleEventsInput } from './../graphql-global-types';
 import {AsyncAction} from 'overmind'
 import { join } from 'path'
 // import { JoinEventInput } from '../graphql-global-types'
@@ -21,6 +22,14 @@ export const getEventsForUserTags: AsyncAction = async ({state, effects}) => {
 
   state.events.personalEvents = eventsForUserTags
 }
+
+export const getEventsForModule: AsyncAction<ModuleEventsInput> = async ({state, effects}, input) => {
+  const {eventsForModule} = await effects.events.gql.queries.eventsForModule({input})
+  console.log(eventsForModule)
+
+  state.events.eventsForModule = eventsForModule
+}
+
 
 // export const joinEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
 //   const {joinEvent} = await effects.events.gql.mutations.joinEvent({input})

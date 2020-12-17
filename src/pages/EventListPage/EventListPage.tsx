@@ -15,6 +15,10 @@ import { Events_events } from "../../store/events/effects/gql/graphql-types/Even
 import moment from "moment";
 import { Tag } from "./components/Tag/Tag";
 import { EducationTypePlain } from "../../types/EducationType";
+import { useLocation, useRouteMatch } from "react-router-dom";
+import queryString from "query-string";
+import { ModuleType } from "../../store/graphql-global-types";
+import { moduleType, moduleTypeLocal } from "../../types/ModuleType";
 
 const block = cn("event-list-page");
 
@@ -28,6 +32,12 @@ export function EventListPage() {
   const { state, actions } = useOvermind();
 
   const [tags, setTags] = useState<IFlattenTag[]>([]);
+
+  const location = useLocation();
+  const query = queryString.parse(location.search);
+
+  const moduleKey = query?.module as keyof typeof moduleType;
+  const module = moduleType[moduleKey] as ModuleType;
 
   useEffect(() => {
     document.title =
@@ -71,11 +81,23 @@ export function EventListPage() {
   //   ...state.tags.tags?.programs!,
   // ];
 
+  const [showModule, setShowModule] = useState<boolean>(true);
   const [showPersonal, setShowPersonal] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (module) {
+      actions.events.getEventsForModule({ module });
+      setShowModule(true);
+    }
+  }, [module]);
 
   useEffect(() => {
     const job = async () => {
       await actions.events.getEvents();
+
+      // if () {
+      //   await actions.events.getEventsForModule()
+      // }
 
       if (state.auth.token) {
         await actions.tags.getMyTags();
@@ -91,7 +113,9 @@ export function EventListPage() {
   );
 
   const filteredEvents =
-    tags.length && showPersonal
+    showModule && state.events.eventsForModule.length
+      ? state.events.eventsForModule
+      : tags.length && showPersonal
       ? // ? state.events.events.filter((event) => {
         //     const str = (event.tags as unknown) as string;
         //     var json = str.replace(/([^\[\],\s]+)/g, '"$&"');
@@ -132,7 +156,7 @@ export function EventListPage() {
       >
         Список мероприятий
       </h1>
-      {!!tags?.length && (
+      {!!tags?.length && showPersonal && !state.events.eventsForModule?.length && (
         <div className={block("search")}>
           <Brick size={0} plusHalf />
           <span>
@@ -170,6 +194,9 @@ export function EventListPage() {
       <span>
         Сортировка: <u>по дате</u>
       </span>{" "} */}
+      {!!state.events.eventsForModule.length ? (
+        <span>Модуль {(moduleTypeLocal as any)[moduleKey]}</span>
+      ) : <span>События модуля {(moduleTypeLocal as any)[moduleKey]} не найдены</span>}
       <Brick size={6} />
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);

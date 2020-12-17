@@ -34,6 +34,7 @@ export enum EventType {
 export enum ModuleType {
   admissionsCampaign = "admissionsCampaign",
   dstuOnline = "dstuOnline",
+  futureTour = "futureTour",
   helloFaculty = "helloFaculty",
   preUniversity = "preUniversity",
   sportLeisureMore = "sportLeisureMore",
@@ -74,6 +75,10 @@ export interface ConfirmCodeInput {
 export interface LoginInput {
   phone: string;
   password: string;
+}
+
+export interface ModuleEventsInput {
+  module: ModuleType;
 }
 
 export interface ProgramsOfSpecialtyInput {

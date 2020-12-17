@@ -78,7 +78,10 @@ export function WelcomePage() {
       </motion.div>
       <div className={block("content")}>
         <div className={block("grid")}>
-          <div className={block("cell", { one: true })}>
+          <Link
+            to={`/events?module=online`}
+            className={block("cell", { one: true })}
+          >
             <span className={block("cell-header")}>ДГТУ-ОНЛАЙН</span>
             <span className={block("cell-row")}>
               Прямая трансляция с руководством вуза
@@ -90,8 +93,11 @@ export function WelcomePage() {
               Дискуссия о трансформации высшего образования и особенностях
               Приемной кампании 2021 года
             </span>
-          </div>
-          <div className={block("cell", { two: true })}>
+          </Link>
+          <Link
+            to={`/events?module=talents`}
+            className={block("cell", { two: true })}
+          >
             <span className={block("cell-header")}>ТАЛАНТЫ</span>
             <span className={block("cell-row")}>
               Информация о проведении на базе ДГТУ интеллектуальных соревнований
@@ -102,8 +108,11 @@ export function WelcomePage() {
               соревнований. Советы психолога как преодолеть стресс и тревожность
               во время участия в интеллектуальных соревнованиях
             </span>
-          </div>
-          <div className={block("cell", { three: true })}>
+          </Link>
+          <Link
+            to={`/events?module=preUniversity`}
+            className={block("cell", { three: true })}
+          >
             <span className={block("cell-header")}>ДОВУЗОВСКАЯ ПОДГОТОВКА</span>
             <span className={block("cell-row")}>
               Презентация колледжей ДГТУ, гимназии ДГТУ, МБОУ «Лицея № 50 при
@@ -113,14 +122,18 @@ export function WelcomePage() {
               Мастер-классы от преподавателей Дома научной коллаборации и
               Регионального комплекса для одаренных детей и молодежи ДГТУ
             </span>
-          </div>
-          <div className={block("cell", { four: true })}>
+          </Link>
+          <Link
+            to={`/events?module=admissions`}
+            className={block("cell", { four: true })}
+          >
             <span className={block("cell-header")}>ПРИЕМНАЯ КОМИССИЯ</span>
             <span className={block("cell-row")}>
               Ответы на вопросы о поступлении в ДГТУ
             </span>
-          </div>
-          <div
+          </Link>
+          <Link
+            to={`/events?module=helloFaculty`}
             className={block("cell", { six: true })}
             style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
           >
@@ -135,15 +148,21 @@ export function WelcomePage() {
             <span className={block("cell-row")}>
               Знакомство школьников с тьюторами и наставниками
             </span>
-          </div>
-          <div className={block("cell", { seven: true })}>
+          </Link>
+          <Link
+            to={`/events?module=futureTour`}
+            className={block("cell", { seven: true })}
+          >
             <span className={block("cell-header")}>ЭКСКУРСИИ В БУДУЩЕЕ</span>
             <span className={block("cell-row")}>
               Уникальная возможность заглянуть в лаборатории вуза и
               познакомиться с бизнес-партнёрами университета
             </span>
-          </div>
-          <div className={block("cell", { eight: true })}>
+          </Link>
+          <Link
+            to={`/events?module=leisure`}
+            className={block("cell", { eight: true })}
+          >
             <span className={block("cell-header")}>
               СПОРТ, ДОСУГ И НЕ ТОЛЬКО…
             </span>
@@ -151,7 +170,7 @@ export function WelcomePage() {
               Чем занимаются студенты ДГТУ, кроме учебы? Студенческий профком,
               спортивные секции, театральная студия и не только…
             </span>
-          </div>
+          </Link>
         </div>
         <Brick size={4} />
         <span className={block("introduction")}>
