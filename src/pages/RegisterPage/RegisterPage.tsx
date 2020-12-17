@@ -71,7 +71,6 @@ export function RegisterPage() {
     country &&
     location &&
     birthdate &&
-    school &&
     email &&
     password &&
     repeatedPassword &&
@@ -81,8 +80,8 @@ export function RegisterPage() {
     accountType === AccountType.parent
       ? baseValidation && child
       : accountType === AccountType.teacher
-      ? baseValidation && position
-      : baseValidation;
+      ? baseValidation && position && school
+      : baseValidation && school
 
   /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 

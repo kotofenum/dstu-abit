@@ -95,7 +95,7 @@ export function EventListPage() {
   return (
     <div className={block()}>
       <h1>Список мероприятий</h1>
-      <div className={block("search")}>
+      {/* <div className={block("search")}>
         <Brick size={0} plusHalf />
         <span>Поиск по тегам:</span>
         <Brick size={0} plusHalf />
@@ -117,16 +117,15 @@ export function EventListPage() {
           renderLayout={(tags, input) => (
             <TagField>
               {tags}
-              {/* {input} */}
             </TagField>
           )}
-        />
-        <Brick size={3} />
+        /> */}
+        {/* <Brick size={3} />
         <span>
           Сортировка: <u>по дате</u>
-        </span>
-        <Brick size={2} />
-      </div>
+        </span> */}
+        <Brick size={6} />
+      {/* </div> */}
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);
 
