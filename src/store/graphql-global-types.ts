@@ -13,6 +13,33 @@ export enum AccountType {
   teacher = "teacher",
 }
 
+export enum EventType {
+  consultation = "consultation",
+  discussion = "discussion",
+  lecture = "lecture",
+  masterClass = "masterClass",
+  meeting = "meeting",
+  olympiad = "olympiad",
+  presentation = "presentation",
+  presentationQuiz = "presentationQuiz",
+  quiz = "quiz",
+  roomToor = "roomToor",
+  roundTable = "roundTable",
+  tour = "tour",
+  video = "video",
+  webinar = "webinar",
+  workshop = "workshop",
+}
+
+export enum ModuleType {
+  admissionsCampaign = "admissionsCampaign",
+  dstuOnline = "dstuOnline",
+  helloFaculty = "helloFaculty",
+  preUniversity = "preUniversity",
+  sportLeisureMore = "sportLeisureMore",
+  talents = "talents",
+}
+
 export enum PlacesMeta {
   hasDegree = "hasDegree",
   secondaryMajor = "secondaryMajor",
@@ -36,10 +63,6 @@ export interface CodeInput {
 export interface ConfirmCodeInput {
   phone: string;
   code: string;
-}
-
-export interface JoinEventInput {
-  eventId: string;
 }
 
 export interface LoginInput {

@@ -1,6 +1,6 @@
 import {AsyncAction} from 'overmind'
 import { join } from 'path'
-import { JoinEventInput } from '../graphql-global-types'
+// import { JoinEventInput } from '../graphql-global-types'
 
 export const getEvents: AsyncAction = async ({state, effects}) => {
   const {events} = await effects.events.gql.queries.events()
@@ -15,16 +15,16 @@ export const getEvent: AsyncAction<string> = async ({state, effects}, uid) => {
   state.events.currentEvent = event
 }
 
-export const joinEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
-  const {joinEvent} = await effects.events.gql.mutations.joinEvent({input})
+// export const joinEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
+//   const {joinEvent} = await effects.events.gql.mutations.joinEvent({input})
 
-  console.log(joinEvent)
-  return !!joinEvent
-}
+//   console.log(joinEvent)
+//   return !!joinEvent
+// }
 
-export const leftEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
-  const {leftEvent} = await effects.events.gql.mutations.leftEvent({input})
+// export const leftEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
+//   const {leftEvent} = await effects.events.gql.mutations.leftEvent({input})
 
-  console.log(leftEvent)
-  return !!leftEvent
-}
+//   console.log(leftEvent)
+//   return !!leftEvent
+// }

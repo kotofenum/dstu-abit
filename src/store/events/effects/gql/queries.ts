@@ -8,13 +8,15 @@ export const events: Query<Events> = gql`
       uid
       title
       description
+      type
+      module
+      faculty
+      link
+      reward
+      limit
+      placesLeft
       startsAt
       endsAt
-      type
-      placesLeft
-      place
-      userIsJoined
-      reward
     }
   }
 `
@@ -25,13 +27,15 @@ export const event: Query<Event, {uid: string}> = gql`
       uid
       title
       description
+      type
+      module
+      faculty
+      link
+      reward
+      limit
+      placesLeft
       startsAt
       endsAt
-      type
-      placesLeft
-      place
-      userIsJoined
-      reward
     }
   }
 `

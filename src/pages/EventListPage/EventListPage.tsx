@@ -144,6 +144,7 @@ export function EventListPage() {
                   {...event}
                   tags={[]}
                   id={event.uid}
+                  key={event.uid}
                   date={new Date(event.startsAt)}
                   timeRange={
                     new Date(event.startsAt).toLocaleTimeString().substr(0, 5) +

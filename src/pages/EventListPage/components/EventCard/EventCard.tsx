@@ -9,6 +9,7 @@ import { ReactComponent as LanguageIcon } from "../../../../assets/svg/language.
 import "./styles.scss";
 import { Link } from "react-router-dom";
 import { useOvermind } from "../../../../store";
+import { eventTypes } from "../../../../types/eventTypes";
 
 const block = cn("event-card");
 
@@ -20,10 +21,10 @@ export interface IEventCardProps {
   timeRange: string;
   place?: string | null;
   type: string;
-  placesLeft: number;
+  placesLeft: number | null;
   userIsJoined?: boolean;
-  reward?: number;
-  tags: string[]
+  reward?: number | null;
+  tags: string[];
 }
 
 export function EventCard(props: IEventCardProps) {
@@ -63,13 +64,13 @@ export function EventCard(props: IEventCardProps) {
           <span>{place || "Онлайн"}</span>
         </span>
       </div>
-      <span className={block("type")}>{type}</span>
+      <span className={block("type")}>{(eventTypes as any)[type]}</span>
       <span className={block("title")}>{title}</span>
       <span className={block("time-range")}>{timeRange}</span>
       <span className={block("description")}>{description}</span>
       <div className={block("bottom-line")}>
         <div className={block("actions")}>
-          {userIsJoined && <Tag name="Подключиться" isConnectButton />}
+          {/* {userIsJoined && <Tag name="Подключиться" isConnectButton />}
           <Tag
             name={userIsJoined ? "Отписаться" : "Записаться"}
             isButton
@@ -77,9 +78,9 @@ export function EventCard(props: IEventCardProps) {
             onClick={async (e) => {
               e.preventDefault();
               if (userIsJoined) {
-                await actions.events.leftEvent({ eventId: id });
+                // await actions.events.leftEvent({ eventId: id });
               } else {
-                await actions.events.joinEvent({ eventId: id });
+                // await actions.events.joinEvent({ eventId: id });
               }
               actions.events.getEvents()
               actions.events.getEvent(id)
@@ -98,7 +99,7 @@ export function EventCard(props: IEventCardProps) {
                 ? `Места закончились`
                 : `Осталось ${placesLeft} мест`}
             </span>
-          )}
+          )} */}
         </div>
         <div className={block("tags")}>
           {tags.length ? tags.map((tag: string) => <Tag name={tag} />) : null}

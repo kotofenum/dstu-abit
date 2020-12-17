@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { JoinEventInput } from "./../../../../graphql-global-types";
+// import { JoinEventInput } from "./../../../../graphql-global-types";
 
 // ====================================================
 // GraphQL mutation operation: JoinEvent
@@ -28,5 +28,5 @@ export interface JoinEvent {
 }
 
 export interface JoinEventVariables {
-  input: JoinEventInput;
+  // input: JoinEventInput;
 }

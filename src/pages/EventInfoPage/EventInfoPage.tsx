@@ -13,6 +13,7 @@ import moment from "moment";
 import { ReactComponent as SchoolIcon } from "../../assets/svg/school.svg";
 import { ReactComponent as LanguageIcon } from "../../assets/svg/language.svg";
 import { Tag } from "../EventListPage/components/Tag/Tag";
+import { eventTypes } from "../../types/eventTypes";
 
 const block = cn("event-info-page");
 
@@ -30,12 +31,12 @@ export function EventInfoPage() {
 
   const event = state.events.currentEvent;
 
-  return (
+  return event ?(
     <div className={block()}>
       <Brick size={8} />
       <div className={block("main")}>
         <div className={block("summary")}>
-          <span className={block("type")}>{event?.type}</span>
+          <span className={block("type")}>{(eventTypes as any)[event.type]}</span>
           <span className={block("title")}>{event?.title}</span>
           <span className={block("description")}>{event?.description}</span>
         </div>
@@ -48,20 +49,23 @@ export function EventInfoPage() {
               " — " +
               new Date(event?.endsAt).toLocaleTimeString().substr(0, 5)}
           </span>
-          <span className={block("place", { online: !event?.place })}>
+          {/* <span className={block("place", { online: !event?.place })}> */}
+          <span className={block("place", { online: true })}>
             {/* TODO: reuse */}
-            {event?.place ? (
+            {/* {event?.place ? ( */}
+            {false ? (
               <SchoolIcon className={block("icon")} />
             ) : (
               <LanguageIcon className={block("icon")} />
             )}
-            <span>{event?.place || "Онлайн"}</span>
+            {/* <span>{event?.place || "Онлайн"}</span> */}
+            <span>{false || "Онлайн"}</span>
           </span>
         </div>
       </div>
 
       <div className={block("actions")}>
-        {event?.userIsJoined && <Tag name="Подключиться" isConnectButton />}
+        {/* {event?.userIsJoined && <Tag name="Подключиться" isConnectButton />}
         <Tag
           name={event?.userIsJoined ? "Отписаться от мероприятия" : "Записаться на мероприятие"}
           isButton
@@ -93,8 +97,8 @@ export function EventInfoPage() {
               ? `Места закончились`
               : `Осталось ${event?.placesLeft} мест`}
           </span>
-        )}
+        )} */}
       </div>
     </div>
-  );
+  ) : null;
 }

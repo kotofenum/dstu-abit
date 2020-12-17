@@ -1,0 +1,17 @@
+export const eventTypes = {
+  presentation: "Презентация",
+  discussion: "Дискуссия",
+  roundTable: "Круглый стол",
+  webinar: "Вебинар",
+  workshop: "Воркшоп",
+  masterClass: "Мастер-класс",
+  lecture: "Лекция",
+  quiz: "Викторина",
+  video: "Видеоролик",
+  tour: "Экскурсия",
+  olympiad: "Олимпиада",
+  consultation: "Консультация",
+  meeting: "Собрание",
+  presentationQuiz: "Презентация -викторина",
+  roomToor: "Румтур",
+};
