@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 
+import { ReactComponent as MapIcon } from "../../assets/svg/map.svg";
 import { ReactComponent as EducationIcon } from "../../assets/svg/school.svg";
 import { ReactComponent as EventsIcon } from "../../assets/svg/events.svg";
 
@@ -39,9 +40,16 @@ export function Menu() {
         to="/welcome"
         className={block("menu-item", { active: !!isEducation })}
       >
+        <MapIcon />
+        <span className={block("menu-name")}>Модули</span>
+      </Link>
+      {/* <Link
+        to="/welcome"
+        className={block("menu-item", { active: !!isEducation })}
+      >
         <EducationIcon />
         <span className={block("menu-name")}>Образование</span>
-      </Link>
+      </Link> */}
       <Link to="/events" className={block("menu-item", { active: !!isEvents })}>
         <EventsIcon />
         <span className={block("menu-name")}>Мероприятия</span>

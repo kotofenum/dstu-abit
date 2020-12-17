@@ -29,6 +29,11 @@ export function EventListPage() {
 
   const [tags, setTags] = useState<IFlattenTag[]>([]);
 
+  useEffect(() => {
+    document.title =
+      "Полная карта мероприятий Дня открытых дверей | Абитуриент ДГТУ";
+  }, []);
+
   console.log(state.events);
 
   const getFlattenTags = useCallback(() => {
@@ -198,40 +203,44 @@ export function EventListPage() {
         );
       })}
       <Brick size={2} />
-      {!!groupedOtherEvents.lenght && <>
-      <h1>Еще мероприятия не из ваших тегов:</h1>
-      {Object.keys(groupedOtherEvents).map((key) => {
-        const date = moment(key);
+      {!!groupedOtherEvents.lenght && (
+        <>
+          <h1>Еще мероприятия не из ваших тегов:</h1>
+          {Object.keys(groupedOtherEvents).map((key) => {
+            const date = moment(key);
 
-        const events = groupedOtherEvents[key];
+            const events = groupedOtherEvents[key];
 
-        return (
-          <>
-            <span className={block("group-date")}>
-              {date.format("D MMMM, dddd")}
-            </span>
-            <Brick size={2} />
-            {events.map((event) => (
+            return (
               <>
-                <EventCard
-                  {...event}
-                  tags={[]}
-                  id={event.uid}
-                  key={event.uid}
-                  date={new Date(event.startsAt)}
-                  timeRange={
-                    new Date(event.startsAt).toLocaleTimeString().substr(0, 5) +
-                    " — " +
-                    new Date(event.endsAt).toLocaleTimeString().substr(0, 5)
-                  }
-                />
-                <Brick size={3} />
+                <span className={block("group-date")}>
+                  {date.format("D MMMM, dddd")}
+                </span>
+                <Brick size={2} />
+                {events.map((event) => (
+                  <>
+                    <EventCard
+                      {...event}
+                      tags={[]}
+                      id={event.uid}
+                      key={event.uid}
+                      date={new Date(event.startsAt)}
+                      timeRange={
+                        new Date(event.startsAt)
+                          .toLocaleTimeString()
+                          .substr(0, 5) +
+                        " — " +
+                        new Date(event.endsAt).toLocaleTimeString().substr(0, 5)
+                      }
+                    />
+                    <Brick size={3} />
+                  </>
+                ))}
               </>
-            ))}
-          </>
-        );
-      })}
-      </>}
+            );
+          })}
+        </>
+      )}
       <Brick size={5} />
     </div>
   );

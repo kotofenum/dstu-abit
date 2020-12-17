@@ -17,9 +17,9 @@ export function Header(props: IHeaderProps) {
 
   return (
     <div className={block()}>
-      <div className={block("logo")}>
+      <Link to="/" className={block("logo")}>
         <img alt="Логотип" src="/logo.png" />
-      </div>
+      </Link>
       <div className={block("user-panel")}>
         {/* <div className={block("notifications")}>
           <BellIcon />

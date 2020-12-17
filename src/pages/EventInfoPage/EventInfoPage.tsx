@@ -41,6 +41,7 @@ export function EventInfoPage() {
             {(eventTypes as any)[event.type]}
           </span>
           <span className={block("title")}>{event?.title}</span>
+          <Brick size={1} />
           <span className={block("description")}>{event?.description}</span>
         </div>
         <div className={block("details")}>

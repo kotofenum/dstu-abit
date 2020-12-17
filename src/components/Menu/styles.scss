@@ -10,11 +10,17 @@
   box-sizing: border-box;
   border-radius: 30px;
   background: rgba(65, 94, 129, 0.38);
-  transition: opacity 0.2s;
+  overflow: hidden;
+  transition: all 0.2s;
   z-index: 200; // TODO: проработатьы
+
+  &:hover {
+    width: 200px;
+  }
 
   &--inactive {
     opacity: 0.5;
+    background: rgba(65, 94, 129, 0.38);
   }
 
   &__menu-item {
@@ -50,13 +56,15 @@
   }
 
   &__menu-name {
+    width: 152px;
     position: absolute;
     left: 32px;
     opacity: 0;
-    top: 4px;
-    font-size: 16px;
+    top: 0px;
+    font-size: 18px;
     line-height: 25px;
-    padding: 8px 16px 4px 24px;
+text-align: center;
+    padding: 10px 20px 14px 20px;
     font-weight: 500;
     transition: 0.2s ease-out;
   }

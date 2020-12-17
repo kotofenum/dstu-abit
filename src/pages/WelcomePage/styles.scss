@@ -10,6 +10,24 @@
     max-width: 620px;
   }
 
+  &__sticky-top {
+    position: sticky;
+    top: 124px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 1000px;
+  }
+
+
+  &__content {
+    position: relative;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
   &__welcome {
     font-size: 36px;
     line-height: 49px;
@@ -27,10 +45,24 @@
   }
 
   &__introduction {
+    font-size: 21px;
+    line-height: 28px;
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    // font-weight: 500;
+    color: rgb(36, 64, 105);
+  }
+
+  &__regular {
     font-size: 18px;
     line-height: 25px;
-    max-width: 596px;
+    max-width: 760px;
     margin: auto;
+    text-align: left;
+    // text-align: center;
+    // font-weight: 500;
+    color: rgb(26, 44, 71);
   }
 
   &__grid {
