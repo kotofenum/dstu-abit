@@ -14,6 +14,7 @@ import { ReactComponent as SchoolIcon } from "../../assets/svg/school.svg";
 import { ReactComponent as LanguageIcon } from "../../assets/svg/language.svg";
 import { Tag } from "../EventListPage/components/Tag/Tag";
 import { eventTypes } from "../../types/eventTypes";
+import { Button } from "@material-ui/core";
 
 const block = cn("event-info-page");
 
@@ -31,12 +32,14 @@ export function EventInfoPage() {
 
   const event = state.events.currentEvent;
 
-  return event ?(
+  return event ? (
     <div className={block()}>
       <Brick size={8} />
       <div className={block("main")}>
         <div className={block("summary")}>
-          <span className={block("type")}>{(eventTypes as any)[event.type]}</span>
+          <span className={block("type")}>
+            {(eventTypes as any)[event.type]}
+          </span>
           <span className={block("title")}>{event?.title}</span>
           <span className={block("description")}>{event?.description}</span>
         </div>
@@ -65,6 +68,14 @@ export function EventInfoPage() {
       </div>
 
       <div className={block("actions")}>
+        <a
+          style={{ color: "inherit", textDecoration: "none" }}
+          href={event?.link!}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button variant="contained" color="primary" disabled={event?.placesLeft === 0}>Подключиться</Button>
+        </a>
         {/* {event?.userIsJoined && <Tag name="Подключиться" isConnectButton />}
         <Tag
           name={event?.userIsJoined ? "Отписаться от мероприятия" : "Записаться на мероприятие"}

@@ -10,7 +10,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 const block = cn("menu");
 
 export function Menu() {
-  const isEducation = useRouteMatch("/education"); // TODO: сделать по-другому
+  const isEducation = useRouteMatch("/welcome"); // TODO: сделать по-другому
   const isEvents = useRouteMatch("/events");
 
   const [isInactive, setIsInactive] = useState<boolean>(true);
@@ -36,7 +36,7 @@ export function Menu() {
       onMouseLeave={() => startTimeout()}
     >
       <Link
-        to="/education"
+        to="/welcome"
         className={block("menu-item", { active: !!isEducation })}
       >
         <EducationIcon />
