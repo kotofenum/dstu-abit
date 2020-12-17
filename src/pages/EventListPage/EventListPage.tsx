@@ -194,9 +194,15 @@ export function EventListPage() {
       <span>
         Сортировка: <u>по дате</u>
       </span>{" "} */}
-      {!!state.events.eventsForModule.length ? (
-        <span>Модуль {(moduleTypeLocal as any)[moduleKey]}</span>
-      ) : <span>События модуля {(moduleTypeLocal as any)[moduleKey]} не найдены</span>}
+      {module ? (
+        !!state.events.eventsForModule.length ? (
+          <span>Модуль {(moduleTypeLocal as any)[moduleKey]}</span>
+        ) : (
+          <span>
+            События модуля {(moduleTypeLocal as any)[moduleKey]} не найдены
+          </span>
+        )
+      ) : null}
       <Brick size={6} />
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);
