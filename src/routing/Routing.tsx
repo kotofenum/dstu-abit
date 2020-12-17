@@ -9,6 +9,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { LogoutPage } from "../pages/LogoutPage/inedx";
 import { MajorListPage } from "../pages/MajorListPage";
 import { MajorPage } from "../pages/MajorPage";
+import { ProgramListPage } from "../pages/ProgramListPage";
 import { ProgramPage } from "../pages/ProgramPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { SpecialtyPage } from "../pages/SpecialtyPage";
@@ -46,6 +47,7 @@ function MainRouting() {
           path="/education/specialties/:id"
           component={SpecialtyPage}
         />
+        <Route exact path="/education/programs" component={ProgramListPage} />
         <Route exact path="/education/programs/:id" component={ProgramPage} />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />

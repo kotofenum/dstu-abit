@@ -67,7 +67,17 @@ export function WelcomePage() {
         <Brick size={1} />
         <span className={block("regular")}>
           Вы можете увидеть полную карту всех мероприятий, кликнув на кнопку{" "}
-          <EventsIcon style={{ height: "48px", margin: "0 8px" }} /> в меню.
+          <Link to="/events">
+            <EventsIcon
+              style={{
+                height: "32px",
+                margin: "0 8px",
+                cursor: "pointer",
+                color: "inherit",
+              }}
+            />
+          </Link>{" "}
+          в меню.
         </span>
         <Brick size={2} />
         <span className={block("regular")}>
@@ -174,23 +184,16 @@ export function WelcomePage() {
         </div>
         <Brick size={4} />
         <span className={block("introduction")}>
-          Здесь Вы можете узнать об{" "}
-          <span className={block("marked", { blue: true })}>
-            образовательных программах
-          </span>
-          ,{" "}
-          <span className={block("marked", { purple: true })}>
-            направлениях подготовки
-          </span>
-          , которые реализуются в ДГТУ
+          Здесь Вы можете узнать об образовательных программах, направлениях
+          подготовки, которые реализуются в ДГТУ
         </span>
         <Brick size={3} />
         <div className={block("options")}>
-          <Link to="/education/majors" style={{ textDecoration: "none" }}>
+          <Link to="/education/programs" style={{ textDecoration: "none" }}>
             <OptionBlock
               name="ОБРАЗОВАНИЕ В ДГТУ"
               icon={<UgnIcon />}
-              color={OptionBlock.color.orange}
+              color={OptionBlock.color.blue}
             />
           </Link>
           {/* <Link to="/education/specialties" style={{ textDecoration: "none" }}>
@@ -218,7 +221,17 @@ export function WelcomePage() {
         <Brick size={1} />
         <span className={block("regular")}>
           Вы можете увидеть полную карту всех мероприятий, кликнув на кнопку{" "}
-          <EventsIcon style={{ height: "48px", margin: "0 8px" }} /> в меню.
+          <Link to="/events">
+            <EventsIcon
+              style={{
+                height: "32px",
+                margin: "0 8px",
+                cursor: "pointer",
+                color: "inherit",
+              }}
+            />
+          </Link>{" "}
+          в меню.
         </span>
         <Brick size={2} />
         <span className={block("regular")}>

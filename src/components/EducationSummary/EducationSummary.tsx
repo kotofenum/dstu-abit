@@ -77,7 +77,7 @@ function EducationSummary({
           Убрать из тегов
         </div>
       )}
-      <span>{hasTag ? "Добавлено" : "Не добавлено"}</span>
+      {/* <span>{hasTag ? "Добавлено" : "Не добавлено"}</span> */}
       <div className={block("summary")}>
         <div className={block("title")}>{title}</div>
         <div className={block("info")}>

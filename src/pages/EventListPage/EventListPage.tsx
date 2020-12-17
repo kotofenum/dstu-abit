@@ -85,6 +85,7 @@ export function EventListPage() {
   const [showPersonal, setShowPersonal] = useState<boolean>(true);
 
   useEffect(() => {
+    setShowModule(false)
     if (module) {
       actions.events.getEventsForModule({ module });
       setShowModule(true);
@@ -92,6 +93,7 @@ export function EventListPage() {
   }, [module]);
 
   useEffect(() => {
+    console.log('run')
     const job = async () => {
       await actions.events.getEvents();
 
@@ -106,7 +108,7 @@ export function EventListPage() {
     };
 
     job();
-  }, [actions.events, actions.tags, state.auth.token]);
+  }, [actions.events, actions.tags, state.auth.token, location, location.search, module]);
 
   const otherEvents = state.events.events.filter((event) =>
     state.events.personalEvents.some((pEvent) => pEvent.uid === event.uid)
@@ -146,7 +148,7 @@ export function EventListPage() {
   // console.log();
 
   return (
-    <div className={block()}>
+    <div className={block()} key={location.search}>
       <h1
         style={{
           color: "rgb(34, 88, 161)",
@@ -196,9 +198,11 @@ export function EventListPage() {
       </span>{" "} */}
       {module ? (
         !!state.events.eventsForModule.length ? (
-          <span>Модуль {(moduleTypeLocal as any)[moduleKey]}</span>
+          <span className={block("module-text")}>
+            Модуль «{(moduleTypeLocal as any)[moduleKey]}»
+          </span>
         ) : (
-          <span>
+          <span className={block("module-text")}>
             События модуля {(moduleTypeLocal as any)[moduleKey]} не найдены
           </span>
         )
