@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route, Router, Redirect } from "react-router-dom";
+import { Switch, Route, Router, Redirect, useHistory } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Menu } from "../components/Menu";
 import { EducationPage } from "../pages/EducationPage";
@@ -19,9 +19,14 @@ import { browserHistory } from "./browserHistory";
 function MainRouting() {
   const { state, actions } = useOvermind();
 
+  const history = useHistory();
+  
   useEffect(() => {
     if (state.auth.token) {
+      actions.auth.getMe()
       actions.tags.getMyTags();
+    } else {
+      history.push('/register')
     }
   }, []);
 
@@ -42,7 +47,7 @@ function MainRouting() {
         <Route exact path="/education/programs/:id" component={ProgramPage} />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
-        <Redirect path="/" to="/education" />
+        <Redirect path="/" to="/events" />
       </Switch>
     </>
   );

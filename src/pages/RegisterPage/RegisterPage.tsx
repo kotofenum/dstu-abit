@@ -26,6 +26,7 @@ import { Gap } from "../../components/utility/Gap";
 import { Checkbox } from "@material-ui/core";
 import { useOvermind } from "../../store";
 import moment from "moment";
+import { action } from "overmind";
 
 const block = cn("register-page");
 
@@ -82,7 +83,7 @@ export function RegisterPage() {
       ? baseValidation && child
       : accountType === AccountType.teacher
       ? baseValidation && position && school
-      : baseValidation && school
+      : baseValidation && school;
 
   /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 
@@ -352,10 +353,14 @@ export function RegisterPage() {
           {!!accountType && (
             <>
               <Brick size={3} />
-              <span className={block("introduction")}>
+              {/* <span className={block("introduction")}>
                 Для регистрации и входа на платформу используется мобильный
                 телефон. Введите номер телефона и мы отправим на него СМС с
                 кодом подтверждения.
+              </span> */}
+              <span className={block("introduction")}>
+                Для регистрации и входа на платформу используется мобильный
+                телефон. Введите свой контактный номер телефона.
               </span>
               <Brick size={1} />
               {awaitingCode ? (
@@ -401,15 +406,22 @@ export function RegisterPage() {
                   />
                   <Gap size={1} />
                   <Button
-                    onClick={() => {
-                      actions.auth.sendCode({
+                    onClick={async () => {
+                      await actions.auth.sendCode({
                         phone: truncatedPhone,
                         type: accountType,
                       });
-                      setAwaitingCode(true);
+                      await actions.auth.confirmCode({
+                        phone: truncatedPhone,
+                        code: state.auth.code!,
+                      });
+                      if (state.auth.token) {
+                        setShowForm(true);
+                      }
+                      // setAwaitingCode(true);
                     }}
                   >
-                    Отправить
+                    Продолжить
                   </Button>
                 </form>
               )}

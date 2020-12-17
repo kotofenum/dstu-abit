@@ -12,7 +12,7 @@ export const sendCode: AsyncAction<CodeInput> = async (
   const resp = await effects.auth.gql.mutations.sendCode({ input });
   console.log(resp);
 
-  // state.majors.list = majors;
+  state.auth.code = resp.sendCode.code;
 };
 
 export const confirmCode: AsyncAction<{ phone: string; code: string }> = async (
@@ -67,4 +67,13 @@ export const login: AsyncAction<LoginInput> = async (
 export const logout: AsyncAction = async ({ state, effects }) => {
   localStorage.removeItem("token");
   state.auth.token = null;
+};
+
+export const getMe: AsyncAction = async ({ state, effects }) => {
+  const resp = await effects.auth.gql.queries.me();
+  console.log(resp);
+
+  if (resp.me.lastName && resp.me.firstName) {
+    state.auth.username = resp.me.lastName + " " + resp.me.firstName;
+  }
 };

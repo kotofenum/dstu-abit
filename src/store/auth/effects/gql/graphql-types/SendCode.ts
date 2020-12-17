@@ -17,6 +17,7 @@ export interface SendCode_sendCode_issuer {
 
 export interface SendCode_sendCode {
   uid: string;
+  code: string;
   phone: string;
   expireAt: any;
   issuer: SendCode_sendCode_issuer;

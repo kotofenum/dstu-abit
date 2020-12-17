@@ -70,13 +70,16 @@ export function EventListPage() {
 
   useEffect(() => {
     const job = async () => {
-      await actions.tags.getMyTags();
       await actions.events.getEvents();
-      await actions.events.getEventsForUserTags();
+
+      if (state.auth.token) {
+        await actions.tags.getMyTags();
+        await actions.events.getEventsForUserTags();
+      }
     };
 
     job();
-  }, [actions.events, actions.tags]);
+  }, [actions.events, actions.tags, state.auth.token]);
 
   const otherEvents = state.events.events.filter((event) =>
     state.events.personalEvents.some((pEvent) => pEvent.uid === event.uid)

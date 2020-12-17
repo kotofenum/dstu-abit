@@ -8,6 +8,7 @@ export const sendCode: Query<SendCode, SendCodeVariables> = gql`
   mutation SendCode($input: CodeInput!) {
     sendCode(input: $input) {
       uid
+      code
       phone
       expireAt
       issuer {

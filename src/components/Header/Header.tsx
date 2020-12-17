@@ -26,7 +26,7 @@ export function Header(props: IHeaderProps) {
         </div> */}
         {state.auth.token ? (
           <div style={{ display: "flex", alignItems: "center" }}>
-            <span className={block("username")}>Христо Александр</span>
+            <span className={block("username")}>{state.auth.username}</span>
             {/* <div className={block("userpic")} /> */}
             <Gap size={2} />
             <Link to="/logout" className={block("exit")}>

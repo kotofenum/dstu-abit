@@ -18,25 +18,32 @@ export function EducationPage() {
       <span className={block("welcome")}>Добро пожаловать!</span>
       <Brick size={0} plusHalf />
       <span className={block("introduction")}>
-        Воспользуйтесь нашим быстрым поиском мероприятий по{" "}
-        <span className={block("marked", { orange: true })}>УГН</span>,{" "}
-        <span className={block("marked", { purple: true })}>направлениям</span>{" "}
-        или{" "}
-        <span className={block("marked", { blue: true })}>
-          образовательным программам
+        Хотите узнать больше об образовании в ДГТУ? Перейдите в раздел Обучение,
+        чтобы изучить доступные{" "}
+        <span className={block("marked", { orange: true })}>
+          укрупненные группы направлений
         </span>
-        , либо перейдите к полному списку мероприятий.
+        , отдельные{" "}
+        <span className={block("marked", { purple: true })}>направления</span> и{" "}
+        <span className={block("marked", { blue: true })}>
+          образовательные программы
+        </span>
+        , либо посетите{" "}
+        <Link style={{ color: "inherit", fontWeight: 500 }} to="/events">
+          полный список мероприятий
+        </Link>
+        , приуроченных к Дню открытых дверей ДГТУ.
       </span>
       <Brick size={3} />
       <div className={block("options")}>
         <Link to="/education/majors" style={{ textDecoration: "none" }}>
           <OptionBlock
-            name="УГН"
+            name="Обучение"
             icon={<UgnIcon />}
             color={OptionBlock.color.orange}
           />
         </Link>
-        <Link to="/education/specialties" style={{ textDecoration: "none" }}>
+        {/* <Link to="/education/specialties" style={{ textDecoration: "none" }}>
           <OptionBlock
             name="Направление"
             icon={<DirectionIcon />}
@@ -49,7 +56,7 @@ export function EducationPage() {
             icon={<ProgramIcon />}
             color={OptionBlock.color.blue}
           />
-        </Link>
+        </Link> */}
       </div>
       <Brick size={3} />
       <span className={block("introduction")}>
