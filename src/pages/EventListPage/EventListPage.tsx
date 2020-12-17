@@ -116,43 +116,45 @@ export function EventListPage() {
   return (
     <div className={block()}>
       <h1>Список мероприятий</h1>
-      <div className={block("search")}>
-        <Brick size={0} plusHalf />
-        <span>
-          Подборка по вашим тегам:{" "}
-          <span
-            style={{ textDecoration: "underline", cursor: "pointer" }}
-            onClick={() => setShowPersonal(!showPersonal)}
-          >
-            {showPersonal ? "отключить" : "включить"}
+      {!!tags?.length && (
+        <div className={block("search")}>
+          <Brick size={0} plusHalf />
+          <span>
+            Подборка по вашим тегам:{" "}
+            <span
+              style={{ textDecoration: "underline", cursor: "pointer" }}
+              onClick={() => setShowPersonal(!showPersonal)}
+            >
+              {showPersonal ? "отключить" : "включить"}
+            </span>
           </span>
-        </span>
-        <Brick size={0} plusHalf />
-        {showPersonal && (
-          <TagsInput
-            value={tags}
-            inputProps={{
-              placeholder: "Новый тег",
-            }}
-            onChange={(tags) => setTags(tags)}
-            renderTag={(props) => (
-              <div style={{ marginBottom: "6px" }}>
-                <Tag
-                  name={props.tag.title}
-                  type={props.tag.type}
-                  // onRemove={() => props.onRemove(props.key)}
-                />
-              </div>
-            )}
-            renderLayout={(tags, input) => <TagField>{tags}</TagField>}
-          />
-        )}
-        {/* <Brick size={3} />
-        <span>
-          Сортировка: <u>по дате</u>
-        </span> */}
-        <Brick size={6} />
-      </div>
+          <Brick size={0} plusHalf />
+          {showPersonal && (
+            <TagsInput
+              value={tags}
+              inputProps={{
+                placeholder: "Новый тег",
+              }}
+              onChange={(tags) => setTags(tags)}
+              renderTag={(props) => (
+                <div style={{ marginBottom: "6px" }}>
+                  <Tag
+                    name={props.tag.title}
+                    type={props.tag.type}
+                    // onRemove={() => props.onRemove(props.key)}
+                  />
+                </div>
+              )}
+              renderLayout={(tags, input) => <TagField>{tags}</TagField>}
+            />
+          )}
+        </div>
+      )}
+      {/* <Brick size={3} />
+      <span>
+        Сортировка: <u>по дате</u>
+      </span>{" "} */}
+      <Brick size={6} />
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);
 
@@ -184,7 +186,6 @@ export function EventListPage() {
           </>
         );
       })}
-
       <Brick size={2} />
       <h1>Еще мероприятия не из ваших тегов:</h1>
       {Object.keys(groupedOtherEvents).map((key) => {
