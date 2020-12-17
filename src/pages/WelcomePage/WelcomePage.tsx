@@ -17,7 +17,7 @@ export function WelcomePage() {
     <div className={block()}>
       <span className={block("welcome")}>День открытых дверей ДГТУ</span>
       <Brick size={0} plusHalf />
-      <span className={block("date")}>20 декабря</span>
+      <span className={block("date")}>20 декабря 2020 года</span>
       <Brick size={3} />
       <div className={block("grid")}>
         <div className={block("cell", {one: true})}>
@@ -45,13 +45,10 @@ export function WelcomePage() {
         <div className={block("cell", {three: true})}>
           <span className={block("cell-header")}>ДОВУЗОВСКАЯ ПОДГОТОВКА</span>
           <span className={block("cell-row")}>
-            Информация о проведении на базе ДГТУ интеллектуальных соревнований
-            для школьников
+          Презентации колледжей, лицея, гимназии ДГТУ и Кадетского корпуса
           </span>
           <span className={block("cell-row")}>
-            Круглый стол с победителями и призерами интеллектуальных
-            соревнований. Советы психолога как преодолеть стресс и тревожность
-            во время участия в интеллектуальных соревнованиях
+          Информация о подготовительных курсах и развивающих программах для детей и взрослых
           </span>
         </div>
         <div className={block("cell", {four: true})}>

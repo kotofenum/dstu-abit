@@ -29,9 +29,12 @@ export function Header(props: IHeaderProps) {
             <span className={block("username")}>{state.auth.username}</span>
             {/* <div className={block("userpic")} /> */}
             <Gap size={2} />
-            <Link to="/logout" className={block("exit")}>
+            <span
+              onClick={() => actions.auth.logout()}
+              className={block("exit")}
+            >
               Выйти
-            </Link>
+            </span>
           </div>
         ) : (
           <>

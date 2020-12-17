@@ -118,7 +118,15 @@ export function EventListPage() {
 
   return (
     <div className={block()}>
-      <h1>Список мероприятий</h1>
+      <h1
+        style={{
+          color: "rgb(34, 88, 161)",
+          fontFamily: '"Open Sans", sans-serif',
+          fontWeight: 600,
+        }}
+      >
+        Список мероприятий
+      </h1>
       {!!tags?.length && (
         <div className={block("search")}>
           <Brick size={0} plusHalf />
@@ -190,6 +198,7 @@ export function EventListPage() {
         );
       })}
       <Brick size={2} />
+      {!!groupedOtherEvents.lenght && <>
       <h1>Еще мероприятия не из ваших тегов:</h1>
       {Object.keys(groupedOtherEvents).map((key) => {
         const date = moment(key);
@@ -222,6 +231,7 @@ export function EventListPage() {
           </>
         );
       })}
+      </>}
       <Brick size={5} />
     </div>
   );

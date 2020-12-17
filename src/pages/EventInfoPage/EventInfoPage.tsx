@@ -86,7 +86,7 @@ export function EventInfoPage() {
             if (event?.userIsJoined) {
               await actions.events.leftEvent({ eventId: event?.uid! });
             } else {
-              await actions.events.joinEvent({ eventId: event?.uid! });
+              // await actions.events.joinEvent({ eventId: event?.uid! });
             }
             actions.events.getEvents();
             actions.events.getEvent(event?.uid!);

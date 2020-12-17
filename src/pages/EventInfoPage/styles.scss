@@ -1,15 +1,16 @@
 .event-info-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   max-width: 795px;
   margin: auto;
-  margin-top: 120px;
+  margin-top: 64px;
 
   &__main {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   &__summary {
@@ -18,26 +19,35 @@
   }
 
   &__type {
-    font-size: 14px;
-    line-height: 19px;
+    font-size: 22px;
+    line-height: 28px;
+    color: #666;
   }
 
   &__title {
-    font-size: 30px;
-    line-height: 41px;
+    font-family: "Open Sans", sans-serif;
+    max-width: 85%;
+    font-size: 44px;
+    line-height: 56px;
     margin-bottom: 2px;
+    font-weight: 600;
+    color: rgb(34, 88, 161);
   }
 
   &__description {
-    font-size: 14px;
-    line-height: 19px;
+    font-size: 18px;
+    line-height: 25px;
   }
 
   &__details {
+    position: absolute;
+    right: 0px;
+    top: -44px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     flex-shrink: 0;
+    text-align: right;
   }
 
   &__date {
@@ -56,9 +66,9 @@
   &__place {
     display: flex;
     color: #4a6b99;
-    font-size: 14px;
-    line-height: 17px;
-    height: 17px;
+    font-size: 16px;
+    line-height: 21px;
+    height: 21px;
 
     &--online {
       color: #3c9858;

@@ -40,9 +40,11 @@ export function Menu() {
         className={block("menu-item", { active: !!isEducation })}
       >
         <EducationIcon />
+        <span className={block("menu-name")}>Образование</span>
       </Link>
       <Link to="/events" className={block("menu-item", { active: !!isEvents })}>
         <EventsIcon />
+        <span className={block("menu-name")}>Мероприятия</span>
       </Link>
     </div>
   );

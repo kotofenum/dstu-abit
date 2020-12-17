@@ -29,7 +29,7 @@ function MainRouting() {
     } else {
       // history.push('/register')
     }
-  }, []);
+  }, [state.auth.token]);
 
   return (
     <>
