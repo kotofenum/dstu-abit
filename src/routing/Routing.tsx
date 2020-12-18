@@ -6,6 +6,7 @@ import { EditEventInfoPage } from "../pages/EditEventInfoPage";
 import { EducationPage } from "../pages/EducationPage";
 import { EventInfoPage } from "../pages/EventInfoPage";
 import { EventListPage } from "../pages/EventListPage";
+import { FutureTourPage } from "../pages/FutureTourPage";
 import { LoginPage } from "../pages/LoginPage";
 import { LogoutPage } from "../pages/LogoutPage/inedx";
 import { MajorListPage } from "../pages/MajorListPage";
@@ -53,6 +54,7 @@ function MainRouting() {
         <Route exact path="/events/:id/edit" component={EditEventInfoPage} />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
+        <Route exact path="/future-tour" component={FutureTourPage} />
         <Redirect path="/" to="/welcome" />
       </Switch>
     </>

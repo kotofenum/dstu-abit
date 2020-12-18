@@ -62,6 +62,11 @@ export enum TagRelationType {
   specialty = "specialty",
 }
 
+export enum TourType {
+  inhouse = "inhouse",
+  partner = "partner",
+}
+
 export interface CodeInput {
   phone: string;
   type: AccountType;
