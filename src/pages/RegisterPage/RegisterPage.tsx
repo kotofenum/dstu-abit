@@ -66,6 +66,8 @@ export function RegisterPage() {
 
   const history = useHistory();
 
+  const numberIsFull = truncatedPhone?.length > 10
+
   const baseValidation =
     lastName &&
     firstName &&
@@ -406,6 +408,7 @@ export function RegisterPage() {
                   />
                   <Gap size={1} />
                   <Button
+                  disabled={!numberIsFull}
                     onClick={async () => {
                       await actions.auth.sendCode({
                         phone: truncatedPhone,
@@ -459,6 +462,7 @@ function TextMaskCustom(props: any) {
         "-",
         /\d/,
         /\d/,
+        "-",
         /\d/,
         /\d/,
       ]}
