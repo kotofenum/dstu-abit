@@ -1,0 +1,106 @@
+.edit-event-info-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 795px;
+  margin: auto;
+  margin-top: 64px;
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__type {
+    font-size: 22px;
+    line-height: 28px;
+    color: #666;
+  }
+
+  &__title {
+    font-family: "Open Sans", sans-serif;
+    max-width: 85%;
+    font-size: 44px;
+    line-height: 56px;
+    margin-bottom: 2px;
+    font-weight: 600;
+    color: rgb(34, 88, 161);
+  }
+
+  &__description {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  &__details {
+    position: absolute;
+    right: 0px;
+    top: -44px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  &__date {
+    font-size: 30px;
+    line-height: 41px;
+  }
+
+  &__time-range {
+    font-size: 36px;
+    line-height: 49px;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-bottom: 2px;
+  }
+
+  &__place {
+    display: flex;
+    color: #4a6b99;
+    font-size: 16px;
+    line-height: 21px;
+    height: 21px;
+
+    &--online {
+      color: #3c9858;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+
+    > * {
+      margin-right: 8px;
+    }
+  }
+
+  &__places-left {
+    font-size: 11px;
+    line-height: 15px;
+
+    &--joined {
+      color: #64ab64;
+    }
+
+    &--low {
+      color: #cb5858;
+    }
+  }
+
+  &__icon {
+    // TODO: copied from card, reuse
+    display: inline-block;
+    height: 100%;
+    margin-right: 8px;
+  }
+}

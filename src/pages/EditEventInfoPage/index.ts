@@ -1,0 +1,1 @@
+export {EditEventInfoPage} from './EditEventInfoPage'

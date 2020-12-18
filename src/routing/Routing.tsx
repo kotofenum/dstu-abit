@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Switch, Route, Router, Redirect, useHistory } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Menu } from "../components/Menu";
+import { EditEventInfoPage } from "../pages/EditEventInfoPage";
 import { EducationPage } from "../pages/EducationPage";
 import { EventInfoPage } from "../pages/EventInfoPage";
 import { EventListPage } from "../pages/EventListPage";
@@ -49,6 +50,7 @@ function MainRouting() {
         />
         <Route exact path="/education/programs" component={ProgramListPage} />
         <Route exact path="/education/programs/:id" component={ProgramPage} />
+        <Route exact path="/events/:id/edit" component={EditEventInfoPage} />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
         <Redirect path="/" to="/welcome" />

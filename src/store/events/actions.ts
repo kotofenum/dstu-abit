@@ -1,4 +1,4 @@
-import { ModuleEventsInput } from './../graphql-global-types';
+import { EditEventInput, ModuleEventsInput } from './../graphql-global-types';
 import {AsyncAction} from 'overmind'
 import { join } from 'path'
 // import { JoinEventInput } from '../graphql-global-types'
@@ -29,6 +29,14 @@ export const getEventsForModule: AsyncAction<ModuleEventsInput> = async ({state,
 
   state.events.eventsForModule = eventsForModule
 }
+
+export const editEvent: AsyncAction<EditEventInput, boolean> = async ({state, effects}, input) => {
+  const {editEvent} = await effects.events.gql.mutations.editEvent({input})
+
+  console.log(editEvent)
+  return !!editEvent
+}
+
 
 
 // export const joinEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {

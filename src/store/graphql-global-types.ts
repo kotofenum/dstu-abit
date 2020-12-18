@@ -72,6 +72,11 @@ export interface ConfirmCodeInput {
   code: string;
 }
 
+export interface EditEventInput {
+  eventId: string;
+  description?: string | null;
+}
+
 export interface LoginInput {
   phone: string;
   password: string;
