@@ -75,6 +75,8 @@ export interface ConfirmCodeInput {
 export interface EditEventInput {
   eventId: string;
   description?: string | null;
+  title?: string | null;
+  link?: string | null;
 }
 
 export interface LoginInput {

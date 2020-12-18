@@ -37,11 +37,15 @@ export function EditEventInfoPage() {
   const realPassword = "бит";
 
   const [description, setDescription] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [link, setLink] = useState<string | null>(null);
   const [pwd, setPwd] = useState<string | null>(null);
 
   useEffect(() => {
     if (event) {
       setDescription(event.description);
+      setTitle(event.title);
+      setLink(event.link);
     }
   }, [event]);
 
@@ -53,7 +57,14 @@ export function EditEventInfoPage() {
           <span className={block("type")}>
             {(eventTypes as any)[event.type]}
           </span>
-          <span className={block("title")}>{event?.title}</span>
+          <span className={block("title")}>
+            <TextField
+              style={{ width: "100%" }}
+              variant="outlined"
+              label="Название"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            /></span>
           <Brick size={1} />
           <span className={block("description")}>
             <TextField
@@ -63,6 +74,16 @@ export function EditEventInfoPage() {
               label="Описание"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </span>
+          <Brick size={1} />
+          <span className={block("description")}>
+            <TextField
+              style={{ width: "100%" }}
+              variant="outlined"
+              label="Ссылка"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
             />
           </span>
         </div>
@@ -99,6 +120,8 @@ export function EditEventInfoPage() {
             await actions.events.editEvent({
               eventId: event.uid,
               description: description || event.description,
+              title: title || event.title,
+              link: link || event.link,
             });
             await actions.events.getEvent(event.uid)
             history.push(`/events/${event.uid}`);
