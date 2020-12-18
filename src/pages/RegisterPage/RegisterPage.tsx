@@ -78,6 +78,7 @@ export function RegisterPage() {
     email &&
     password &&
     repeatedPassword &&
+    password === repeatedPassword &&
     acceptTerms;
 
   const validation =
