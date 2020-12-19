@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Switch, Route, Router, Redirect, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Router,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { Header } from "../components/Header";
 import { Menu } from "../components/Menu";
 import { EditEventInfoPage } from "../pages/EditEventInfoPage";
@@ -20,14 +27,36 @@ import { useOvermind } from "../store";
 
 import { browserHistory } from "./browserHistory";
 
+export const useScrollToTop = (): null => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const history = useHistory();
+
+  useEffect(() => {
+    // if (!location?.state?.cancelScroll && history.action !== 'POP') { TODO: реализовать
+    if (history.action !== "POP") {
+      window.scrollTo({
+        top: 0,
+      });
+    }
+  }, [history.action, location, pathname]);
+
+  return null;
+};
+
+function ScrollToTop() {
+  useScrollToTop();
+  return null;
+}
+
 function MainRouting() {
   const { state, actions } = useOvermind();
 
   const history = useHistory();
-  
+
   useEffect(() => {
     if (state.auth.token) {
-      actions.auth.getMe()
+      actions.auth.getMe();
       actions.tags.getMyTags();
     } else {
       // history.push('/register')
@@ -36,6 +65,7 @@ function MainRouting() {
 
   return (
     <>
+      <ScrollToTop />
       <Switch>
         <Route exact path="/welcome" component={WelcomePage} />
         <Route exact path="/register" component={RegisterPage} />
