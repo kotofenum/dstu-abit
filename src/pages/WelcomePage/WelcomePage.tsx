@@ -123,14 +123,15 @@ export function WelcomePage() {
             to={`/events?module=preUniversity`}
             className={block("cell", { three: true })}
           >
-            <span className={block("cell-header")}>ДОВУЗОВСКАЯ ПОДГОТОВКА</span>
+            <span className={block("cell-header")}>ДОВУЗ</span>
             <span className={block("cell-row")}>
               Презентация колледжей ДГТУ, гимназии ДГТУ, МБОУ «Лицея № 50 при
               ДГТУ», кадетского корпуса
             </span>
             <span className={block("cell-row")}>
               Мастер-классы от преподавателей Дома научной коллаборации и
-              Регионального комплекса для одаренных детей и молодежи ДГТУ
+              Регионального комплекса для одаренных детей и молодежи ДГТУ,
+              информация о подготовительных курсах
             </span>
           </Link>
           <Link
@@ -159,10 +160,7 @@ export function WelcomePage() {
               Знакомство школьников с тьюторами и наставниками
             </span>
           </Link>
-          <Link
-            to={`/future-tour`}
-            className={block("cell", { seven: true })}
-          >
+          <Link to={`/future-tour`} className={block("cell", { seven: true })}>
             <span className={block("cell-header")}>ЭКСКУРСИИ В БУДУЩЕЕ</span>
             <span className={block("cell-row")}>
               Первый опорный многопрофильный вуз Ростовской области приглашает

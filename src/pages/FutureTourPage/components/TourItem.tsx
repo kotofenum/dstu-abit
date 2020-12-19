@@ -19,10 +19,7 @@ export function TourItem({ title, description, videoId }: ITourItemProps) {
       <div
         className={block("description")}
         dangerouslySetInnerHTML={{
-          __html:
-            "<p>" +
-            description.replace(/\n/g, '&nbsp;</p><p>') +
-            "</p>",
+          __html: "<p>" + description.replace(/\n/g, "&nbsp;</p><p>") + "</p>",
         }}
       />
       <YouTube

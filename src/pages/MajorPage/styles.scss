@@ -6,6 +6,15 @@
   margin-top: 24px;
   margin-bottom: 40px;
 
+  @media (max-width: 600px) {
+    padding: 0 12px;
+    margin-bottom: 100px !important;
+
+    &__specialty {
+      align-items: center;
+    }
+  }
+
   &__programs-description {
     font-weight: 500;
   }
@@ -27,7 +36,8 @@
     }
   }
 
-  &__specialty { // TODO: то же самое, что и в major page
+  &__specialty {
+    // TODO: то же самое, что и в major page
     display: flex;
     margin-bottom: 12px;
     color: inherit;

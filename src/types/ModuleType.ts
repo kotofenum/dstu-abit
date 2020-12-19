@@ -23,7 +23,7 @@ export const moduleTypeLocal = {
   talents: "Таланты",
   helloFaculty: "Привет, факультет!",
   admissions: "Приемная комиссия",
-  preUniversity: "Довузовская подготовка",
+  preUniversity: "Довуз",
   leisure: "Спорт, досуг и не только…",
   futureTour: "Экскурсии в будущее",
 };

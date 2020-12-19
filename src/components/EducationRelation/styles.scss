@@ -8,6 +8,17 @@
   text-decoration: none;
   color: inherit;
 
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start !important;
+
+    &__type {
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+  }
+
   &__type {
     margin-right: 6px;
   }

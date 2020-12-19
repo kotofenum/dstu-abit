@@ -66,7 +66,7 @@ export function RegisterPage() {
 
   const history = useHistory();
 
-  const numberIsFull = truncatedPhone?.length > 10
+  const numberIsFull = truncatedPhone?.length > 10;
 
   const baseValidation =
     lastName &&
@@ -127,6 +127,7 @@ export function RegisterPage() {
           >
             <Brick size={1} />
             <div
+              className={block("responsive")}
               style={{
                 display: "grid",
                 gridAutoFlow: "column",
@@ -152,6 +153,7 @@ export function RegisterPage() {
               />
             </div>
             <div
+              className={block("responsive", { bottom: true })}
               style={{
                 display: "grid",
                 gridAutoFlow: "column",
@@ -226,6 +228,7 @@ export function RegisterPage() {
 
             <Brick />
             <div
+              className={block("responsive", { ["shrink-top"]: true })}
               style={{
                 display: "grid",
                 gridAutoFlow: "column",
@@ -409,7 +412,7 @@ export function RegisterPage() {
                   />
                   <Gap size={1} />
                   <Button
-                  disabled={!numberIsFull}
+                    disabled={!numberIsFull}
                     onClick={async () => {
                       await actions.auth.sendCode({
                         phone: truncatedPhone,

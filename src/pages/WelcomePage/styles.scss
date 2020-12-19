@@ -10,6 +10,41 @@
     max-width: 620px;
   }
 
+  @media (max-width: 600px) {
+    &__sticky-top {
+      position: initial !important;
+    }
+
+    &__welcome {
+      font-size: 30px !important;
+
+      padding: 0 12px;
+    }
+
+    &__introduction {
+      // font-size: 18px !important;
+      // line-height: 25px !important;
+
+      padding: 0 12px;
+    }
+
+    &__grid {
+      display: flex !important;
+      flex-direction: column;
+    }
+
+    &__cell {
+      padding: 24px 12px 40px 12px !important;
+      &:hover {
+        transform: none !important;
+      }
+    }
+
+    &__regular {
+      padding: 0 12px;
+    }
+  }
+
   &__sticky-top {
     position: sticky;
     top: 124px;
@@ -18,7 +53,6 @@
     margin: auto;
     max-width: 1000px;
   }
-
 
   &__content {
     position: relative;

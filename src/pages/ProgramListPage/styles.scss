@@ -6,6 +6,10 @@
   margin-top: 24px;
   margin-bottom: 40px;
 
+  @media (max-width: 600px) {
+    padding: 0 12px;
+  }
+
   &__heading {
     font-size: 36px;
     line-height: 49px;

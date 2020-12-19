@@ -5,6 +5,20 @@
   max-width: 627px;
   margin: auto;
 
+  @media (max-width: 600px) {
+    > h1 {
+      padding: 0 12px;
+    }
+
+    &__group-date {
+      padding: 0 12px;
+    }
+
+    &__module-text {
+      padding: 0 12px;
+    }
+  }
+
   &__search {
     position: sticky;
     top: 0;

@@ -6,6 +6,11 @@
   margin-top: 24px;
   margin-bottom: 40px;
 
+  @media (max-width: 600px) {
+    padding: 0 12px;
+    margin-bottom: 100px !important;
+  }
+
   &__programs-description {
     font-weight: 500;
   }
@@ -26,6 +31,7 @@
 
     &:before {
       content: "";
+      flex-shrink: 0;
       display: block;
       width: 6px;
       height: 6px;
