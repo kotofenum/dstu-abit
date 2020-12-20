@@ -93,9 +93,11 @@ export function EventInfoPage() {
             {/* <span>{event?.place || "Онлайн"}</span> */}
             <span>{false || "Онлайн"}</span>
           </span>
+          {!!event.reward && (
+            <span style={{ marginBottom: "8px" }}>{event.reward} баллов</span>
+          )}
         </div>
       </div>
-
       <div className={block("actions")}>
         <a
           style={{ color: "inherit", textDecoration: "none" }}

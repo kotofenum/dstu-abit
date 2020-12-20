@@ -70,11 +70,12 @@ export function EventCard(props: IEventCardProps) {
       <span className={block("type")}>{(eventTypes as any)[type]}</span>
       <span className={block("title")}>{title}</span>
       <span className={block("time-range")}>{timeRange}</span>
+      {!!reward && <span style={{marginBottom: '8px'}}>{reward} баллов</span>}
       <span className={block("description")}>{description}</span>
       <div className={block("bottom-line")}>
         <div className={block("actions")}>
           <a
-            style={{ color: "inherit", textDecoration: "none" }}
+            style={{ color: "inherist", textDecoration: "none" }}
             href={url!}
             target="_blank"
             rel="noopener noreferrer"
@@ -82,7 +83,8 @@ export function EventCard(props: IEventCardProps) {
             <Button
               variant="contained"
               color="primary"
-              onClick={async () => {
+              onClick={async (e) => {
+                e.stopPropagation();
                 actions.events.visitEvent({ eventId: id });
               }}
             >
