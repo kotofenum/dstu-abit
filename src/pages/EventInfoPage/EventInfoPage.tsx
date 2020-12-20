@@ -32,6 +32,13 @@ export function EventInfoPage() {
 
   const event = state.events.currentEvent;
 
+  useEffect(() => {
+    if (event) {
+    document.title =
+      `${event.title} | Абитуриент ДГТУ`;
+  }
+  }, [event]);
+  
   return event ? (
     <div className={block()}>
       <Brick size={8} />

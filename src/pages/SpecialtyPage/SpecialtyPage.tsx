@@ -46,6 +46,12 @@ export function SpecialtyPage() {
     (specialty) => specialty.uid !== specialtyId
   );
 
+  useEffect(() => {
+    if (specialty) {
+      document.title = `${specialty.title} | Абитуриент ДГТУ`;
+    }
+  }, [specialty]);
+
   return !loading && specialty ? (
     <div className={block()}>
       <EducationSummary

@@ -36,6 +36,12 @@ export function MajorPage() {
 
   const major = state.majors.currentMajor;
 
+  useEffect(() => {
+    if (major) {
+      document.title = `${major.title} | Абитуриент ДГТУ`;
+    }
+  }, [major]);
+
   return !loading && major ? (
     <div className={block()}>
       <EducationSummary

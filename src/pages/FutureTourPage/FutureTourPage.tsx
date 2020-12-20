@@ -19,6 +19,16 @@ export function FutureTourPage() {
     actions.tours.getTours();
   }, []);
 
+  useEffect(() => {
+    if (tab === 'inhouse') {
+      document.title =
+        `Экскурсии ДГТУ | Абитуриент ДГТУ`;
+    } else {
+      document.title =
+        "Бизнес-партнеры ДГТУ | Абитуриент ДГТУ";
+    }
+  }, [tab]);
+
   return (
     <div className={block()}>
       <span className={block("heading")}>Экскурсии в будущее</span>

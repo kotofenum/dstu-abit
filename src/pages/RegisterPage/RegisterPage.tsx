@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 import OptionBlock from "./components/OptionBlock";
 
@@ -87,6 +87,10 @@ export function RegisterPage() {
       : accountType === AccountType.teacher
       ? baseValidation && position && school
       : baseValidation && school;
+
+  useEffect(() => {
+    document.title = `Регистрация | Абитуриент ДГТУ`;
+  }, []);
 
   /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 

@@ -41,9 +41,14 @@ export function EventListPage() {
   const module = moduleType[moduleKey] as ModuleType;
 
   useEffect(() => {
-    document.title =
-      "Полная карта мероприятий Дня открытых дверей | Абитуриент ДГТУ";
-  }, []);
+    if (module) {
+      document.title =
+        `Модуль ${(moduleTypeLocal as any)[moduleKey]}, события | Абитуриент ДГТУ`;
+    } else {
+      document.title =
+        "Полная карта мероприятий Дня открытых дверей | Абитуриент ДГТУ";
+    }
+  }, [module, moduleKey]);
 
   console.log(state.events);
 

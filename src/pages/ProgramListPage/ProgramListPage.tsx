@@ -17,6 +17,10 @@ export function ProgramListPage() {
     actions.programs.getPrograms();
   }, []);
 
+  useEffect(() => {
+    document.title = `Образовательные программы | Абитуриент ДГТУ`;
+  }, []);
+
   const sortedPrograms = [...state.programs.list].sort((a, b) => {
     const aPairs = a.specialty.code.split(".");
     const bPairs = b.specialty.code.split(".");

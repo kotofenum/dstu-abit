@@ -37,6 +37,12 @@ export function ProgramPage() {
 
   const program = state.programs.currentProgram;
 
+  useEffect(() => {
+    if (program) {
+      document.title = `${program.title} | Абитуриент ДГТУ`;
+    }
+  }, [program]);
+
   const form = (() => {
     const forms = [];
 

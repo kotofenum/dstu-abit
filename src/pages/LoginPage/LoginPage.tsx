@@ -49,6 +49,12 @@ export function LoginPage() {
   }, [])
   /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 
+
+  useEffect(() => {
+    document.title = `Вход | Абитуриент ДГТУ`;
+  }, []);
+
+
   return (
     <div className={block()}>
       <span className={block("welcome")}>Вход</span>

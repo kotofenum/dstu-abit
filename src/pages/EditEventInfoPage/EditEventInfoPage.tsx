@@ -26,7 +26,7 @@ export function EditEventInfoPage() {
 
   const { state, actions } = useOvermind();
 
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     actions.events.getEvent(eventId);
@@ -49,6 +49,12 @@ export function EditEventInfoPage() {
     }
   }, [event]);
 
+  useEffect(() => {
+    if (event) {
+      document.title = `Редактирование "${event.title}" | Абитуриент ДГТУ`;
+    }
+  }, [event]);
+
   return event ? (
     <div className={block()}>
       <Brick size={8} />
@@ -64,7 +70,8 @@ export function EditEventInfoPage() {
               label="Название"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-            /></span>
+            />
+          </span>
           <Brick size={1} />
           <span className={block("description")}>
             <TextField
@@ -123,7 +130,7 @@ export function EditEventInfoPage() {
               title: title || event.title,
               link: link || event.link,
             });
-            await actions.events.getEvent(event.uid)
+            await actions.events.getEvent(event.uid);
             history.push(`/events/${event.uid}`);
           }}
         >
