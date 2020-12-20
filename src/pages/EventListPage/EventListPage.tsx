@@ -244,12 +244,14 @@ export function EventListPage() {
         )
       ) : null}
       <Brick size={3} />
-      <TextField
-        label="Поиск"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{ width: "80%" }}
-      />
+      <div className={block("module-text")} style={{ width: "80%" }}>
+        <TextField
+          label="Поиск"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{ width: "80%" }}
+        />
+      </div>
       <Brick size={3} />
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);

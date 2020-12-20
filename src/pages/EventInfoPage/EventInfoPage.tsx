@@ -37,6 +37,21 @@ export function EventInfoPage() {
       <Brick size={8} />
       <div className={block("main")}>
         <div className={block("summary")}>
+          <a
+          className={block('hide-desktop')}
+            style={{ color: "inherit", textDecoration: "none", marginBottom: '8px' }}
+            href={event?.link!}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              // disabled={event?.placesLeft === 0}
+            >
+              Подключиться
+            </Button>
+          </a>
           <span className={block("type")}>
             {(eventTypes as any)[event.type]}
           </span>
