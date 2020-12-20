@@ -11,6 +11,10 @@ import { Provider } from "overmind-react";
 import moment from 'moment'
 import 'moment/locale/ru'
 
+import ReactGA from 'react-ga';
+ReactGA.initialize(process.env.REACT_APP_GA_ID as string);
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 moment.locale('ru')
 
 export const overmind = createOvermind(config, { devtools: false });
