@@ -34,19 +34,22 @@ export function EventInfoPage() {
 
   useEffect(() => {
     if (event) {
-    document.title =
-      `${event.title} | Абитуриент ДГТУ`;
-  }
+      document.title = `${event.title} | Абитуриент ДГТУ`;
+    }
   }, [event]);
-  
+
   return event ? (
     <div className={block()}>
       <Brick size={8} />
       <div className={block("main")}>
         <div className={block("summary")}>
           <a
-          className={block('hide-desktop')}
-            style={{ color: "inherit", textDecoration: "none", marginBottom: '8px' }}
+            className={block("hide-desktop")}
+            style={{
+              color: "inherit",
+              textDecoration: "none",
+              marginBottom: "8px",
+            }}
             href={event?.link!}
             target="_blank"
             rel="noopener noreferrer"
@@ -55,6 +58,9 @@ export function EventInfoPage() {
               variant="contained"
               color="primary"
               // disabled={event?.placesLeft === 0}
+              onClick={async () => {
+                actions.events.visitEvent({ eventId: event.uid });
+              }}
             >
               Подключиться
             </Button>
@@ -101,6 +107,9 @@ export function EventInfoPage() {
             variant="contained"
             color="primary"
             // disabled={event?.placesLeft === 0}
+            onClick={async () => {
+              actions.events.visitEvent({ eventId: event.uid });
+            }}
           >
             Подключиться
           </Button>

@@ -79,7 +79,13 @@ export function EventCard(props: IEventCardProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={async () => {
+                actions.events.visitEvent({ eventId: id });
+              }}
+            >
               Подключиться
             </Button>
           </a>

@@ -121,6 +121,10 @@ export interface UserTagInput {
   relationType: TagRelationType;
 }
 
+export interface VisitInput {
+  eventId: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
