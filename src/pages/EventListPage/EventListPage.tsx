@@ -19,6 +19,7 @@ import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import { ModuleType } from "../../store/graphql-global-types";
 import { moduleType, moduleTypeLocal } from "../../types/ModuleType";
+import { TextField } from "@material-ui/core";
 
 const block = cn("event-list-page");
 
@@ -83,6 +84,7 @@ export function EventListPage() {
 
   const [showModule, setShowModule] = useState<boolean>(true);
   const [showPersonal, setShowPersonal] = useState<boolean>(false);
+  const [search, setSearch] = useState<string | null>(null);
 
   useEffect(() => {
     setShowModule(false);
@@ -121,9 +123,22 @@ export function EventListPage() {
     state.events.personalEvents.some((pEvent) => pEvent.uid === event.uid)
   );
 
+  const filterSearch = (events: Events_events[], search?: string | null) => {
+    if (!search) {
+      return events;
+    }
+
+    return events.filter((event) => {
+      return (
+        event.title.toLowerCase().includes(search.toLowerCase()) ||
+        event.description?.toLowerCase()?.includes(search.toLowerCase())
+      );
+    });
+  };
+
   const filteredEvents =
     showModule && state.events.eventsForModule.length
-      ? state.events.eventsForModule
+      ? filterSearch(state.events.eventsForModule, search)
       : tags.length && showPersonal
       ? // ? state.events.events.filter((event) => {
         //     const str = (event.tags as unknown) as string;
@@ -133,8 +148,8 @@ export function EventListPage() {
         //     const result = tags.find((tag) => arr.includes(tag));
         //     return !!result;
         //   })
-        state.events.personalEvents
-      : state.events.events;
+        filterSearch(state.events.personalEvents, search)
+      : filterSearch(state.events.events, search);
 
   const sortedEvents = [...filteredEvents].sort(
     (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
@@ -209,7 +224,11 @@ export function EventListPage() {
             Модуль «{(moduleTypeLocal as any)[moduleKey]}»
             <Link
               to="/events"
-              style={{ textDecoration: "underline", cursor: "pointer", marginLeft: '8px', }}
+              style={{
+                textDecoration: "underline",
+                cursor: "pointer",
+                marginLeft: "8px",
+              }}
               onClick={() => setShowModule(false)}
             >
               {"Все события"}
@@ -224,7 +243,14 @@ export function EventListPage() {
           </span>
         )
       ) : null}
-      <Brick size={6} />
+      <Brick size={3} />
+      <TextField
+        label="Поиск"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ width: "80%" }}
+      />
+      <Brick size={3} />
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);
 
