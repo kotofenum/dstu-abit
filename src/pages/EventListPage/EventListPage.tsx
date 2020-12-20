@@ -15,7 +15,7 @@ import { Events_events } from "../../store/events/effects/gql/graphql-types/Even
 import moment from "moment";
 import { Tag } from "./components/Tag/Tag";
 import { EducationTypePlain } from "../../types/EducationType";
-import { useLocation, useRouteMatch } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import { ModuleType } from "../../store/graphql-global-types";
 import { moduleType, moduleTypeLocal } from "../../types/ModuleType";
@@ -82,10 +82,10 @@ export function EventListPage() {
   // ];
 
   const [showModule, setShowModule] = useState<boolean>(true);
-  const [showPersonal, setShowPersonal] = useState<boolean>(true);
+  const [showPersonal, setShowPersonal] = useState<boolean>(false);
 
   useEffect(() => {
-    setShowModule(false)
+    setShowModule(false);
     if (module) {
       actions.events.getEventsForModule({ module });
       setShowModule(true);
@@ -93,7 +93,7 @@ export function EventListPage() {
   }, [module]);
 
   useEffect(() => {
-    console.log('run')
+    console.log("run");
     const job = async () => {
       await actions.events.getEvents();
 
@@ -102,13 +102,20 @@ export function EventListPage() {
       // }
 
       if (state.auth.token) {
-        await actions.tags.getMyTags();
+        // await actions.tags.getMyTags();
         await actions.events.getEventsForUserTags();
       }
     };
 
     job();
-  }, [actions.events, actions.tags, state.auth.token, location, location.search, module]);
+  }, [
+    actions.events,
+    actions.tags,
+    state.auth.token,
+    location,
+    location.search,
+    module,
+  ]);
 
   const otherEvents = state.events.events.filter((event) =>
     state.events.personalEvents.some((pEvent) => pEvent.uid === event.uid)
@@ -200,10 +207,20 @@ export function EventListPage() {
         !!state.events.eventsForModule.length ? (
           <span className={block("module-text")}>
             Модуль «{(moduleTypeLocal as any)[moduleKey]}»
+            <Link
+              to="/events"
+              style={{ textDecoration: "underline", cursor: "pointer", marginLeft: '8px', }}
+              onClick={() => setShowModule(false)}
+            >
+              {"Все события"}
+            </Link>
           </span>
         ) : (
           <span className={block("module-text")}>
             События модуля {(moduleTypeLocal as any)[moduleKey]} не найдены
+            <br />
+            <br />
+            Все события:
           </span>
         )
       ) : null}
@@ -226,6 +243,7 @@ export function EventListPage() {
                   tags={[]}
                   id={event.uid}
                   key={event.uid}
+                  url={event.link}
                   date={new Date(event.startsAt)}
                   timeRange={
                     new Date(event.startsAt).toLocaleTimeString().substr(0, 5) +

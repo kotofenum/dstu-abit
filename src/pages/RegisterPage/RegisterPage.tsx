@@ -247,12 +247,14 @@ export function RegisterPage() {
                 style={{ marginRight: "49px" }}
                 label="Пароль"
                 // value={password}
+                type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               {/* <Gap size={2} /> */}
               <TextField
                 label="Повторите пароль"
                 // value={repeatedPassword}
+                type="password"
                 onChange={(e) => setRepeatedPassword(e.target.value)}
               />
               <div />
@@ -271,6 +273,12 @@ export function RegisterPage() {
             />
 
             <Brick />
+            {password && repeatedPassword && password !== repeatedPassword ? (
+              <>
+                <span>Пароли не совпадают</span>
+                <Brick />
+              </>
+            ) : null}
             <Button
               onClick={async () => {
                 await actions.auth.updateUser({

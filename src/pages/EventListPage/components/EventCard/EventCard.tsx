@@ -10,6 +10,7 @@ import "./styles.scss";
 import { Link } from "react-router-dom";
 import { useOvermind } from "../../../../store";
 import { eventTypes } from "../../../../types/eventTypes";
+import { Button } from "@material-ui/core";
 
 const block = cn("event-card");
 
@@ -21,6 +22,7 @@ export interface IEventCardProps {
   timeRange: string;
   place?: string | null;
   type: string;
+  url?: string | null;
   placesLeft: number | null;
   userIsJoined?: boolean;
   reward?: number | null;
@@ -36,6 +38,7 @@ export function EventCard(props: IEventCardProps) {
     timeRange,
     place,
     type,
+    url,
     placesLeft,
     userIsJoined,
     reward,
@@ -70,8 +73,17 @@ export function EventCard(props: IEventCardProps) {
       <span className={block("description")}>{description}</span>
       <div className={block("bottom-line")}>
         <div className={block("actions")}>
-          {/* {userIsJoined && <Tag name="Подключиться" isConnectButton />}
-          <Tag
+          <a
+            style={{ color: "inherit", textDecoration: "none" }}
+            href={url!}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="contained" color="primary">
+              Подключиться
+            </Button>
+          </a>
+          {/* <Tag
             name={userIsJoined ? "Отписаться" : "Записаться"}
             isButton
             disabled={placesLeft === 0}

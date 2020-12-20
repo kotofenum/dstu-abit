@@ -75,7 +75,13 @@ export function EventInfoPage() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="contained" color="primary" disabled={event?.placesLeft === 0}>Подключиться</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            // disabled={event?.placesLeft === 0}
+          >
+            Подключиться
+          </Button>
         </a>
         {/* {event?.userIsJoined && <Tag name="Подключиться" isConnectButton />}
         <Tag

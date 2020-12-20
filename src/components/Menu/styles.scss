@@ -9,12 +9,13 @@
   padding: 24px 10px;
   box-sizing: border-box;
   border-radius: 30px;
-  background: rgba(65, 94, 129, 1);
+  background: rgba(65, 94, 129, 0.38);
   overflow: hidden;
   transition: all 0.2s;
   z-index: 200; // TODO: проработатьы
 
   @media (max-width: 600px) {
+    background: rgba(65, 94, 129, 1);
     grid-auto-flow: column;
     justify-content: space-around;
     align-items: center;

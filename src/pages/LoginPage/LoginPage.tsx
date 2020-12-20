@@ -64,6 +64,7 @@ export function LoginPage() {
         <TextField
           label="Пароль"
           // value={patronym}
+          type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <Brick size={1} plusHalf />
