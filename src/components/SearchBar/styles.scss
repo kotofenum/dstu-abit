@@ -1,0 +1,10 @@
+.search-bar {
+  position: fixed;
+  top: 32px;
+  left: 30vw;
+  right: 30vw;
+
+  > * > * {
+    width: 100%;
+  }
+}

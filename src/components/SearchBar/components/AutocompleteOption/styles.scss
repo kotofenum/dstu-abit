@@ -1,0 +1,37 @@
+.autocomplete-option {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 13px;
+
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    text-align: center;
+    color: #ffffff;
+    margin-left: 12px;
+
+    &--major {
+      background: #eca448;
+    }
+
+    &--specialty {
+      background: #7e64ed;
+    }
+
+    &--program {
+      background: #4b92cb;
+    }
+  }
+}

@@ -16,6 +16,7 @@ import { EventListPage } from "../pages/EventListPage";
 import { FutureTourPage } from "../pages/FutureTourPage";
 import { LoginPage } from "../pages/LoginPage";
 import { LogoutPage } from "../pages/LogoutPage/inedx";
+import { ProfilePage } from "../pages/ProfilePage";
 import { MajorListPage } from "../pages/MajorListPage";
 import { MajorPage } from "../pages/MajorPage";
 import { ProgramListPage } from "../pages/ProgramListPage";
@@ -26,6 +27,7 @@ import { WelcomePage } from "../pages/WelcomePage";
 import { useOvermind } from "../store";
 
 import { browserHistory } from "./browserHistory";
+import { SearchBar } from "../components/SearchBar";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -71,6 +73,7 @@ function MainRouting() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={LogoutPage} />
+        <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/education" component={EducationPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />
@@ -96,6 +99,7 @@ export function Routing() {
     <Router history={browserHistory}>
       <Header />
       <Menu />
+      <SearchBar />
       <Route component={MainRouting} />
     </Router>
   );

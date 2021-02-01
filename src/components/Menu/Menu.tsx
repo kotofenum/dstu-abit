@@ -4,6 +4,7 @@ import { cn } from "../../services/helpers/classname";
 import { ReactComponent as MapIcon } from "../../assets/svg/map.svg";
 import { ReactComponent as EducationIcon } from "../../assets/svg/school.svg";
 import { ReactComponent as EventsIcon } from "../../assets/svg/events.svg";
+import { ReactComponent as UgnIcon } from "../../assets/svg/ugn.svg";
 
 import "./styles.scss";
 import { Link, useRouteMatch } from "react-router-dom";
@@ -11,7 +12,8 @@ import { Link, useRouteMatch } from "react-router-dom";
 const block = cn("menu");
 
 export function Menu() {
-  const isEducation = useRouteMatch("/welcome"); // TODO: сделать по-другому
+  const isWelcome = useRouteMatch("/welcome"); // TODO: сделать по-другому
+  const isEducation = useRouteMatch("/education");
   const isEvents = useRouteMatch("/events");
 
   const [isInactive, setIsInactive] = useState<boolean>(true);
@@ -38,7 +40,7 @@ export function Menu() {
     >
       <Link
         to="/welcome"
-        className={block("menu-item", { active: !!isEducation })}
+        className={block("menu-item", { active: !!isWelcome })}
       >
         <MapIcon />
         <span className={block("menu-name")}>Модули</span>
@@ -53,6 +55,10 @@ export function Menu() {
       <Link to="/events" className={block("menu-item", { active: !!isEvents })}>
         <EventsIcon />
         <span className={block("menu-name")}>Мероприятия</span>
+      </Link>
+      <Link to="/education/programs" className={block("menu-item", { active: !!isEducation })}>
+        <UgnIcon />
+        <span className={block("menu-name")}>База знаний</span>
       </Link>
     </div>
   );
