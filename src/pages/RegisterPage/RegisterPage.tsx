@@ -28,6 +28,10 @@ import { useOvermind } from "../../store";
 import moment from "moment";
 import { action } from "overmind";
 
+import countriesJson from "./countries.json";
+import citiesJson from "./cities.json";
+import { Autocomplete } from "@material-ui/lab";
+
 const block = cn("register-page");
 
 enum AccountType {
@@ -35,6 +39,25 @@ enum AccountType {
   parent = "parent",
   teacher = "teacher",
 }
+
+interface ICountry {
+  id: number;
+  engName: string;
+  name: string;
+}
+
+interface ICity {
+  id: number;
+  engName: string;
+  name: string;
+}
+
+interface ICountryCities {
+  [id: string]: ICity[];
+}
+
+const countries: ICountry[] = countriesJson;
+const cities: ICountryCities = citiesJson;
 
 export function RegisterPage() {
   const [awaitingCode, setAwaitingCode] = useState<boolean>(false);
@@ -50,8 +73,8 @@ export function RegisterPage() {
   const [lastName, setLastName] = useState<string | null>();
   const [firstName, setFirstName] = useState<string | null>();
   const [patronym, setPatronym] = useState<string | null>();
-  const [country, setCountry] = useState<string | null>();
-  const [location, setLocation] = useState<string | null>();
+  const [country, setCountry] = useState<ICountry | null>();
+  const [location, setLocation] = useState<ICity | null>();
   const [birthdate, setBirthdate] = useState(null);
   const [school, setSchool] = useState<string | null>();
   const [email, setEmail] = useState<string | null>();
@@ -90,7 +113,17 @@ export function RegisterPage() {
 
   useEffect(() => {
     document.title = `Регистрация | Абитуриент ДГТУ`;
+    console.log(countries);
   }, []);
+
+  useEffect(() => {
+    console.log("selected country ", country);
+    if (country) {
+      console.log("cities for that country: ", cities[country.id]);
+    } else {
+      setLocation(null);
+    }
+  }, [country]);
 
   /* <pre>{JSON.stringify({lastName, firstName, patronym, country, location, birthdate, school, email, password, repeatedPassword, acceptTerms})}</pre> */
 
@@ -160,7 +193,7 @@ export function RegisterPage() {
               className={block("responsive", { bottom: true })}
               style={{
                 display: "grid",
-                gridAutoFlow: "column",
+                gridTemplateColumns: "1fr 1fr 1fr",
                 gap: "49px",
                 justifyContent: "space-between",
                 alignItems: "flex-end",
@@ -168,18 +201,45 @@ export function RegisterPage() {
             >
               {/* <Brick size={1} /> */}
               <div style={{ marginBottom: "8px" }}>
-                <TextField
+                {/* <TextField
                   label="Страна"
                   // value={country}
                   onChange={(e) => setCountry(e.target.value)}
+                /> */}
+                <Autocomplete
+                  options={countries}
+                  getOptionLabel={(option) => option.name}
+                  onChange={(_, value) => setCountry(value)}
+                  renderInput={(params) => (
+                    <TextField
+                      label="Страна"
+                      value={country?.name}
+                      {...params}
+                    />
+                  )}
                 />
               </div>
               {/* <Brick size={1} /> */}
               <div style={{ marginBottom: "8px" }}>
-                <TextField
+                {/* <TextField
                   label="Населенный пункт"
                   // value={location}
                   onChange={(e) => setLocation(e.target.value)}
+                /> */}
+
+                <Autocomplete
+                  key={country?.id}
+                  disabled={!country}
+                  options={country ? cities[country.id] : []}
+                  getOptionLabel={(option) => option.name}
+                  onChange={(_, value) => setLocation(value)}
+                  renderInput={(params) => (
+                    <TextField
+                      label="Населенный пункт"
+                      value={location?.name}
+                      {...params}
+                    />
+                  )}
                 />
               </div>
               {/* <Brick size={2} /> */}
@@ -290,8 +350,8 @@ export function RegisterPage() {
                   lastName: lastName!,
                   patronym: patronym!,
                   birthDate: birthdate!,
-                  country: country!,
-                  locality: location!,
+                  country: country!.name,
+                  locality: location!.name,
                   email: email!,
                   pwd: password!,
                   school: school,

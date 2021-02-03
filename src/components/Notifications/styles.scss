@@ -1,0 +1,35 @@
+.notifications {
+  position: fixed;
+  top: 82px;
+  right: 40px;
+  width: 280px;
+  padding-top: 4px 0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  background: #eeeeee;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    cursor: pointer;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover {
+      background: #dddddd;
+    }
+  }
+
+  &__date {
+    font-size: 11px;
+    margin-bottom: 4px;
+    color: #777777;
+  }
+
+  &__text {
+    font-size: 14px;
+  }
+}
