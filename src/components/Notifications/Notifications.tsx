@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { cn } from "../../services/helpers/classname";
+import { useOvermind } from "../../store";
+import { actions } from "../../store/ui";
 
 import "./styles.scss";
 
@@ -44,8 +46,29 @@ export function Notifications() {
     },
   ];
 
+  const {actions} = useOvermind();
+
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = useCallback((e: MouseEvent) => {
+
+    if (!popupRef.current?.contains(e.target as Node)) {
+      actions.ui.toggleNotifications(false)
+      return;
+    }
+  
+  }, [actions.ui])
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, [handleClick]);
+
   return (
-    <div className={block()}>
+    <div className={block()} ref={popupRef}>
       {notifications.reverse().map((notification) => (
         <NotificationItem notification={notification} />
       ))}

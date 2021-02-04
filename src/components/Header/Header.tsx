@@ -22,7 +22,7 @@ export function Header(props: IHeaderProps) {
       </Link>
       <div className={block("user-panel")}>
         <div className={block("notifications")}>
-          <BellIcon />
+          <BellIcon onClick={() => actions.ui.toggleNotifications(!state.ui.notificationsOpened)}/>
         </div>
         {state.auth.token ? (
           <div style={{ display: "flex", alignItems: "center" }}>

@@ -1,7 +1,9 @@
 type UIState = {
-  menuOpened: boolean
+  menuOpened: boolean,
+  notificationsOpened: boolean,
 }
 
 export const state: UIState = {
   menuOpened: false,
+  notificationsOpened: false,
 }

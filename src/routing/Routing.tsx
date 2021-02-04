@@ -31,6 +31,7 @@ import { SearchBar } from "../components/SearchBar";
 import { MainPage } from "../pages/MainPage";
 import { AchievementCategoryPage } from "../pages/AchievementCategoryPage/AchievementCategoryPage";
 import { AchievementsIntroPage } from "../pages/AchievementsIntroPage";
+import { Notifications } from "../components/Notifications";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -103,11 +104,14 @@ function MainRouting() {
 }
 
 export function Routing() {
+  const {state} = useOvermind();
+
   return (
     <Router history={browserHistory}>
       <Header />
       <Menu />
       <SearchBar />
+      {state.ui.notificationsOpened && <Notifications />}
       <Route component={MainRouting} />
     </Router>
   );
