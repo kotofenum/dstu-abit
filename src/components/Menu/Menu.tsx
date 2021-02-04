@@ -43,7 +43,7 @@ export function Menu() {
         className={block("menu-item", { active: !!isWelcome })}
       >
         <MapIcon />
-        <span className={block("menu-name")}>Модули</span>
+        <span className={block("menu-name")}>Навигация</span>
       </Link>
       {/* <Link
         to="/welcome"

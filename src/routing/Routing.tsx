@@ -28,6 +28,7 @@ import { useOvermind } from "../store";
 
 import { browserHistory } from "./browserHistory";
 import { SearchBar } from "../components/SearchBar";
+import { MainPage } from "../pages/MainPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -69,12 +70,13 @@ function MainRouting() {
     <>
       <ScrollToTop />
       <Switch>
-        <Route exact path="/welcome" component={WelcomePage} />
+        {/* <Route exact path="/welcome" component={WelcomePage} /> */}
+        <Route exact path="/welcome" component={MainPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/profile" component={ProfilePage} />
-        <Route exact path="/education" component={EducationPage} />
+        {/* <Route exact path="/education" component={EducationPage} /> */}
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />
         <Route
@@ -84,6 +86,7 @@ function MainRouting() {
         />
         <Route exact path="/education/programs" component={ProgramListPage} />
         <Route exact path="/education/programs/:id" component={ProgramPage} />
+        <Redirect path="/education" to="/education/programs" />
         <Route exact path="/events/:id/edit" component={EditEventInfoPage} />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />

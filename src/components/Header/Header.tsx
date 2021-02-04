@@ -21,12 +21,12 @@ export function Header(props: IHeaderProps) {
         <img alt="Логотип" src="/logo.png" />
       </Link>
       <div className={block("user-panel")}>
-        {/* <div className={block("notifications")}>
+        <div className={block("notifications")}>
           <BellIcon />
-        </div> */}
+        </div>
         {state.auth.token ? (
           <div style={{ display: "flex", alignItems: "center" }}>
-            <span className={block("username")}>{state.auth.username}</span>
+            <Link to="/profile" className={block("username")}>{state.auth.username}</Link>
             {/* <div className={block("userpic")} /> */}
             <Gap size={2} />
             <span
