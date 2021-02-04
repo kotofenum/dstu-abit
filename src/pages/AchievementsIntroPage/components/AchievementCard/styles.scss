@@ -1,0 +1,15 @@
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  background: #e5ecf1;
+  // color: white;
+
+  &__status {
+    margin-top: 12px;
+    align-self: flex-end;
+    color: #3c9858;
+  }
+}

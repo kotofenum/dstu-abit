@@ -29,6 +29,8 @@ import { useOvermind } from "../store";
 import { browserHistory } from "./browserHistory";
 import { SearchBar } from "../components/SearchBar";
 import { MainPage } from "../pages/MainPage";
+import { AchievementCategoryPage } from "../pages/AchievementCategoryPage/AchievementCategoryPage";
+import { AchievementsIntroPage } from "../pages/AchievementsIntroPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -77,6 +79,9 @@ function MainRouting() {
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/profile" component={ProfilePage} />
         {/* <Route exact path="/education" component={EducationPage} /> */}
+        <Route exact path="/achievements/intro" component={AchievementsIntroPage} />
+        <Route exact path="/achievements/category" component={AchievementCategoryPage} />
+        <Redirect path="/achievements" to="/achievements/intro" />
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />
         <Route
