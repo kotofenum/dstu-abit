@@ -32,6 +32,8 @@ import { MainPage } from "../pages/MainPage";
 import { AchievementCategoryPage } from "../pages/AchievementCategoryPage/AchievementCategoryPage";
 import { AchievementsIntroPage } from "../pages/AchievementsIntroPage";
 import { Notifications } from "../components/Notifications";
+import { AchievementFormPage } from "../pages/AchievementFormPage";
+import { AchievementCompetitionPage } from "../pages/AchievementCompetitionPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -82,6 +84,8 @@ function MainRouting() {
         {/* <Route exact path="/education" component={EducationPage} /> */}
         <Route exact path="/achievements/intro" component={AchievementsIntroPage} />
         <Route exact path="/achievements/category" component={AchievementCategoryPage} />
+        <Route  path="/achievements/category/:id/form" component={AchievementFormPage} />
+        <Route exact path="/achievements/category/:id/form/competition" component={AchievementCompetitionPage} />
         <Redirect path="/achievements" to="/achievements/intro" />
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />

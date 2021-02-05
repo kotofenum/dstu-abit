@@ -34,6 +34,7 @@ export function ProfilePage() {
               onChange={(_, value) => setTab(value)}
             >
               <Tab label="Данные профиля" value="profile" />
+              <Tab label="Достижения" value="achievements" />
               {/* <Tab label="Мои мероприятия" value="events" /> */}
             </Tabs>
           </Paper>

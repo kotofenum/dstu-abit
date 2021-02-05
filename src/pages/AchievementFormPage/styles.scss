@@ -1,0 +1,54 @@
+.achievement-form-page {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  font-family: "Open Sans", sans-serif;
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+  }
+
+  &__file-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  &__file-card {
+    max-width: 260px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    background: #3c9858;
+    color: #ffffff;
+    transition: 0.13s;
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($color: #3c9858, $amount: 5);
+    }
+  }
+
+  &__actions {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 12px;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
