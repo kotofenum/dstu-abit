@@ -7,6 +7,7 @@ import { EducationCode } from "../../components/EducationCode";
 
 import "./styles.scss";
 import { Link } from "react-router-dom";
+import { SearchBar } from "../../components/SearchBar";
 
 const block = cn("program-list-page");
 
@@ -48,6 +49,7 @@ export function ProgramListPage() {
 
   return (
     <div className={block()}>
+      <SearchBar />
       <span className={block("heading")}>
         Список{" "}
         <span className={block("underline")}>образовательных программ</span>

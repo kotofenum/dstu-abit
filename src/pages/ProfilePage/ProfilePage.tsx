@@ -9,7 +9,7 @@ const block = cn("profile-page");
 
 export function ProfilePage() {
   const [profileType] = useState<AccountType>(AccountType.enrolee);
-  const [tab, setTab] = useState<"profile" | "events">("profile");
+  const [tab, setTab] = useState<"profile" | "achievements" | "events">("profile");
 
   return (
     <div className={block()}>
@@ -34,8 +34,8 @@ export function ProfilePage() {
               onChange={(_, value) => setTab(value)}
             >
               <Tab label="Данные профиля" value="profile" />
-              <Tab label="Достижения" value="achievements" />
-              {/* <Tab label="Мои мероприятия" value="events" /> */}
+              <Tab label="Мои мероприятия" value="events" disabled />
+              <Tab label="Достижения" value="achievements" disabled/>
             </Tabs>
           </Paper>
         </div>

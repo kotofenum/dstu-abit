@@ -114,7 +114,6 @@ export function Routing() {
     <Router history={browserHistory}>
       <Header />
       <Menu />
-      <SearchBar />
       {state.ui.notificationsOpened && <Notifications />}
       <Route component={MainRouting} />
     </Router>
