@@ -94,7 +94,7 @@ export function RegisterPage() {
   const baseValidation =
     lastName &&
     firstName &&
-    patronym &&
+    // patronym &&
     country &&
     location &&
     birthdate &&
