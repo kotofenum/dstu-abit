@@ -35,6 +35,7 @@ import { Notifications } from "../components/Notifications";
 import { AchievementFormPage } from "../pages/AchievementFormPage";
 import { AchievementCompetitionPage } from "../pages/AchievementCompetitionPage";
 import { PreUniversityPage } from "../pages/PreUniversityPage";
+import { ToastProvider } from "react-toast-notifications";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -83,10 +84,25 @@ function MainRouting() {
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/profile" component={ProfilePage} />
         {/* <Route exact path="/education" component={EducationPage} /> */}
-        <Route exact path="/achievements/intro" component={AchievementsIntroPage} />
-        <Route exact path="/achievements/category" component={AchievementCategoryPage} />
-        <Route  path="/achievements/category/:id/form" component={AchievementFormPage} />
-        <Route exact path="/achievements/category/:id/form/competition" component={AchievementCompetitionPage} />
+        <Route
+          exact
+          path="/achievements/intro"
+          component={AchievementsIntroPage}
+        />
+        <Route
+          exact
+          path="/achievements/category"
+          component={AchievementCategoryPage}
+        />
+        <Route
+          path="/achievements/category/:id/form"
+          component={AchievementFormPage}
+        />
+        <Route
+          exact
+          path="/achievements/category/:id/form/competition"
+          component={AchievementCompetitionPage}
+        />
         <Redirect path="/achievements" to="/achievements/intro" />
         <Route exact path="/pre-university" component={PreUniversityPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
@@ -110,14 +126,16 @@ function MainRouting() {
 }
 
 export function Routing() {
-  const {state} = useOvermind();
+  const { state } = useOvermind();
 
   return (
-    <Router history={browserHistory}>
-      <Header />
-      <Menu />
-      {state.ui.notificationsOpened && <Notifications />}
-      <Route component={MainRouting} />
-    </Router>
+    <ToastProvider>
+      <Router history={browserHistory}>
+        <Header />
+        <Menu />
+        {state.ui.notificationsOpened && <Notifications />}
+        <Route component={MainRouting} />
+      </Router>
+    </ToastProvider>
   );
 }

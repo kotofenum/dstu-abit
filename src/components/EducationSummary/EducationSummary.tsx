@@ -3,6 +3,7 @@ import { cn } from "../../services/helpers/classname";
 import { useOvermind } from "../../store";
 import { TagRelationType } from "../../store/graphql-global-types";
 import { EducationType } from "../../types/EducationType";
+import { useToasts } from "react-toast-notifications";
 
 import "./styles.scss";
 
@@ -34,6 +35,22 @@ function EducationSummary({
 
   const { state, actions } = useOvermind();
 
+  const { addToast } = useToasts();
+
+  const getName = (key: TagRelationType) => {
+    switch (key) {
+      case TagRelationType.program: {
+        return "программу";
+      }
+      case TagRelationType.specialty: {
+        return "направление";
+      }
+      case TagRelationType.major: {
+        return "УГН";
+      }
+    }
+  };
+
   const hasTag = state.tags.tags
     ? Object.keys(state.tags.tags).some((index) => {
         if (key === "major") {
@@ -54,10 +71,19 @@ function EducationSummary({
         <div
           className={block("button")}
           onClick={async () => {
-            await actions.tags.addTag({
-              relationId: uid,
-              relationType: key as TagRelationType,
-            });
+            try {
+              await actions.tags.addTag({
+                relationId: uid,
+                relationType: key as TagRelationType,
+              });
+            } catch (err) {
+              addToast(
+                `Чтобы добавить ${getName(
+                  key as TagRelationType
+                )} к своим тегам необходимо авторизоваться`,
+                { appearance: "warning", autoDismiss: true }
+              );
+            }
             await actions.tags.getMyTags();
           }}
         >
