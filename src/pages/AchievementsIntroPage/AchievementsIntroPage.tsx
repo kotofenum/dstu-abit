@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
 import { AchievementCard } from "./components/AchievementCard";
@@ -9,10 +9,14 @@ import "./styles.scss";
 const block = cn("achievements-intro-page");
 
 export function AchievementsIntroPage() {
-  const achievements: string[] = [
-    "Осуществление волонтерской (добровольческой) деятельности",
-    "Итоговое сочинение выпускников 2021 года",
-  ];
+  const [achievements, setAchievements] = useState<string[]>([]);
+
+  useEffect(() => {
+    const achievements = localStorage.getItem("ach") || "{}";
+    const arr = JSON.parse(achievements) || {};
+    const ar = Object.keys(arr).map(key => arr[key].label)
+    setAchievements(ar)
+  }, []);
 
   return (
     <div className={block()}>
@@ -34,9 +38,13 @@ export function AchievementsIntroPage() {
             Добавить достижение
           </Button>
         </Link>
-        <Button variant="outlined" color="primary" disabled={!achievements?.length}>
+        {/* <Button
+          variant="outlined"
+          color="primary"
+          disabled={!achievements?.length}
+        >
           Оценить индивидуальные достижения
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

@@ -7,9 +7,10 @@ import {
   FormControl,
   FormLabel,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
+import { achiemeventCategories } from "../AchievementCategoryPage/categories";
 import { FileBlock } from "./blocks/FileBlock";
 import { ListBlock } from "./blocks/ListBlock";
 import { PlaceBlock } from "./blocks/PlaceBlock";
@@ -61,6 +62,16 @@ export function AchievementFormPage() {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const [totalSteps, setTotalSteps] = useState<number>(1);
+
+  const save = useCallback(() => {
+    const achievements = localStorage.getItem("ach") || "{}";
+    const arr = JSON.parse(achievements) || {};
+    const category = achiemeventCategories.find(
+      (category) => category.value === categoryId
+    );
+    const newArr = {...arr, [categoryId]: category};
+    localStorage.setItem("ach", JSON.stringify(newArr));
+  }, [categoryId]);
 
   useEffect(() => {
     if (
@@ -226,6 +237,7 @@ export function AchievementFormPage() {
             variant="contained"
             color="primary"
             // disabled={!achievementCategory}
+            onClick={() => currentStep === totalSteps ? save() : undefined}
           >
             {currentStep < totalSteps ? "Далее" : "Сохранить"}
           </Button>

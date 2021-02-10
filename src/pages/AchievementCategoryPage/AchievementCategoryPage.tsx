@@ -8,7 +8,7 @@ import {
   RadioGroup,
   Button,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
 import { achiemeventCategories } from "./categories";
@@ -21,6 +21,17 @@ export function AchievementCategoryPage() {
   const [achievementCategory, setAchievementCategory] = useState<number | null>(
     null
   );
+
+  const [disabled, setDisabled] = useState<number[]>([]);
+
+  useEffect(() => {
+    const achievements = localStorage.getItem("ach") || "{}";
+    const arr = JSON.parse(achievements) || {};
+
+    const disabledCategories = Object.keys(arr).map((key) => Number(key));
+    setDisabled(disabledCategories);
+  }, []);
+
   return (
     <div className={block()}>
       <span className={block("heading")}>
@@ -44,6 +55,7 @@ export function AchievementCategoryPage() {
               key={category.value}
               label={category.label}
               value={category.value}
+              disabled={disabled.includes(category.value)}
             />
           ))}
         </RadioGroup>
