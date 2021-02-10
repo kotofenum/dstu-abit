@@ -31,6 +31,7 @@ import { action } from "overmind";
 import countriesJson from "./countries.json";
 import citiesJson from "./cities.json";
 import { Autocomplete } from "@material-ui/lab";
+import { ru } from "date-fns/locale";
 
 const block = cn("register-page");
 
@@ -243,17 +244,18 @@ export function RegisterPage() {
                 />
               </div>
               {/* <Brick size={2} /> */}
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <MuiPickersUtilsProvider locale={ru} utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   // disableToolbar
                   // variant="inline"
-                  format="MM/dd/yyyy"
+                  format="dd/MM/yyyy"
                   margin="normal"
                   id="date-picker-inline"
                   label="Дата рождения"
                   defaultValue="2000-01-01T00:00"
                   value={birthdate}
                   onChange={(v: any) => setBirthdate(v)}
+                  helperText={null}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
                   }}
