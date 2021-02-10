@@ -58,7 +58,7 @@ export function Menu() {
       </Link>
       <Link to="/education/programs" className={block("menu-item", { active: !!isEducation })}>
         <UgnIcon />
-        <span className={block("menu-name")}>База знаний</span>
+        <span className={block("menu-name")}>Образование</span>
       </Link>
     </div>
   );
