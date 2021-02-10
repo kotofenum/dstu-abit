@@ -51,8 +51,7 @@ export function ProgramListPage() {
     <div className={block()}>
       <SearchBar />
       <span className={block("heading")}>
-        Список{" "}
-        <span className={block("underline")}>образовательных программ</span>
+        <span className={block("underline")}>Образовательные программы</span>
       </span>
       <Brick size={8} />
       <div className={block("items")}>
