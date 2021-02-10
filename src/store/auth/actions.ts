@@ -34,12 +34,14 @@ export const confirmCode: AsyncAction<{ phone: string; code: string }> = async (
 };
 
 export const updateUser: AsyncAction<UpdateUserInput> = async (
-  { state, effects },
+  { actions, effects },
   data
 ) => {
   const resp = await effects.auth.gql.mutations.updateUser({
     input: data,
   });
+
+  await actions.auth.getMe();
   console.log(resp);
 
   // state.majors.list = majors;
@@ -72,6 +74,8 @@ export const logout: AsyncAction = async ({ state, effects }) => {
 export const getMe: AsyncAction = async ({ state, effects }) => {
   const resp = await effects.auth.gql.queries.me();
   console.log(resp);
+
+  state.auth.user = resp.me
 
   if (resp.me.lastName && resp.me.firstName) {
     state.auth.username = resp.me.lastName + " " + resp.me.firstName;

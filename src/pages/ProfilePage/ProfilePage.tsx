@@ -1,6 +1,8 @@
 import { Button, Paper, Tab, Tabs } from "@material-ui/core";
+import moment from "moment";
 import React, { useState } from "react";
 import { cn } from "../../services/helpers/classname";
+import { useOvermind } from "../../store";
 import { AccountType } from "../../store/graphql-global-types";
 
 import "./styles.scss";
@@ -8,19 +10,25 @@ import "./styles.scss";
 const block = cn("profile-page");
 
 export function ProfilePage() {
-  const [profileType] = useState<AccountType>(AccountType.enrolee);
-  const [tab, setTab] = useState<"profile" | "achievements" | "events">("profile");
+  const { state } = useOvermind();
+  const [tab, setTab] = useState<"profile" | "achievements" | "events">(
+    "profile"
+  );
 
-  return (
+  const user = state.auth.user;
+
+  return user ? (
     <div className={block()}>
       <div className={block("person")}>
         <div className={block("userpic")}></div>
         <div className={block("user-info")}>
           <span className={block("user-name")}>
-            Христо Александр Александрович
+            {`${user.lastName} ${user.firstName} ${user.patronym}`}
           </span>
-          <span className={block("user-type", { [profileType]: true })}>
-            Студент
+          <span className={block("user-type", { [user.type]: true })}>
+            {user.type === AccountType.enrolee && <>Абитуриент</>}
+            {user.type === AccountType.parent && <>Родитель</>}
+            {user.type === AccountType.teacher && <>Педагог</>}
           </span>
         </div>
       </div>
@@ -35,35 +43,51 @@ export function ProfilePage() {
             >
               <Tab label="Данные профиля" value="profile" />
               <Tab label="Мои мероприятия" value="events" disabled />
-              <Tab label="Достижения" value="achievements" disabled/>
+              <Tab label="Достижения" value="achievements" disabled />
             </Tabs>
           </Paper>
         </div>
         <div className={block("details-row")}>
           <span className={block("details-row-name")}>Страна:</span>
-          <span className={block("details-row-value")}>Россия</span>
+          <span className={block("details-row-value")}>{user.country}</span>
         </div>
         <div className={block("details-row")}>
           <span className={block("details-row-name")}>Населенный пункт:</span>
-          <span className={block("details-row-value")}>Ростов-на-Дону</span>
+          <span className={block("details-row-value")}>{user.locality}</span>
         </div>
         <div className={block("details-row")}>
           <span className={block("details-row-name")}>Дата рождения:</span>
-          <span className={block("details-row-value")}>25 марта 1995 г.</span>
-        </div>
-        <div className={block("details-row")}>
-          <span className={block("details-row-name")}>
-            Образовательное учреждение:
-          </span>
           <span className={block("details-row-value")}>
-            Донской Государственный Технический Университет
+            {moment(user.birthDate).format("D MMMM YYYY")} г.
           </span>
         </div>
+        {user.school && (
+          <div className={block("details-row")}>
+            <span className={block("details-row-name")}>
+              Образовательное учреждение:
+            </span>
+            <span className={block("details-row-value")}>{user.school}</span>
+          </div>
+        )}
+        {user.child && (
+          <div className={block("details-row")}>
+            <span className={block("details-row-name")}>
+              ФИО ребенка:
+            </span>
+            <span className={block("details-row-value")}>{user.child}</span>
+          </div>
+        )}
+        {user.position && (
+          <div className={block("details-row")}>
+            <span className={block("details-row-name")}>
+              Должность:
+            </span>
+            <span className={block("details-row-value")}>{user.position}</span>
+          </div>
+        )}
         <div className={block("details-row")}>
           <span className={block("details-row-name")}>E-mail:</span>
-          <span className={block("details-row-value")}>
-            kotofenum@gmail.com
-          </span>
+          <span className={block("details-row-value")}>{user.email}</span>
         </div>
         <div className={block("details-action")}>
           <Button variant="outlined" color="primary">
@@ -72,5 +96,5 @@ export function ProfilePage() {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }

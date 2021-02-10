@@ -7,6 +7,18 @@ export const me: Query<Me> = gql`
       uid
       firstName
       lastName
+      patronym
+      country
+      locality
+      birthDate
+      email
+      type
+      school
+      position
+      child
+      course
+      phone
+      picture
     }
   }
 `;
