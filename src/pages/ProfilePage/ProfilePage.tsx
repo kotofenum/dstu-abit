@@ -90,9 +90,9 @@ export function ProfilePage() {
           <span className={block("details-row-value")}>{user.email}</span>
         </div>
         <div className={block("details-action")}>
-          <Button variant="outlined" color="primary">
+          {/* <Button variant="outlined" color="primary">
             Редактировать
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

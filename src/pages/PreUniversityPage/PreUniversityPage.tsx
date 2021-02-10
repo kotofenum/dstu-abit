@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 import { ProgramCard } from "./components/ProgramCard";
+import { useToasts } from "react-toast-notifications";
 
 import "./styles.scss";
 
@@ -18,8 +19,11 @@ import { AnimatePresence, motion } from "framer-motion";
 const block = cn("pre-university-page");
 
 export function PreUniversityPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentProject, setCurrentProject] = useState<number | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+
+  const { addToast } = useToasts();
 
   const currentPrograms: IPreUniversityProgram[] =
     mainPrograms.filter((program) => program.project === currentProject!) || [];
@@ -27,6 +31,21 @@ export function PreUniversityPage() {
   useEffect(() => {
     setSelectedProgram(null);
   }, [currentProject]);
+
+  const load = () => {
+    const ms = Math.floor(Math.random() * 1500);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setCurrentProject(null);
+
+      addToast(`Заявка успешно отправлена`, {
+        appearance: "success",
+        autoDismiss: true,
+      });
+    }, ms);
+  };
 
   return (
     <div className={block()}>
@@ -95,9 +114,10 @@ export function PreUniversityPage() {
                   <Button
                     variant="contained"
                     color="primary"
-                    disabled={!selectedProgram}
+                    disabled={!selectedProgram || isLoading}
+                    onClick={() => load()}
                   >
-                    Отправить заявку
+                    {isLoading ? "Отправка..." : "Отправить заявку"}
                   </Button>
                 </motion.div>
               )}
