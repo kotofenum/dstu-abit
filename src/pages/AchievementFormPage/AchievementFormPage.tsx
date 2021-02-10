@@ -15,6 +15,7 @@ import { ListBlock } from "./blocks/ListBlock";
 import { PlaceBlock } from "./blocks/PlaceBlock";
 import { StageBlock } from "./blocks/StageBlock";
 import { SubjectBlock } from "./blocks/SubjectBlock";
+import { list1, list3 } from "./data";
 
 import "./styles.scss";
 
@@ -73,6 +74,8 @@ export function AchievementFormPage() {
       setFormType(FormType.listStageResult);
     } else if (categoryId === 7) {
       setFormType(FormType.stageResult);
+    } else if (categoryId === 10) {
+      setFormType(FormType.listResult);
     }
   }, [categoryId]);
 
@@ -91,6 +94,10 @@ export function AchievementFormPage() {
         break;
       }
       case FormType.stageResult: {
+        setTotalSteps(3);
+        break;
+      }
+      case FormType.listResult: {
         setTotalSteps(3);
         break;
       }
@@ -121,7 +128,9 @@ export function AchievementFormPage() {
             ) : formType === FormType.listResult ||
               formType === FormType.listStageResult ? (
               <FormControl component="fieldset">
-                <ListBlock />
+                <ListBlock
+                  list={formType === FormType.listResult ? list3 : undefined}
+                />
               </FormControl>
             ) : formType === FormType.stageResult ? (
               <FormControl component="fieldset">
@@ -166,9 +175,11 @@ export function AchievementFormPage() {
                 competitionCategory === 1 ? (
                   <SubjectBlock />
                 ) : (
-                  <ListBlock />
+                  <ListBlock list={list1} />
                 )
               ) : formType === FormType.stageResult ? (
+                <PlaceBlock />
+              ) : formType === FormType.listResult ? (
                 <PlaceBlock />
               ) : (
                 <StageBlock type={1} />
@@ -180,7 +191,8 @@ export function AchievementFormPage() {
               <UpdateStep step={3} setStep={setCurrentStep} />
               {formType === FormType.fullForm ? (
                 <StageBlock type={competitionCategory === 1 ? 0 : 1} />
-              ) : formType === FormType.stageResult ? (
+              ) : formType === FormType.stageResult ||
+                formType === FormType.listResult ? (
                 <FileBlock />
               ) : (
                 <PlaceBlock />

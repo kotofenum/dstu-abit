@@ -11,15 +11,21 @@ import "./styles.scss";
 
 const block = cn("list-block");
 
-const list = [
+const defaultList = [
   "Мероприятие 1",
   "Мероприятие 2",
   "Мероприятие 3",
   "Мероприятие 4",
 ];
 
-export function ListBlock() {
-  const [competitionListItem, setCompetitionListItem] = useState<number | null>(null);
+interface IListBlockProps {
+  list?: string[];
+}
+
+export function ListBlock(props: IListBlockProps) {
+  const [competitionListItem, setCompetitionListItem] = useState<number | null>(
+    null
+  );
 
   return (
     <div className={block()}>
@@ -30,7 +36,7 @@ export function ListBlock() {
         value={competitionListItem}
         onChange={(_, value) => setCompetitionListItem(Number(value))}
       >
-        {list.map((res, idx) => (
+        {(props.list || defaultList).map((res, idx) => (
           <FormControlLabel
             className={block("radio").toString()}
             control={<Radio className={block("radio-icon").toString()} />}
