@@ -29,7 +29,7 @@ export function FileBlock() {
       />
       <div className={block("card")} onClick={() => inputRef.current?.click()}>
         {filename ||
-          "Загрузите скан или фотографию подтверждающего документа (JPG, PNG, PDF), максимальный размер файла – 10 МБ».)"}
+          "Загрузите скан или фотографию подтверждающего документа (JPG, PNG, PDF, максимальный размер файла – 10 Мб)"}
       </div>
     </div>
   );

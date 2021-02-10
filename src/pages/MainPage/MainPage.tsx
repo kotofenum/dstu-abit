@@ -32,7 +32,7 @@ export function MainPage() {
         >
           КОНКУРСЫ И ОЛИМПИАДЫ
         </a>
-        <Link to={`/`} className={block("cell", { five: true })}>
+        <Link to={`/pre-university`} className={block("cell", { five: true })}>
           ДОВУЗОВСКАЯ ПОДГОТОВКА
         </Link>
         <Link to={`/`} className={block("cell", { six: true })}>

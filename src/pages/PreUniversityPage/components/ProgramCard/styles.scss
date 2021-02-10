@@ -1,0 +1,23 @@
+.program-card {
+  display: flex;
+  flex-direction: column;
+  background: #eee;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+
+  &--selected  {
+    background: rgb(198, 209, 190);
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__description {
+  }
+}

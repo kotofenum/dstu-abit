@@ -24,7 +24,7 @@ export function ListBlock() {
   return (
     <div className={block()}>
       <FormLabel className={block("form-label").toString()} component="legend">
-        Выберите результат
+        Выберите мероприятие
       </FormLabel>
       <RadioGroup
         value={competitionListItem}
