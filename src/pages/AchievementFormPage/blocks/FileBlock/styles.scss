@@ -1,0 +1,23 @@
+.file-block {
+  &__input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  &__card {
+    max-width: 260px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    background: #3c9858;
+    color: #ffffff;
+    transition: 0.13s;
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($color: #3c9858, $amount: 5);
+    }
+  }
+}

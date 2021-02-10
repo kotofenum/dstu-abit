@@ -15,6 +15,8 @@ export function MainPage() {
         </Link>
         <a
           href="https://donstu.ru/priemnaya-kampaniya"
+          target="_blank"
+          rel="noreferrer"
           className={block("cell", { two: true })}
         >
           ПРАВИЛА ПРИЕМА
@@ -24,6 +26,8 @@ export function MainPage() {
         </Link>
         <a
           href="http://donstu-talant.ru"
+          target="_blank"
+          rel="noreferrer"
           className={block("cell", { four: true })}
         >
           КОНКУРСЫ И ОЛИМПИАДЫ
@@ -35,7 +39,9 @@ export function MainPage() {
           ПРОФТЕСТИРОВАНИЕ
         </Link>
         <a
-          href="https://test.skif.donstu.ru/course/view.php?id=502"
+          href="https://abiturient.donstu.ru/proforientaczionnoe-testirovanie/"
+          target="_blank"
+          rel="noreferrer"
           className={block("cell", { seven: true })}
         >
           ПРЕДМЕТНОЕ ТЕСТИРОВАНИЕ

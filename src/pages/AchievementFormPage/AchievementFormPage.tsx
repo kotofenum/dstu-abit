@@ -7,9 +7,14 @@ import {
   FormControl,
   FormLabel,
 } from "@material-ui/core";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
+import { FileBlock } from "./blocks/FileBlock";
+import { ListBlock } from "./blocks/ListBlock";
+import { PlaceBlock } from "./blocks/PlaceBlock";
+import { StageBlock } from "./blocks/StageBlock";
+import { SubjectBlock } from "./blocks/SubjectBlock";
 
 import "./styles.scss";
 
@@ -26,8 +31,18 @@ const UpdateStep = (props: {
   return null;
 };
 
+enum FormType {
+  fileOnly = "fileOnly",
+  fullForm = "fullForm",
+  listStageResult = "listStageResult",
+  stageResult = "stageResult",
+  listResult = "listResult",
+}
+
 export function AchievementFormPage() {
-  const { path } = useRouteMatch();
+  const { path, params } = useRouteMatch();
+
+  const categoryId = Number((params as { id: Number }).id);
 
   const [competitionCategory, setCompetitionCategory] = useState<number | null>(
     null
@@ -40,42 +55,47 @@ export function AchievementFormPage() {
     null
   );
 
+  const [formType, setFormType] = useState<FormType>(FormType.fileOnly);
+
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [filename, setFilename] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  const totalSteps = 5;
+  const [totalSteps, setTotalSteps] = useState<number>(1);
 
-  const subjects = [
-    "Информатика",
-    "Математика",
-    "Английский язык",
-    "Астрономия",
-    "Биология",
-    "География",
-    "История",
-    "Китайский язык",
-    "Литература",
-    "Немецкий язык",
-    "Немецкий язык",
-    "Обществознание",
-    "Право",
-    "Русский язык",
-    "Физика",
-    "Французский язык",
-    "Химия",
-    "Экология",
-    "Экономика",
-  ];
+  useEffect(() => {
+    if (
+      (categoryId >= 1 && categoryId <= 4) ||
+      (categoryId >= 8 && categoryId <= 9)
+    ) {
+      setFormType(FormType.fileOnly);
+    } else if (categoryId === 5) {
+      setFormType(FormType.fullForm);
+    } else if (categoryId === 6) {
+      setFormType(FormType.listStageResult);
+    } else if (categoryId === 7) {
+      setFormType(FormType.stageResult);
+    }
+  }, [categoryId]);
 
-  const stages = [
-    "Школьный этап",
-    "Районный (муниципальный) этап",
-    "Региональный этап",
-    "Заключительный этап",
-  ];
-
-  const result = ["участник", "I место", "II место", "III место"];
+  useEffect(() => {
+    switch (formType) {
+      case FormType.fileOnly: {
+        setTotalSteps(1);
+        break;
+      }
+      case FormType.fullForm: {
+        setTotalSteps(5);
+        break;
+      }
+      case FormType.listStageResult: {
+        setTotalSteps(4);
+        break;
+      }
+      case FormType.stageResult: {
+        setTotalSteps(3);
+        break;
+      }
+    }
+  }, [formType]);
 
   return (
     <div className={block()}>
@@ -92,169 +112,90 @@ export function AchievementFormPage() {
       <div className={block("content")}>
         <Switch>
           <Route exact path={`${path}/file`}>
-            <div className={block("file")}>
-              <input
-                className={block("file-input")}
-                ref={inputRef}
-                type="file"
-                onChange={(e: ChangeEvent) => {
-                  const target = e.target as HTMLInputElement;
-
-                  const files = target.files;
-                  if (files?.length) {
-                    const file = files[0];
-                    setFilename(file?.name);
-                  } else {
-                    return null;
-                  }
-                }}
-              />
-              <div
-                className={block("file-card")}
-                onClick={() => inputRef.current?.click()}
-              >
-                {filename ||
-                  "Загрузите скан или фотографию подтверждающего документа (JPG, PNG, PDF), максимальный размер файла – 10 МБ».)"}
-              </div>
-            </div>
+            <FileBlock />
           </Route>
           <Route exact path={`${path}/step/1`}>
-            <FormControl component="fieldset">
-              <UpdateStep step={1} setStep={setCurrentStep} />
-              <FormLabel
-                className={block("form-label").toString()}
-                component="legend"
-              >
-                Выберите тип олимпиады
-              </FormLabel>
-              <RadioGroup
-                value={competitionCategory}
-                onChange={(_, value) => setCompetitionCategory(Number(value))}
-              >
-                <FormControlLabel
-                  className={block("radio").toString()}
-                  control={<Radio className={block("radio-icon").toString()} />}
-                  label="Всероссийская олимпиада школьников 2017– 2021 гг."
-                  value={1}
-                />
-                <FormControlLabel
-                  className={block("radio").toString()}
-                  control={<Radio className={block("radio-icon").toString()} />}
-                  label="Олимпиада из перечня Министерства науки и высшего образования 2017– 2021 гг."
-                  value={2}
-                />
-              </RadioGroup>
-              {/* <FormHelperText></FormHelperText> */}
-            </FormControl>
-          </Route>
-          <Route exact path={`${path}/step/2`}>
-            <FormControl component="fieldset">
-              <UpdateStep step={2} setStep={setCurrentStep} />
-              <FormLabel
-                className={block("form-label").toString()}
-                component="legend"
-              >
-                Выберите предмет
-              </FormLabel>
-              <RadioGroup
-                value={competitionSubject}
-                onChange={(_, value) => setCompetitionSubject(Number(value))}
-              >
-                {subjects.map((subject, idx) => (
+            <UpdateStep step={1} setStep={setCurrentStep} />
+            {formType === FormType.fileOnly ? (
+              <FileBlock />
+            ) : formType === FormType.listResult ||
+              formType === FormType.listStageResult ? (
+              <FormControl component="fieldset">
+                <ListBlock />
+              </FormControl>
+            ) : formType === FormType.stageResult ? (
+              <FormControl component="fieldset">
+                <StageBlock type={1} />
+              </FormControl>
+            ) : (
+              <FormControl component="fieldset">
+                <FormLabel
+                  className={block("form-label").toString()}
+                  component="legend"
+                >
+                  Выберите тип олимпиады
+                </FormLabel>
+                <RadioGroup
+                  value={competitionCategory}
+                  onChange={(_, value) => setCompetitionCategory(Number(value))}
+                >
                   <FormControlLabel
                     className={block("radio").toString()}
                     control={
                       <Radio className={block("radio-icon").toString()} />
                     }
-                    label={subject}
-                    value={idx + 1}
+                    label="Всероссийская олимпиада школьников 2017– 2021 гг."
+                    value={1}
                   />
-                ))}
-              </RadioGroup>
-              {/* <FormHelperText></FormHelperText> */}
+                  <FormControlLabel
+                    className={block("radio").toString()}
+                    control={
+                      <Radio className={block("radio-icon").toString()} />
+                    }
+                    label="Олимпиада из перечня Министерства науки и высшего образования 2017– 2021 гг."
+                    value={2}
+                  />
+                </RadioGroup>
+              </FormControl>
+            )}
+          </Route>
+          <Route exact path={`${path}/step/2`}>
+            <FormControl component="fieldset">
+              <UpdateStep step={2} setStep={setCurrentStep} />
+              {formType === FormType.fullForm ? (
+                competitionCategory === 1 ? (
+                  <SubjectBlock />
+                ) : (
+                  <ListBlock />
+                )
+              ) : formType === FormType.stageResult ? (
+                <PlaceBlock />
+              ) : (
+                <StageBlock type={1} />
+              )}
             </FormControl>
           </Route>
           <Route exact path={`${path}/step/3`}>
             <FormControl component="fieldset">
               <UpdateStep step={3} setStep={setCurrentStep} />
-              <FormLabel
-                className={block("form-label").toString()}
-                component="legend"
-              >
-                Выберите этап олимпиады
-              </FormLabel>
-              <RadioGroup
-                value={competitionStage}
-                onChange={(_, value) => setCompetitionStage(Number(value))}
-              >
-                {stages.map((stage, idx) => (
-                  <FormControlLabel
-                    className={block("radio").toString()}
-                    control={
-                      <Radio className={block("radio-icon").toString()} />
-                    }
-                    label={stage}
-                    value={idx + 1}
-                  />
-                ))}
-              </RadioGroup>
-              {/* <FormHelperText></FormHelperText> */}
+              {formType === FormType.fullForm ? (
+                <StageBlock type={competitionCategory === 1 ? 0 : 1} />
+              ) : formType === FormType.stageResult ? (
+                <FileBlock />
+              ) : (
+                <PlaceBlock />
+              )}
             </FormControl>
           </Route>
           <Route exact path={`${path}/step/4`}>
             <FormControl component="fieldset">
               <UpdateStep step={4} setStep={setCurrentStep} />
-              <FormLabel
-                className={block("form-label").toString()}
-                component="legend"
-              >
-                Выберите результат
-              </FormLabel>
-              <RadioGroup
-                value={competitionResult}
-                onChange={(_, value) => setCompetitionResult(Number(value))}
-              >
-                {result.map((res, idx) => (
-                  <FormControlLabel
-                    className={block("radio").toString()}
-                    control={
-                      <Radio className={block("radio-icon").toString()} />
-                    }
-                    label={res}
-                    value={idx + 1}
-                  />
-                ))}
-              </RadioGroup>
-              {/* <FormHelperText></FormHelperText> */}
+              {formType === FormType.fullForm ? <PlaceBlock /> : <FileBlock />}
             </FormControl>
           </Route>
           <Route exact path={`${path}/step/5`}>
             <UpdateStep step={5} setStep={setCurrentStep} />
-            <div className={block("file")}>
-              <input
-                className={block("file-input")}
-                ref={inputRef}
-                type="file"
-                onChange={(e: ChangeEvent) => {
-                  const target = e.target as HTMLInputElement;
-
-                  const files = target.files;
-                  if (files?.length) {
-                    const file = files[0];
-                    setFilename(file?.name);
-                  } else {
-                    return null;
-                  }
-                }}
-              />
-              <div
-                className={block("file-card")}
-                onClick={() => inputRef.current?.click()}
-              >
-                {filename ||
-                  "Загрузите скан или фотографию подтверждающего документа (JPG, PNG, PDF), максимальный размер файла – 10 МБ».)"}
-              </div>
-            </div>
+            <FileBlock />
           </Route>
           <Redirect
             exact
