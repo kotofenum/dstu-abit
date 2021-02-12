@@ -21,18 +21,28 @@ const block = cn("pre-university-page");
 export function PreUniversityPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentProject, setCurrentProject] = useState<number | null>(null);
+  const [childSubcategory, setChildSubcategory] = useState<number | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
 
-  const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(null)
+  const childReady = currentProject === 0 && childSubcategory !== null;
+
+  const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(
+    null
+  );
 
   const { addToast } = useToasts();
 
   const currentPrograms: IPreUniversityProgram[] =
-    mainPrograms.filter((program) => program.project === currentProject!) || [];
+    mainPrograms.filter((program) => currentProject! > 0 ? program.project === currentProject! : currentProject === 0 && program.subcategory === childSubcategory) || [];
 
   useEffect(() => {
     setSelectedProgram(null);
+    setChildSubcategory(null)
   }, [currentProject]);
+
+  useEffect(() => {
+    setSelectedProgram(null);
+  }, [childSubcategory]);
 
   const load = () => {
     const ms = Math.floor(Math.random() * 1500);
@@ -53,51 +63,86 @@ export function PreUniversityPage() {
     <div className={block()}>
       <span className={block("heading")}>Довузовская подготовка</span>
       <div className={block("choose-project")}>
-        <FormControl component="fieldset">
-          <FormLabel
-            className={block("form-label").toString()}
-            component="legend"
-          >
-            Выберите проект
-          </FormLabel>
-          <RadioGroup
-            value={currentProject}
-            onChange={(_, value) => setCurrentProject(Number(value))}
-          >
-            <FormControlLabel
-              className={block("radio").toString()}
-              control={<Radio className={block("radio-icon").toString()} />}
-              label="Детский университет (3-14 лет)"
-              value={0}
-            />
-            <FormControlLabel
-              className={block("radio").toString()}
-              control={<Radio className={block("radio-icon").toString()} />}
-              label="Малая академия (15-18 лет)"
-              value={1}
-            />
-            <FormControlLabel
-              className={block("radio").toString()}
-              control={<Radio className={block("radio-icon").toString()} />}
-              label="Академия абитуриентов (15-20 лет)"
-              value={2}
-            />
-            <FormControlLabel
-              className={block("radio").toString()}
-              control={<Radio className={block("radio-icon").toString()} />}
-              label="Родительский университет (20+)"
-              value={3}
-            />
-            <FormControlLabel
-              className={block("radio").toString()}
-              control={<Radio className={block("radio-icon").toString()} />}
-              label="Академия третьего возраста (55+)"
-              value={4}
-            />
-          </RadioGroup>
-        </FormControl>
+        <div className={block("form")}>
+          <FormControl component="fieldset">
+            <FormLabel
+              className={block("form-label").toString()}
+              component="legend"
+            >
+              Выберите проект
+            </FormLabel>
+            <RadioGroup
+              value={currentProject}
+              onChange={(_, value) => setCurrentProject(Number(value))}
+            >
+              <FormControlLabel
+                className={block("radio").toString()}
+                control={<Radio className={block("radio-icon").toString()} />}
+                label="Детский университет (3-14 лет)"
+                value={0}
+              />
+              <FormControlLabel
+                className={block("radio").toString()}
+                control={<Radio className={block("radio-icon").toString()} />}
+                label="Малая академия (15-18 лет)"
+                value={1}
+              />
+              <FormControlLabel
+                className={block("radio").toString()}
+                control={<Radio className={block("radio-icon").toString()} />}
+                label="Академия абитуриентов (15-20 лет)"
+                value={2}
+              />
+              <FormControlLabel
+                className={block("radio").toString()}
+                control={<Radio className={block("radio-icon").toString()} />}
+                label="Родительский университет (20+)"
+                value={3}
+              />
+              <FormControlLabel
+                className={block("radio").toString()}
+                control={<Radio className={block("radio-icon").toString()} />}
+                label="Академия третьего возраста (55+)"
+                value={4}
+              />
+            </RadioGroup>
+          </FormControl>
+          {currentProject === 0 && (
+            <FormControl component="fieldset">
+              <FormLabel
+                className={block("form-label").toString()}
+                component="legend"
+              >
+                Детский университет
+              </FormLabel>
+              <RadioGroup
+                value={childSubcategory}
+                onChange={(_, value) => setChildSubcategory(Number(value))}
+              >
+                <FormControlLabel
+                  className={block("radio").toString()}
+                  control={<Radio className={block("radio-icon").toString()} />}
+                  label="3-7 лет"
+                  value={0}
+                />
+                <FormControlLabel
+                  className={block("radio").toString()}
+                  control={<Radio className={block("radio-icon").toString()} />}
+                  label="1-4 класс"
+                  value={1}
+                />
+                <FormControlLabel
+                  className={block("radio").toString()}
+                  control={<Radio className={block("radio-icon").toString()} />}
+                  label="5-8 класс"
+                  value={2}
+                />
+              </RadioGroup>
+            </FormControl>
+          )}
+        </div>
       </div>
-      {currentProject !== null && (
+      {((currentProject || 0) > 0 || childReady) && (
         <motion.div
           className={block("result")}
           initial={{ opacity: 0, y: 8 }}

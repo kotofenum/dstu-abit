@@ -12,6 +12,11 @@
     margin-bottom: 12px;
   }
 
+  &__form {
+    display: flex;
+    // justify-content: space-between;
+  }
+
   &__choose-project {
   }
 
