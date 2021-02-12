@@ -64,12 +64,31 @@ export function AchievementFormPage() {
   const [totalSteps, setTotalSteps] = useState<number>(1);
 
   const save = useCallback(() => {
+    let reward: number = 0
+    if (categoryId === 1) {
+      reward = 5
+    } 
+    if (categoryId ===  2) {
+      reward = 3
+    }
+    if (categoryId ===  3) {
+      reward = 10
+    }
+    if (categoryId ===  4) {
+      reward = 3
+    }
+    if (categoryId ===  8) {
+      reward = 5
+    }
+    if (categoryId ===  9) {
+      reward = 5
+    }
     const achievements = localStorage.getItem("ach") || "{}";
     const arr = JSON.parse(achievements) || {};
     const category = achiemeventCategories.find(
       (category) => category.value === categoryId
     );
-    const newArr = {...arr, [categoryId]: category};
+    const newArr = {...arr, [categoryId]: {...category, reward}};
     localStorage.setItem("ach", JSON.stringify(newArr));
   }, [categoryId]);
 
