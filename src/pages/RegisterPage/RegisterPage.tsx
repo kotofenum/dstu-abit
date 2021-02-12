@@ -41,19 +41,19 @@ enum AccountType {
   teacher = "teacher",
 }
 
-interface ICountry {
+export interface ICountry {
   id: number;
   engName: string;
   name: string;
 }
 
-interface ICity {
+export interface ICity {
   id: number;
   engName: string;
   name: string;
 }
 
-interface ICountryCities {
+export interface ICountryCities {
   [id: string]: ICity[];
 }
 

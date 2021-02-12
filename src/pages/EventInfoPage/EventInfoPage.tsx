@@ -6,7 +6,7 @@ import "./styles.scss";
 
 import data from "../EventListPage/data";
 import { EventCard } from "../EventListPage/components/EventCard";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { useOvermind } from "../../store";
 import moment from "moment";
 
@@ -161,6 +161,16 @@ export function EventInfoPage() {
         >
           {hasPart ? "Отписаться от мероприятия" : "Записаться на мероприятие"}
         </Button>
+        <Link to={`/events/${eventId}/edit`} style={{textDecoration: "none"}}>
+          <Button
+            variant="outlined"
+            color="primary"
+            // isButton
+            disabled={event?.placesLeft === 0}
+          >
+            Редактировать
+          </Button>
+        </Link>
         {(event?.placesLeft || event?.placesLeft === 0) && (
           <span
             className={block("places-left", {

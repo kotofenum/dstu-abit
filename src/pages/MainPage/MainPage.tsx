@@ -39,7 +39,7 @@ export function MainPage() {
           href="https://abiturient.donstu.ru/proforientaczionnoe-testirovanie/"
           target="_blank"
           rel="noreferrer"
-          className={block("cell", { seven: true })}
+          className={block("cell", { six: true })}
         >
           ПРОФТЕСТИРОВАНИЕ
         </a>

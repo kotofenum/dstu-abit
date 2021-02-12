@@ -122,7 +122,7 @@ export function EditEventInfoPage() {
         <Button
           variant="contained"
           color="primary"
-          disabled={pwd !== realPassword}
+          // disabled={pwd !== realPassword}
           onClick={async () => {
             await actions.events.editEvent({
               eventId: event.uid,
@@ -136,12 +136,12 @@ export function EditEventInfoPage() {
         >
           Сохранить
         </Button>
-        <TextField
+        {/* <TextField
           style={{ marginLeft: "8px" }}
           label="Пароль"
           value={pwd}
           onChange={(e) => setPwd(e.target.value)}
-        />
+        /> */}
       </div>
     </div>
   ) : null;
