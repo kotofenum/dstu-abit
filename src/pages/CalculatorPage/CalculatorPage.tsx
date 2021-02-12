@@ -12,9 +12,13 @@ import {
 } from "@material-ui/core";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
 import { useOvermind } from "../../store";
+import { ProgramsWithSubjects_programsWithSubjects } from "../../store/programs/effects/gql/graphql-types/ProgramsWithSubjects";
+import { Subjects_subjects } from "../../store/programs/effects/gql/graphql-types/Subjects";
 import { ProgramCard } from "./components/PrrogramCard";
+import { IProgramSubject } from "./components/PrrogramCard/ProgramCard";
 
 import "./styles.scss";
 
@@ -85,11 +89,11 @@ const subjects: ISubject[] = [
 ];
 
 interface ISubjectResults {
-  [key: number]: number;
+  [key: string]: number;
 }
 
 interface ISelectedSubjects {
-  [key: number]: boolean;
+  [key: string]: boolean;
 }
 
 export function CalculatorPage() {
@@ -102,7 +106,8 @@ export function CalculatorPage() {
   const [results, setResults] = useState<ISubjectResults>({});
 
   const toggleSubject = useCallback(
-    (subject: ISubject, value: boolean) => {
+    (subject: Subjects_subjects, value: boolean) => {
+      setFilteredPrograms([]);
       setSelectedSubjects({
         ...selectedSubjects,
         [subject.uid]: value,
@@ -116,15 +121,72 @@ export function CalculatorPage() {
   );
 
   const updateResults = useCallback(
-    (subject: ISubject, value: number) => {
+    (subject: Subjects_subjects, value: number) => {
+      setFilteredPrograms([]);
       setResults({ ...results, [subject.uid]: value });
     },
     [results]
   );
 
   useEffect(() => {
+    actions.programs.getSubjects();
+  });
+
+  useEffect(() => {
     // TODO: стирать результаты поиска при уходе со странице или изменении параметров
   }, []);
+
+  const mapSubjects = useCallback(
+    (program: ProgramsWithSubjects_programsWithSubjects) => {
+      const requiredMappedSubjects: IProgramSubject[] = program.subjects
+        .filter((subject) => subject.required)
+        .map((subject) => ({
+          title: subject.subject.title,
+          minScore: subject.score,
+          scored: results[subject.subject.uid] >= subject.score,
+        }));
+
+      const optionalMappedSubjects: IProgramSubject[] = program.subjects
+        .filter((subject) => !subject.required)
+        .map((subject) => ({
+          title: subject.subject.title,
+          minScore: subject.score,
+          scored: results[subject.subject.uid] >= subject.score,
+        }));
+
+      return {
+        required: requiredMappedSubjects,
+        optional: optionalMappedSubjects,
+      };
+    },
+    [results]
+  );
+
+  const [filteredPrograms, setFilteredPrograms] = useState<
+    ProgramsWithSubjects_programsWithSubjects[]
+  >([]);
+
+  const filter = useCallback(() => {
+    const filteredPrograms = state.programs.listWithSubjects
+      .filter(
+        (program) =>
+          (educationForm === 0 && program.fullTimeForm) ||
+          (educationForm === 1 && program.mixedForm) ||
+          (educationForm === 2 && program.extramuralForm)
+      )
+      .filter((program) =>
+        program.subjects
+          .filter((subject) => subject.required)
+          .every((subject) => results[subject.subject.uid] >= subject.score)
+      );
+    setFilteredPrograms(filteredPrograms);
+  }, [educationForm, results, state.programs.listWithSubjects]);
+
+  // const requiredSubjects: IProgramSubject[] = state.programs.listWithSubjects.map
+
+  useEffect(() => {
+    setFilteredPrograms([])
+  }, [educationForm])
 
   return (
     <div className={block()}>
@@ -168,65 +230,65 @@ export function CalculatorPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
           >
-            <FormControl component="fieldset">
-              <FormLabel
-                className={block("form-label").toString()}
-                component="legend"
-              >
-                Укажите баллы по предметам
-              </FormLabel>
-              <RadioGroup
-                value={educationForm}
-                onChange={(_, value) => setEducationForm(Number(value))}
-              >
-                {subjects.map((subject) => (
-                  <div className={block("option-row")}>
-                    <FormControlLabel
-                      className={block("checkbox").toString()}
-                      control={<Checkbox />}
-                      label={subject.title}
-                      value={selectedSubjects[subject.uid]}
-                      onChange={(_, value) => toggleSubject(subject, value)}
-                    />
-                    {selectedSubjects[subject.uid] ? (
-                      <Grid
-                        className={block("slider").toString()}
-                        container
-                        spacing={2}
-                        alignItems="center"
-                      >
-                        <Grid item>
-                          <Input
-                            value={results[subject.uid] || 0}
-                            margin="dense"
-                            onChange={(e) =>
-                              updateResults(subject, Number(e.target.value))
-                            }
-                            // onBlur={handleBlur}
-                            inputProps={{
-                              step: 10,
-                              min: 0,
-                              max: 100,
-                              type: "number",
-                              "aria-labelledby": "input-slider",
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs>
-                          <Slider
-                            value={results[subject.uid] || 0}
-                            onChange={(_, value) =>
-                              updateResults(subject, Number(value))
-                            }
-                            aria-labelledby="input-slider"
-                          />
-                        </Grid>
+            {/* <FormControl component="fieldset"> */}
+            <FormLabel
+              className={block("form-label").toString()}
+              component="legend"
+            >
+              Укажите баллы по предметам
+            </FormLabel>
+            <RadioGroup
+              value={educationForm}
+              onChange={(_, value) => setEducationForm(Number(value))}
+            >
+              {state.programs.subjects.map((subject) => (
+                <div className={block("option-row")} key={subject.uid}>
+                  <FormControlLabel
+                    className={block("checkbox").toString()}
+                    control={<Checkbox />}
+                    label={subject.title}
+                    value={selectedSubjects[subject.uid]}
+                    onChange={(_, value) => toggleSubject(subject, value)}
+                  />
+                  {selectedSubjects[subject.uid] ? (
+                    <Grid
+                      className={block("slider").toString()}
+                      container
+                      spacing={2}
+                      alignItems="center"
+                    >
+                      <Grid item>
+                        <Input
+                          value={results[subject.uid] || 0}
+                          margin="dense"
+                          onChange={(e) =>
+                            updateResults(subject, Number(e.target.value))
+                          }
+                          // onBlur={handleBlur}
+                          inputProps={{
+                            step: 10,
+                            min: 0,
+                            max: 100,
+                            type: "number",
+                            "aria-labelledby": "input-slider",
+                          }}
+                        />
                       </Grid>
-                    ) : null}
-                  </div>
-                ))}
-              </RadioGroup>
-            </FormControl>
+                      <Grid item xs>
+                        <Slider
+                          value={results[subject.uid] || 0}
+                          onChange={(_, value) =>
+                            updateResults(subject, Number(value))
+                          }
+                          aria-labelledby="input-slider"
+                        />
+                      </Grid>
+                    </Grid>
+                  ) : null}
+                </div>
+              ))}
+            </RadioGroup>
+            {/* </FormControl> */}
             <AnimatePresence>
               {!!Object.values(selectedSubjects).some((value) => !!value) && (
                 <motion.div
@@ -238,7 +300,10 @@ export function CalculatorPage() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => actions.programs.getPrograms()}
+                    onClick={async () => {
+                      await actions.programs.getProgramsWithSubjects();
+                      filter();
+                    }}
                   >
                     Показать образовательные программы
                   </Button>
@@ -248,32 +313,20 @@ export function CalculatorPage() {
           </motion.div>
         )}
       </AnimatePresence>
-      {!!state.programs.list?.length && (
+      {!!filteredPrograms?.length && (
         <div className={block("results")}>
           <span className={block("results-heading")}>
-            Подходящие образовательные программы
+            Подходящие образовательные программы ({filteredPrograms.length})
           </span>
-          {state.programs.list.map((program) => (
-            <ProgramCard
-              title={program.title}
-              minScore={163}
-              requiredSubjects={[
-                { title: "Математика", minScore: 39, scored: 39 <= results[1] },
-                {
-                  title: "Русский язык",
-                  minScore: 41,
-                  scored: 39 <= results[2],
-                },
-              ]}
-              optionalSubjects={[
-                { title: "Физика", minScore: 44, scored: 39 <= results[3] },
-                {
-                  title: "Информатика",
-                  minScore: 39,
-                  scored: 39 <= results[5],
-                },
-              ]}
-            />
+          {filteredPrograms.map((program) => (
+            <Link key={program.uid} to={`/education/programs/${program.uid}`}>
+              <ProgramCard
+                title={program.title}
+                minScore={163}
+                requiredSubjects={mapSubjects(program).required}
+                optionalSubjects={mapSubjects(program).optional}
+              />
+            </Link>
           ))}
         </div>
       )}

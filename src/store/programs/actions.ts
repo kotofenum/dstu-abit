@@ -8,6 +8,20 @@ export const getPrograms: AsyncAction = async ({ state, effects }) => {
   state.specialties.loading = false;
 };
 
+export const getProgramsWithSubjects: AsyncAction = async ({ state, effects }) => {
+  state.programs.loading = true;
+  const { programsWithSubjects } = await effects.programs.gql.queries.programsWithSubjects();
+
+  state.programs.listWithSubjects = programsWithSubjects;
+  state.programs.loading = false;
+};
+
+export const getSubjects: AsyncAction = async ({ state, effects }) => {
+  const { subjects } = await effects.programs.gql.queries.subjects();
+
+  state.programs.subjects = subjects;
+};
+
 export const getProgram: AsyncAction<string> = async (
   { state, effects },
   uid

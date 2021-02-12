@@ -1,3 +1,4 @@
+import { Subjects } from './graphql-types/Subjects';
 import { ProgramsOfSpecialtyInput } from "./../../../graphql-global-types";
 import { gql, Query } from "overmind-graphql";
 import {
@@ -6,6 +7,7 @@ import {
 } from "./graphql-types/ProgramsOfSpecialty";
 import { Program } from "./graphql-types/Program";
 import { Programs } from "./graphql-types/Programs";
+import { ProgramsWithSubjects } from "./graphql-types/ProgramsWithSubjects";
 
 export const programs: Query<Programs> = gql`
   query Programs {
@@ -42,6 +44,36 @@ export const programs: Query<Programs> = gql`
       graduates
       unit
       supervisor
+    }
+  }
+`;
+
+export const programsWithSubjects: Query<ProgramsWithSubjects> = gql`
+  query ProgramsWithSubjects {
+    programsWithSubjects {
+      uid
+      title
+      fullTimeForm
+      mixedForm
+      extramuralForm
+      subjects {
+        uid
+        required
+        score
+        subject {
+          uid
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const subjects: Query<Subjects> = gql`
+  query Subjects {
+    subjects {
+      uid
+      title
     }
   }
 `;

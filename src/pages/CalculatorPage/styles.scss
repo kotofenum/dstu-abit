@@ -40,6 +40,11 @@
     grid-auto-flow: row;
     gap: 16px;
     margin-top: 24px;
+
+    > a {
+      color: inherit;
+      text-decoration: inherit;
+    }
   }
 
   &__results-heading {

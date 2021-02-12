@@ -31,5 +31,8 @@
   }
 
   &__subject {
+    &--scored {
+      color: #2d992d;
+    }
   }
 }
