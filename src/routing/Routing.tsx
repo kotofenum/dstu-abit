@@ -36,6 +36,7 @@ import { AchievementFormPage } from "../pages/AchievementFormPage";
 import { AchievementCompetitionPage } from "../pages/AchievementCompetitionPage";
 import { PreUniversityPage } from "../pages/PreUniversityPage";
 import { ToastProvider } from "react-toast-notifications";
+import { CalculatorPage } from "../pages/CalculatorPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -105,6 +106,7 @@ function MainRouting() {
         />
         <Redirect path="/achievements" to="/achievements/intro" />
         <Route exact path="/pre-university" component={PreUniversityPage} />
+        <Route exact path="/calculator" component={CalculatorPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
         <Route exact path="/education/majors/:id" component={MajorPage} />
         <Route

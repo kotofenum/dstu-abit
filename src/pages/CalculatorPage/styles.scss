@@ -1,0 +1,49 @@
+.calculator-page {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  font-family: "Open Sans", sans-serif;
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
+  &__subjects-block {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+  }
+
+  &__option-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__checkbox {
+    user-select: none;
+  }
+
+  &__slider {
+    max-width: 80%;
+  }
+
+  &__actions {
+    margin-top: 16px;
+  }
+
+  &__results {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  &__results-heading {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+}

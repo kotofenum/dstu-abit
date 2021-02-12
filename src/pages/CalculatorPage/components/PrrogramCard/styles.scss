@@ -1,0 +1,35 @@
+.results-program-card {
+  display: flex;
+  flex-direction: column;
+  background: #eee;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+
+  &__title {
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__min-score {
+    margin-bottom: 8px;
+  }
+
+  &__required,
+  &__optional {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+  }
+
+  &__subheading {
+    font-weight: 600;
+  }
+
+  &__subject {
+  }
+}

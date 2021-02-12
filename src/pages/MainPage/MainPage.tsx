@@ -51,17 +51,9 @@ export function MainPage() {
         >
           ПРЕДМЕТНОЕ ТЕСТИРОВАНИЕ
         </a>
-        <a
-          href="https://donstu.ru/applicants/kalkulator-ege/"
-          target="_blank"
-          rel="noreferrer"
-          className={block("cell", { eight: true })}
-        >
+        <Link to={`/calculator`} className={block("cell", { eight: true })}>
           КАЛЬКУЛЯТОР ЕГЭ
-        </a>
-        {/* <Link to={`/calculator`} className={block("cell", { eight: true })}>
-          КАЛЬКУЛЯТОР ЕГЭ
-        </Link> */}
+        </Link>
         <Link to={`/achievements`} className={block("cell", { nine: true })}>
           ПРЕДВАРИТЕЛЬНЫЙ УЧЕТ ИНДИВИДУАЛЬНЫХ ДОСТИЖЕНИЙ
         </Link>
