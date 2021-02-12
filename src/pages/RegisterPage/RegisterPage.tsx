@@ -188,6 +188,7 @@ export function RegisterPage() {
                 label="Отчество"
                 // value={patronym}
                 onChange={(e) => setPatronym(e.target.value)}
+                helperText="при наличии"
               />
             </div>
             <div

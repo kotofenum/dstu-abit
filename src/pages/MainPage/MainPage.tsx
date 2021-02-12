@@ -35,11 +35,16 @@ export function MainPage() {
         <Link to={`/pre-university`} className={block("cell", { five: true })}>
           ДОВУЗОВСКАЯ ПОДГОТОВКА
         </Link>
-        <Link to={`/`} className={block("cell", { six: true })}>
-          ПРОФТЕСТИРОВАНИЕ
-        </Link>
         <a
           href="https://abiturient.donstu.ru/proforientaczionnoe-testirovanie/"
+          target="_blank"
+          rel="noreferrer"
+          className={block("cell", { seven: true })}
+        >
+          ПРОФТЕСТИРОВАНИЕ
+        </a>
+        <a
+          href="https://test.skif.donstu.ru/course/view.php?id=502"
           target="_blank"
           rel="noreferrer"
           className={block("cell", { seven: true })}

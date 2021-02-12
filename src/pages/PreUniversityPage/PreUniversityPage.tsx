@@ -23,6 +23,8 @@ export function PreUniversityPage() {
   const [currentProject, setCurrentProject] = useState<number | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
 
+  const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(null)
+
   const { addToast } = useToasts();
 
   const currentPrograms: IPreUniversityProgram[] =
