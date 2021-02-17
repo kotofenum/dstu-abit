@@ -19,6 +19,7 @@ export const me: Query<Me> = gql`
       course
       phone
       picture
+      isAdmin
     }
   }
 `;

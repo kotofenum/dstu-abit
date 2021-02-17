@@ -169,16 +169,21 @@ export function EventInfoPage() {
               : "Записаться на мероприятие"}
           </Button>
         ) : null}
-        {/* <Link to={`/events/${eventId}/edit`} style={{ textDecoration: "none" }}>
-          <Button
-            variant="outlined"
-            color="primary"
-            // isButton
-            disabled={event?.placesLeft === 0}
+        {state.auth.isAdmin && (
+          <Link
+            to={`/events/${eventId}/edit`}
+            style={{ textDecoration: "none" }}
           >
-            Редактировать
-          </Button>
-        </Link> */}
+            <Button
+              variant="outlined"
+              color="primary"
+              // isButton
+              disabled={event?.placesLeft === 0}
+            >
+              Редактировать
+            </Button>
+          </Link>
+        )}
         {(event?.placesLeft || event?.placesLeft === 0) && (
           <span
             className={block("places-left", {

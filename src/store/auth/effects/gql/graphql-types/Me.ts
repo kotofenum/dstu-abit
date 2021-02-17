@@ -25,6 +25,7 @@ export interface Me_me {
   course: string | null;
   phone: string;
   picture: string | null;
+  isAdmin: boolean;
 }
 
 export interface Me {

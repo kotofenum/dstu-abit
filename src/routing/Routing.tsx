@@ -41,6 +41,7 @@ import { EditProfilePage } from "../pages/EditProfilePage/EditProfilePage";
 import { ApplicationDraftPage } from "../pages/ApplicationDraftPage";
 import { CompetitionsPage } from "../pages/CompetitionsPage";
 import { GuidancePage } from "../pages/GuidancePage";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -130,7 +131,11 @@ function MainRouting() {
         <Route exact path="/education/programs" component={ProgramListPage} />
         <Route exact path="/education/programs/:id" component={ProgramPage} />
         <Redirect path="/education" to="/education/programs" />
-        {/* <Route exact path="/events/:id/edit" component={EditEventInfoPage} /> */}
+        <ProtectedRoute
+          exact
+          path="/events/:id/edit"
+          component={EditEventInfoPage}
+        />
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
         <Route exact path="/future-tour" component={FutureTourPage} />
