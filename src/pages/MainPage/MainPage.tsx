@@ -21,11 +21,11 @@ export function MainPage() {
         >
           ПРАВИЛА ПРИЕМА
         </a>
-        <Link to={`/events`} className={block("cell", { three: true })}>
+        <Link to={`/guidance`} className={block("cell", { three: true })}>
           ДНИ ОТКРЫТЫХ ДВЕРЕЙ И ПРОФМЕРОПРИЯТИЯ
         </Link>
         <Link to={`/competitions`} className={block("cell", { four: true })}>
-        КОНКУРСЫ И ОЛИМПИАДЫ
+          КОНКУРСЫ И ОЛИМПИАДЫ
         </Link>
         <Link to={`/pre-university`} className={block("cell", { five: true })}>
           ДОВУЗОВСКАЯ ПОДГОТОВКА

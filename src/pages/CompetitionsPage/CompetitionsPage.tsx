@@ -28,8 +28,11 @@ export function CompetitionsPage() {
                   <span className={block("competition-title")}>
                     {competition.name}
                   </span>
+                  <span className={block("competition-date")}>
+                    {competition.date}
+                  </span>
                   <span className={block("competition-audience")}>
-                  Целевая аудитория: {competition.audience}
+                    Целевая аудитория: {competition.audience}
                   </span>
                 </a>
               ) : (
@@ -40,8 +43,11 @@ export function CompetitionsPage() {
                   <span className={block("competition-title")}>
                     {competition.name}
                   </span>
+                  <span className={block("competition-date")}>
+                    {competition.date}
+                  </span>
                   <span className={block("competition-audience")}>
-                  Целевая аудитория: {competition.audience}
+                    Целевая аудитория: {competition.audience}
                   </span>
                 </div>
               )
