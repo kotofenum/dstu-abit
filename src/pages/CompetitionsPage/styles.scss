@@ -1,0 +1,50 @@
+.competitions-page {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  font-family: "Open Sans", sans-serif;
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
+
+  &__group-name {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 16px;
+  }
+
+  &__competition-block {
+    display: flex;
+    flex-direction: column;
+    background: rgb(231, 236, 243);
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: inherit;
+  }
+
+  &__competition-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  &__competition-audience {
+    color: #444;
+  }
+}

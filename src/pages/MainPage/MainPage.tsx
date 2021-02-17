@@ -24,14 +24,9 @@ export function MainPage() {
         <Link to={`/events`} className={block("cell", { three: true })}>
           ДНИ ОТКРЫТЫХ ДВЕРЕЙ И ПРОФМЕРОПРИЯТИЯ
         </Link>
-        <a
-          href="http://donstu-talant.ru"
-          target="_blank"
-          rel="noreferrer"
-          className={block("cell", { four: true })}
-        >
-          КОНКУРСЫ И ОЛИМПИАДЫ
-        </a>
+        <Link to={`/competitions`} className={block("cell", { four: true })}>
+        КОНКУРСЫ И ОЛИМПИАДЫ
+        </Link>
         <Link to={`/pre-university`} className={block("cell", { five: true })}>
           ДОВУЗОВСКАЯ ПОДГОТОВКА
         </Link>
