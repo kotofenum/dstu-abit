@@ -22,7 +22,7 @@ const block = cn("profile-page");
 
 interface ITabProps {
   setTab: React.Dispatch<
-    React.SetStateAction<"info" | "achievements" | "events">
+    React.SetStateAction<"info" | "achievements" | "events" | "favorite">
   >;
 }
 
@@ -39,8 +39,11 @@ const FetchMyEvents = (props: ITabProps) => {
 
   useEffect(() => {
     props.setTab("events");
+  }, [props]);
+
+  useEffect(() => {
     actions.events.myUserEvents();
-  }, [actions.events, props]);
+  }, [actions.events]);
 
   return null;
 };
@@ -53,11 +56,27 @@ const MyAchievements = (props: ITabProps) => {
   return null;
 };
 
+const Favorite = (props: ITabProps) => {
+  const { actions } = useOvermind();
+
+  useEffect(() => {
+    props.setTab("favorite");
+  }, [actions.tags, props]);
+  
+  useEffect(() => {
+    actions.tags.getMyTags();
+  }, [actions.tags]);
+
+  return null;
+};
+
 export function ProfilePage() {
   const { path } = useRouteMatch();
   const history = useHistory();
   const { state } = useOvermind();
-  const [tab, setTab] = useState<"info" | "achievements" | "events">("info");
+  const [tab, setTab] = useState<
+    "info" | "achievements" | "events" | "favorite"
+  >("info");
 
   const user = state.auth.user;
 
@@ -105,6 +124,7 @@ export function ProfilePage() {
               <Tab label="Данные профиля" value="info" />
               <Tab label="Мои мероприятия" value="events" />
               <Tab label="Достижения" value="achievements" />
+              <Tab label="Мне интересно" value="favorite" />
             </Tabs>
           </Paper>
         </div>
@@ -197,6 +217,7 @@ export function ProfilePage() {
         </Route>
         <Route exact path={`${path}/achievements`}>
           <div className={block("cards")}>
+            <MyAchievements setTab={setTab} />
             {achievements.map((achievement) => (
               <AchievementCard
                 key={achievement.name}
@@ -205,6 +226,35 @@ export function ProfilePage() {
               />
             ))}
           </div>
+        </Route>
+        <Route exact path={`${path}/favorite`}>
+          <Favorite setTab={setTab} />
+          {state.tags.tags?.programs?.length ? (
+            <span className={block("subheading")}>
+              Образовательные программы
+            </span>
+          ) : null}
+          {state.tags.tags?.programs.map((program) => (
+            <Link to={`/education/programs/${program.uid}`}>
+              {program.title}
+            </Link>
+          ))}
+          {state.tags.tags?.specialties?.length ? (
+            <span className={block("subheading")}>Направления</span>
+          ) : null}
+          {state.tags.tags?.specialties.map((program) => (
+            <Link to={`/education/specialties/${program.uid}`}>
+              {program.title}
+            </Link>
+          ))}
+          {state.tags.tags?.majors?.length ? (
+            <span className={block("subheading")}>
+              Укрупненные группы направлений
+            </span>
+          ) : null}
+          {state.tags.tags?.majors.map((program) => (
+            <Link to={`/education/majors/${program.uid}`}>{program.title}</Link>
+          ))}
         </Route>
         <Redirect exact path="/profile" to={`${path}/info`} />
       </Switch>
