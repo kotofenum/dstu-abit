@@ -6,7 +6,7 @@ import {
   Radio,
   Button,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { cn } from "../../services/helpers/classname";
 import { ProgramCard } from "./components/ProgramCard";
 import { useToasts } from "react-toast-notifications";
@@ -15,10 +15,23 @@ import "./styles.scss";
 
 import { mainPrograms, IPreUniversityProgram } from "./data";
 import { AnimatePresence, motion } from "framer-motion";
+import { useOvermind } from "../../store";
 
 const block = cn("pre-university-page");
 
+const categories = [
+  "Детский университет (3-14 лет)",
+  "Малая академия (15-18 лет)",
+  "Академия абитуриентов (15-20 лет)",
+  "Родительский университет (20+)",
+  "Академия третьего возраста (55+)",
+];
+
+const childUniSubcategories = ["3-7 лет", "1-4 класс", "5-8 класс"];
+
 export function PreUniversityPage() {
+  const { actions } = useOvermind();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentProject, setCurrentProject] = useState<number | null>(null);
   const [childSubcategory, setChildSubcategory] = useState<number | null>(null);
@@ -33,22 +46,33 @@ export function PreUniversityPage() {
   const { addToast } = useToasts();
 
   const currentPrograms: IPreUniversityProgram[] =
-    mainPrograms.filter((program) => currentProject! > 0 ? program.project === currentProject! : currentProject === 0 && program.subcategory === childSubcategory) || [];
+    mainPrograms.filter((program) =>
+      currentProject! > 0
+        ? program.project === currentProject!
+        : currentProject === 0 && program.subcategory === childSubcategory
+    ) || [];
 
   useEffect(() => {
     setSelectedProgram(null);
-    setChildSubcategory(null)
+    setChildSubcategory(null);
   }, [currentProject]);
 
   useEffect(() => {
     setSelectedProgram(null);
   }, [childSubcategory]);
 
-  const load = () => {
-    const ms = Math.floor(Math.random() * 1500);
-    setIsLoading(true);
+  const load = useCallback(async () => {
+    if (currentProject !== null && selectedProgram) {
+      setIsLoading(true);
+      await actions.preuniversity.preuniversityRequest({
+        category: categories[currentProject],
+        subcategory:
+          childSubcategory && currentProject === 0
+            ? childUniSubcategories[childSubcategory]
+            : null,
+        program: selectedProgram,
+      });
 
-    setTimeout(() => {
       setIsLoading(false);
       setCurrentProject(null);
 
@@ -56,8 +80,14 @@ export function PreUniversityPage() {
         appearance: "success",
         autoDismiss: true,
       });
-    }, ms);
-  };
+    }
+  }, [
+    actions.preuniversity,
+    addToast,
+    childSubcategory,
+    currentProject,
+    selectedProgram,
+  ]);
 
   return (
     <div className={block()}>

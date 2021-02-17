@@ -104,6 +104,12 @@ export interface ModuleEventsInput {
   module: ModuleType;
 }
 
+export interface PreuniversityRequestInput {
+  category: string;
+  subcategory?: string | null;
+  program: string;
+}
+
 export interface ProgramsOfSpecialtyInput {
   specialtyId: string;
 }
