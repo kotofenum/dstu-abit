@@ -72,5 +72,9 @@
 
   &__details-action {
     margin-top: 16px;
+
+    > a {
+      text-decoration: none;
+    }
   }
 }

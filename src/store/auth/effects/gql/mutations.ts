@@ -1,3 +1,4 @@
+import { EditUser, EditUserVariables } from "./graphql-types/EditUser";
 import { gql, Query } from "overmind-graphql";
 import { ConfirmCode, ConfirmCodeVariables } from "./graphql-types/ConfirmCode";
 import { Login, LoginVariables } from "./graphql-types/Login";
@@ -31,6 +32,27 @@ export const confirmCode: Query<ConfirmCode, ConfirmCodeVariables> = gql`
 export const updateUser: Query<UpdateUser, UpdateUserVariables> = gql`
   mutation UpdateUser($input: UpdateUserInput!) {
     updateUser(input: $input) {
+      uid
+      firstName
+      lastName
+      patronym
+      type
+      birthDate
+      country
+      locality
+      email
+      pwd
+      school
+      position
+      child
+      course
+    }
+  }
+`;
+
+export const editUser: Query<EditUser, EditUserVariables> = gql`
+  mutation EditUser($input: EditUserInput!) {
+    editUser(input: $input) {
       uid
       firstName
       lastName

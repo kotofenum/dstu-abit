@@ -2,6 +2,7 @@ import { Button, Paper, Tab, Tabs } from "@material-ui/core";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
+  Link,
   Redirect,
   Route,
   Switch,
@@ -159,9 +160,11 @@ export function ProfilePage() {
               <span className={block("details-row-value")}>{user.email}</span>
             </div>
             <div className={block("details-action")}>
-              {/* <Button variant="outlined" color="primary">
-            Редактировать
-          </Button> */}
+              <Link to="/profile/edit">
+                <Button variant="contained" color="primary">
+                  Редактировать
+                </Button>
+              </Link>
             </div>
           </div>
         </Route>

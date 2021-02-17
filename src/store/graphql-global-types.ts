@@ -84,6 +84,17 @@ export interface EditEventInput {
   link?: string | null;
 }
 
+export interface EditUserInput {
+  country?: string | null;
+  locality?: string | null;
+  birthDate?: any | null;
+  school?: string | null;
+  email?: string | null;
+  position?: string | null;
+  child?: string | null;
+  course?: string | null;
+}
+
 export interface LoginInput {
   phone: string;
   password: string;

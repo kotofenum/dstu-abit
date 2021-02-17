@@ -10,4 +10,10 @@
     font-size: 32px;
     margin-bottom: 32px;
   }
+
+  &__form {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 12px;
+  }
 }

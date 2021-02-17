@@ -1,3 +1,4 @@
+import { EditUserInput } from './../graphql-global-types';
 import { AsyncAction } from "overmind";
 import {
   CodeInput,
@@ -46,6 +47,17 @@ export const updateUser: AsyncAction<UpdateUserInput> = async (
 
   // state.majors.list = majors;
   // state.auth.token = resp.confirmCode.access_token;
+};
+
+export const editUser: AsyncAction<EditUserInput> = async (
+  { actions, effects },
+  data
+) => {
+  await effects.auth.gql.mutations.editUser({
+    input: data,
+  });
+
+  await actions.auth.getMe();
 };
 
 export const login: AsyncAction<LoginInput> = async (
