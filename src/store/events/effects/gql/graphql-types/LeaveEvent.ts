@@ -6,23 +6,23 @@
 import { UserEventInput } from "./../../../../graphql-global-types";
 
 // ====================================================
-// GraphQL mutation operation: JoinEvent
+// GraphQL mutation operation: LeaveEvent
 // ====================================================
 
-export interface JoinEvent_visitEvent_event {
+export interface LeaveEvent_leaveEvent_event {
   uid: string;
 }
 
-export interface JoinEvent_visitEvent {
+export interface LeaveEvent_leaveEvent {
   uid: string;
-  event: JoinEvent_visitEvent_event;
+  event: LeaveEvent_leaveEvent_event;
   attending: boolean;
 }
 
-export interface JoinEvent {
-  visitEvent: JoinEvent_visitEvent;
+export interface LeaveEvent {
+  leaveEvent: LeaveEvent_leaveEvent;
 }
 
-export interface JoinEventVariables {
+export interface LeaveEventVariables {
   input: UserEventInput;
 }

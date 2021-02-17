@@ -1,61 +1,95 @@
-import { EditEventInput, ModuleEventsInput, VisitInput } from './../graphql-global-types';
-import {AsyncAction} from 'overmind'
-import { join } from 'path'
+import {
+  EditEventInput,
+  ModuleEventsInput,
+  VisitInput,
+  UserEventInput,
+} from "./../graphql-global-types";
+import { AsyncAction } from "overmind";
+import { JoinEvent_visitEvent } from "./effects/gql/graphql-types/JoinEvent";
+import { LeaveEvent_leaveEvent } from "./effects/gql/graphql-types/LeaveEvent";
 // import { JoinEventInput } from '../graphql-global-types'
 
-export const getEvents: AsyncAction = async ({state, effects}) => {
-  const {events} = await effects.events.gql.queries.events()
-  console.log(events)
+export const getEvents: AsyncAction = async ({ state, effects }) => {
+  const { events } = await effects.events.gql.queries.events();
+  console.log(events);
 
-  state.events.events = events
-}
+  state.events.events = events;
+};
 
-export const getEvent: AsyncAction<string> = async ({state, effects}, uid) => {
-  const {event} = await effects.events.gql.queries.event({uid})
+export const myUserEvents: AsyncAction = async ({ state, effects }) => {
+  const { myUserEvents } = await effects.events.gql.queries.myUserEvents();
 
-  state.events.currentEvent = event
-}
+  state.events.myUserEvents = myUserEvents;
+};
 
-export const getEventsForUserTags: AsyncAction = async ({state, effects}) => {
-  const {eventsForUserTags} = await effects.events.gql.queries.eventsForUserTags()
-  console.log(eventsForUserTags)
+export const getEvent: AsyncAction<string> = async (
+  { state, effects },
+  uid
+) => {
+  const { event } = await effects.events.gql.queries.event({ uid });
 
-  state.events.personalEvents = eventsForUserTags
-}
+  state.events.currentEvent = event;
+};
 
-export const getEventsForModule: AsyncAction<ModuleEventsInput> = async ({state, effects}, input) => {
-  const {eventsForModule} = await effects.events.gql.queries.eventsForModule({input})
-  console.log(eventsForModule)
+export const getEventsForUserTags: AsyncAction = async ({ state, effects }) => {
+  const {
+    eventsForUserTags,
+  } = await effects.events.gql.queries.eventsForUserTags();
+  console.log(eventsForUserTags);
 
-  state.events.eventsForModule = eventsForModule
-}
+  state.events.personalEvents = eventsForUserTags;
+};
 
-export const editEvent: AsyncAction<EditEventInput, boolean> = async ({state, effects}, input) => {
-  const {editEvent} = await effects.events.gql.mutations.editEvent({input})
+export const getEventsForModule: AsyncAction<ModuleEventsInput> = async (
+  { state, effects },
+  input
+) => {
+  const { eventsForModule } = await effects.events.gql.queries.eventsForModule({
+    input,
+  });
+  console.log(eventsForModule);
 
-  console.log(editEvent)
-  return !!editEvent
-}
+  state.events.eventsForModule = eventsForModule;
+};
 
-export const visitEvent: AsyncAction<VisitInput, boolean> = async ({state, effects}, input) => {
-  const {addVisit} = await effects.events.gql.mutations.addVisit({input})
+export const editEvent: AsyncAction<EditEventInput, boolean> = async (
+  { state, effects },
+  input
+) => {
+  const { editEvent } = await effects.events.gql.mutations.editEvent({ input });
 
-  console.log(addVisit)
-  return !!addVisit
-}
+  console.log(editEvent);
+  return !!editEvent;
+};
 
+export const visitEvent: AsyncAction<VisitInput, boolean> = async (
+  { state, effects },
+  input
+) => {
+  const { addVisit } = await effects.events.gql.mutations.addVisit({ input });
 
+  console.log(addVisit);
+  return !!addVisit;
+};
 
-// export const joinEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
-//   const {joinEvent} = await effects.events.gql.mutations.joinEvent({input})
+export const joinEvent: AsyncAction<
+  UserEventInput,
+  JoinEvent_visitEvent
+> = async ({ state, effects }, input) => {
+  const { visitEvent } = await effects.events.gql.mutations.joinEvent({
+    input,
+  });
 
-//   console.log(joinEvent)
-//   return !!joinEvent
-// }
+  return visitEvent;
+};
 
-// export const leftEvent: AsyncAction<JoinEventInput, boolean> = async ({state, effects}, input) => {
-//   const {leftEvent} = await effects.events.gql.mutations.leftEvent({input})
+export const leaveEvent: AsyncAction<
+  UserEventInput,
+  LeaveEvent_leaveEvent
+> = async ({ state, effects }, input) => {
+  const { leaveEvent } = await effects.events.gql.mutations.leaveEvent({
+    input,
+  });
 
-//   console.log(leftEvent)
-//   return !!leftEvent
-// }
+  return leaveEvent;
+};

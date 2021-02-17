@@ -84,7 +84,7 @@ function MainRouting() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={LogoutPage} />
-        <Route exact path="/profile" component={ProfilePage} />
+        <Route path="/profile" component={ProfilePage} />
         <Route exact path="/profile/edit" component={EditProfilePage} />
         {/* <Route exact path="/education" component={EducationPage} /> */}
         <Route

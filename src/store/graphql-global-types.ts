@@ -116,6 +116,10 @@ export interface UpdateUserInput {
   course?: string | null;
 }
 
+export interface UserEventInput {
+  eventId: string;
+}
+
 export interface UserTagInput {
   relationId: string;
   relationType: TagRelationType;

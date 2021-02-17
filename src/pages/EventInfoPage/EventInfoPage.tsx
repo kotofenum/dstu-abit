@@ -38,7 +38,9 @@ export function EventInfoPage() {
     }
   }, [event]);
 
-  const [hasPart, setHasPart] = useState<boolean>(false);
+  // const [hasPart, setHasPart] = useState<boolean>(false);
+
+  const hasPart = event?.userIsGoing || false;
 
   const get = useCallback(() => {
     const event = localStorage.getItem("ev" + eventId) || "false";
@@ -49,14 +51,14 @@ export function EventInfoPage() {
   const save = useCallback(
     (val: boolean) => {
       localStorage.setItem("ev" + eventId, String(val));
-      setHasPart(val);
+      // setHasPart(val);
     },
     [eventId]
   );
 
   useEffect(() => {
     const p = get();
-    setHasPart(p);
+    // setHasPart(p);
   }, [get]);
 
   return event ? (
@@ -138,30 +140,36 @@ export function EventInfoPage() {
           </Button>
         </a>
         {/* {hasPart && <Tag name="Подключиться" isConnectButton />} */}
-        <Button
-          variant="outlined"
-          color="primary"
-          name={
-            hasPart ? "Отписаться от мероприятия" : "Записаться на мероприятие"
-          }
-          // isButton
-          disabled={event?.placesLeft === 0}
-          onClick={async (e) => {
-            e.preventDefault();
-            if (hasPart) {
-              // await actions.events.leftEvent({ eventId: event?.uid! });
-              save(false);
-            } else {
-              save(true);
-              // await actions.events.joinEvent({ eventId: event?.uid! });
+        {state.auth.user ? (
+          <Button
+            variant="outlined"
+            color="primary"
+            name={
+              hasPart
+                ? "Отписаться от мероприятия"
+                : "Записаться на мероприятие"
             }
-            actions.events.getEvents();
-            actions.events.getEvent(event?.uid!);
-          }}
-        >
-          {hasPart ? "Отписаться от мероприятия" : "Записаться на мероприятие"}
-        </Button>
-        <Link to={`/events/${eventId}/edit`} style={{textDecoration: "none"}}>
+            // isButton
+            disabled={event?.placesLeft === 0}
+            onClick={async (e) => {
+              e.preventDefault();
+              if (hasPart) {
+                await actions.events.leaveEvent({ eventId: event?.uid! });
+                save(false);
+              } else {
+                save(true);
+                await actions.events.joinEvent({ eventId: event?.uid! });
+              }
+              actions.events.getEvents();
+              actions.events.getEvent(event?.uid!);
+            }}
+          >
+            {hasPart
+              ? "Отписаться от мероприятия"
+              : "Записаться на мероприятие"}
+          </Button>
+        ) : null}
+        <Link to={`/events/${eventId}/edit`} style={{ textDecoration: "none" }}>
           <Button
             variant="outlined"
             color="primary"

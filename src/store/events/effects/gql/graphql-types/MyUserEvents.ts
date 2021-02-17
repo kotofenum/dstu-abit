@@ -6,10 +6,10 @@
 import { EventType, ModuleType } from "./../../../../graphql-global-types";
 
 // ====================================================
-// GraphQL query operation: Event
+// GraphQL query operation: MyUserEvents
 // ====================================================
 
-export interface Event_event {
+export interface MyUserEvents_myUserEvents_event {
   uid: string;
   title: string;
   description: string | null;
@@ -20,15 +20,15 @@ export interface Event_event {
   reward: number | null;
   limit: number | null;
   placesLeft: number | null;
-  userIsGoing: boolean | null;
   startsAt: any;
   endsAt: any;
 }
 
-export interface Event {
-  event: Event_event;
+export interface MyUserEvents_myUserEvents {
+  uid: string;
+  event: MyUserEvents_myUserEvents_event;
 }
 
-export interface EventVariables {
-  uid: string;
+export interface MyUserEvents {
+  myUserEvents: MyUserEvents_myUserEvents[];
 }

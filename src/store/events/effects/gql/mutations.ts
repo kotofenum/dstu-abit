@@ -1,6 +1,8 @@
-import { AddVisit, AddVisitVariables } from './graphql-types/AddVisit';
+import { AddVisit, AddVisitVariables } from "./graphql-types/AddVisit";
 import { gql, Query } from "overmind-graphql";
 import { EditEvent, EditEventVariables } from "./graphql-types/EditEvent";
+import { JoinEvent, JoinEventVariables } from "./graphql-types/JoinEvent";
+import { LeaveEvent, LeaveEventVariables } from "./graphql-types/LeaveEvent";
 // import { JoinEvent, JoinEventVariables } from './graphql-types/JoinEvent'
 // import { LeftEvent, LeftEventVariables } from './graphql-types/LeftEvent'
 
@@ -38,4 +40,29 @@ export const addVisit: Query<AddVisit, AddVisitVariables> = gql`
       }
     }
   }
-`
+`;
+
+export const joinEvent: Query<JoinEvent, JoinEventVariables> = gql`
+  mutation JoinEvent($input: UserEventInput!) {
+    visitEvent(input: $input) {
+      uid
+      event {
+        uid
+      }
+      attending
+    }
+  }
+`;
+
+
+export const leaveEvent: Query<LeaveEvent, LeaveEventVariables> = gql`
+  mutation LeaveEvent($input: UserEventInput!) {
+    leaveEvent(input: $input) {
+      uid
+      event {
+        uid
+      }
+      attending
+    }
+  }
+`;

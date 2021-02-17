@@ -2,7 +2,11 @@ import { Events } from "./graphql-types/Events";
 import { Event } from "./graphql-types/Event";
 import { gql, Query } from "overmind-graphql";
 import { EventsForUserTags } from "./graphql-types/EventsForUserTags";
-import { EventsForModule, EventsForModuleVariables } from "./graphql-types/EventsForModule";
+import {
+  EventsForModule,
+  EventsForModuleVariables,
+} from "./graphql-types/EventsForModule";
+import { MyUserEvents } from "./graphql-types/MyUserEvents";
 
 export const events: Query<Events> = gql`
   query Events {
@@ -36,6 +40,7 @@ export const event: Query<Event, { uid: string }> = gql`
       reward
       limit
       placesLeft
+      userIsGoing
       startsAt
       endsAt
     }
@@ -79,6 +84,27 @@ export const eventsForModule: Query<
       placesLeft
       startsAt
       endsAt
+    }
+  }
+`;
+export const myUserEvents: Query<MyUserEvents> = gql`
+  query MyUserEvents {
+    myUserEvents {
+      uid
+      event {
+        uid
+        title
+        description
+        type
+        module
+        faculty
+        link
+        reward
+        limit
+        placesLeft
+        startsAt
+        endsAt
+      }
     }
   }
 `;
