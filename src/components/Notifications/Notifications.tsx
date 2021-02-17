@@ -30,20 +30,20 @@ interface INotification {
 
 export function Notifications() {
   const notifications: INotification[] = [
-    {
-      text: "Добро пожаловать на платформу Абитуриент ДГТУ!",
-      date: new Date("2020-04-01"),
-    },
-    {
-      text:
-        "Заполните дополнительные поля в профиле, чтобы получить доступ к регистрации на мероприятия.",
-      date: new Date("2020-04-01"),
-    },
-    {
-      text:
-        "Скоро в ДГТУ День открытых дверей! Приходите, чтобы узнать больше о будущем образовании.",
-      date: new Date("2020-04-01"),
-    },
+    // {
+    //   text: "Добро пожаловать на платформу Абитуриент ДГТУ!",
+    //   date: new Date("2020-04-01"),
+    // },
+    // {
+    //   text:
+    //     "Заполните дополнительные поля в профиле, чтобы получить доступ к регистрации на мероприятия.",
+    //   date: new Date("2020-04-01"),
+    // },
+    // {
+    //   text:
+    //     "Скоро в ДГТУ День открытых дверей! Приходите, чтобы узнать больше о будущем образовании.",
+    //   date: new Date("2020-04-01"),
+    // },
   ];
 
   const {actions} = useOvermind();
@@ -69,9 +69,9 @@ export function Notifications() {
 
   return (
     <div className={block()} ref={popupRef}>
-      {notifications.reverse().map((notification) => (
+      {notifications.length ? notifications.reverse().map((notification) => (
         <NotificationItem notification={notification} />
-      ))}
+      )) : <span style={{padding: '8px'}}>Нет оповещений</span>}
     </div>
   );
 }

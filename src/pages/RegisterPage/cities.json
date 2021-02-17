@@ -7706,7 +7706,12 @@
       "id": 6689,
       "engName": "Vostochnoe Degunino",
       "name": "район Восточное Дегунино"
-    }
+    },
+    { "id": 7200, "engName": "Yevpatoriya", "name": "Евпатория" },
+    { "id": 7264, "engName": "Kerch", "name": "Керчь" },
+    { "id": 7216, "engName": "Simferopol", "name": "Симферополь" },
+    { "id": 7272, "engName": "Feodosiya", "name": "Феодосия" },
+    { "id": 7202, "engName": "Yalta", "name": "Ялта" }
   ],
   "144": [
     { "id": 6690, "engName": "Musanze", "name": "Рухенгери" },
@@ -8285,9 +8290,7 @@
     { "id": 7197, "engName": "Zhytomyr", "name": "Житомир" },
     { "id": 7198, "engName": "Zhovti Vody", "name": "Желтые Воды" },
     { "id": 7199, "engName": "Zaporizhzhya", "name": "Запорожье" },
-    { "id": 7200, "engName": "Yevpatoriya", "name": "Евпатория" },
     { "id": 7201, "engName": "Yenakiyeve", "name": "Енакиево" },
-    { "id": 7202, "engName": "Yalta", "name": "Ялтинский горсовет" },
     { "id": 7203, "engName": "Vinnytsya", "name": "Винница" },
     { "id": 7204, "engName": "Uzhhorod", "name": "Ужгород" },
     { "id": 7205, "engName": "Uman'", "name": "Умань" },
@@ -8301,7 +8304,6 @@
     { "id": 7213, "engName": "Snizhne", "name": "Снежное" },
     { "id": 7214, "engName": "Smila", "name": "Смела" },
     { "id": 7215, "engName": "Sloviansk", "name": "Славянск" },
-    { "id": 7216, "engName": "Simferopol", "name": "Симферопольский горсовет" },
     { "id": 7217, "engName": "Shostka", "name": "Шостка" },
     { "id": 7218, "engName": "Shakhtars'k", "name": "Шахтерск" },
     { "id": 7219, "engName": "Sevastopol", "name": "Севастополь" },
@@ -8353,7 +8355,6 @@
     { "id": 7261, "engName": "Kherson", "name": "Херсон" },
     { "id": 7262, "engName": "Khartsyz'k", "name": "Харцызск" },
     { "id": 7263, "engName": "Kharkiv", "name": "Харьков" },
-    { "id": 7264, "engName": "Kerch", "name": "Керчь" },
     {
       "id": 7265,
       "engName": "Kamieniec Podolski",
@@ -8365,7 +8366,6 @@
     { "id": 7269, "engName": "Ivano-Frankivs'k", "name": "Ивано-Франковск" },
     { "id": 7270, "engName": "Illichivs'k", "name": "Черноморск" },
     { "id": 7271, "engName": "Horlivka", "name": "Горловка" },
-    { "id": 7272, "engName": "Feodosiya", "name": "Феодо?сия" },
     { "id": 7273, "engName": "Fastiv", "name": "Фастов" },
     { "id": 7274, "engName": "Energodar", "name": "Энергодар" },
     { "id": 7275, "engName": "Drohobych", "name": "Дрогобыч" },
