@@ -124,12 +124,12 @@ export function EditEventInfoPage() {
           color="primary"
           // disabled={pwd !== realPassword}
           onClick={async () => {
-            await actions.events.editEvent({
-              eventId: event.uid,
-              description: description || event.description,
-              title: title || event.title,
-              link: link || event.link,
-            });
+            // await actions.events.editEvent({
+            //   eventId: event.uid,
+            //   description: description || event.description,
+            //   title: title || event.title,
+            //   link: link || event.link,
+            // });
             await actions.events.getEvent(event.uid);
             history.push(`/events/${event.uid}`);
           }}

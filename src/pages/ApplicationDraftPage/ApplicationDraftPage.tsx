@@ -94,12 +94,12 @@ export function ApplicationDraftPage() {
             disabled
           />
           <TextField
-            label="Фамилия"
+            label="Имя"
             value={state.auth.user?.firstName}
             disabled
           />
           <TextField
-            label="Фамилия"
+            label="Отчество"
             value={state.auth.user?.patronym}
             disabled
           />

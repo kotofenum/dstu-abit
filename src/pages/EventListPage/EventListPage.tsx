@@ -19,7 +19,7 @@ import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import { ModuleType } from "../../store/graphql-global-types";
 import { moduleType, moduleTypeLocal } from "../../types/ModuleType";
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 
 const block = cn("event-list-page");
 
@@ -42,8 +42,9 @@ export function EventListPage() {
 
   useEffect(() => {
     if (module) {
-      document.title =
-        `Модуль ${(moduleTypeLocal as any)[moduleKey]}, события | Абитуриент ДГТУ`;
+      document.title = `Модуль ${
+        (moduleTypeLocal as any)[moduleKey]
+      }, события | Абитуриент ДГТУ`;
     } else {
       document.title =
         "Полная карта мероприятий Дня открытых дверей | Абитуриент ДГТУ";
@@ -258,6 +259,20 @@ export function EventListPage() {
         />
       </div>
       <Brick size={3} />
+      {state.auth.isAdmin ? (
+        <Link
+          to="/events/add"
+          style={{
+            alignSelf: "flex-end",
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <Button variant="outlined" color="primary">
+            Создать событие
+          </Button>
+        </Link>
+      ) : null}
       {Object.keys(groupedEvents).map((key) => {
         const date = moment(key);
 

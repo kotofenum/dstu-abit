@@ -78,10 +78,18 @@ export interface ConfirmCodeInput {
 }
 
 export interface EditEventInput {
-  eventId: string;
+  title: string;
   description?: string | null;
-  title?: string | null;
+  type: EventType;
+  module: ModuleType;
+  faculty?: string | null;
   link?: string | null;
+  reward?: number | null;
+  limit?: number | null;
+  placesLeft?: number | null;
+  startsAt: any;
+  endsAt: any;
+  eventId: string;
 }
 
 export interface EditUserInput {
@@ -93,6 +101,20 @@ export interface EditUserInput {
   position?: string | null;
   child?: string | null;
   course?: string | null;
+}
+
+export interface EventInput {
+  title: string;
+  description?: string | null;
+  type: EventType;
+  module: ModuleType;
+  faculty?: string | null;
+  link?: string | null;
+  reward?: number | null;
+  limit?: number | null;
+  placesLeft?: number | null;
+  startsAt: any;
+  endsAt: any;
 }
 
 export interface LoginInput {

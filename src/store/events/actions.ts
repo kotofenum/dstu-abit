@@ -3,10 +3,13 @@ import {
   ModuleEventsInput,
   VisitInput,
   UserEventInput,
+  EventInput,
 } from "./../graphql-global-types";
 import { AsyncAction } from "overmind";
 import { JoinEvent_visitEvent } from "./effects/gql/graphql-types/JoinEvent";
 import { LeaveEvent_leaveEvent } from "./effects/gql/graphql-types/LeaveEvent";
+import { AddEvent_addEvent } from "./effects/gql/graphql-types/AddEvent";
+import { EditEvent_editEvent } from "./effects/gql/graphql-types/EditEvent";
 // import { JoinEventInput } from '../graphql-global-types'
 
 export const getEvents: AsyncAction = async ({ state, effects }) => {
@@ -52,15 +55,15 @@ export const getEventsForModule: AsyncAction<ModuleEventsInput> = async (
   state.events.eventsForModule = eventsForModule;
 };
 
-export const editEvent: AsyncAction<EditEventInput, boolean> = async (
-  { state, effects },
-  input
-) => {
-  const { editEvent } = await effects.events.gql.mutations.editEvent({ input });
+// export const editEvent: AsyncAction<EditEventInput, boolean> = async (
+//   { state, effects },
+//   input
+// ) => {
+//   const { editEvent } = await effects.events.gql.mutations.editEvent({ input });
 
-  console.log(editEvent);
-  return !!editEvent;
-};
+//   console.log(editEvent);
+//   return !!editEvent;
+// };
 
 export const visitEvent: AsyncAction<VisitInput, boolean> = async (
   { state, effects },
@@ -92,4 +95,26 @@ export const leaveEvent: AsyncAction<
   });
 
   return leaveEvent;
+};
+
+export const addEvent: AsyncAction<EventInput, AddEvent_addEvent> = async (
+  { state, effects },
+  input
+) => {
+  const { addEvent } = await effects.events.gql.mutations.addEvent({
+    input,
+  });
+
+  return addEvent;
+};
+
+export const editEvent: AsyncAction<EditEventInput, EditEvent_editEvent> = async (
+  { state, effects },
+  input
+) => {
+  const { editEvent } = await effects.events.gql.mutations.editEvent({
+    input,
+  });
+
+  return editEvent;
 };
