@@ -169,7 +169,7 @@ export function EventInfoPage() {
               : "Записаться на мероприятие"}
           </Button>
         ) : null}
-        <Link to={`/events/${eventId}/edit`} style={{ textDecoration: "none" }}>
+        {/* <Link to={`/events/${eventId}/edit`} style={{ textDecoration: "none" }}>
           <Button
             variant="outlined"
             color="primary"
@@ -178,7 +178,7 @@ export function EventInfoPage() {
           >
             Редактировать
           </Button>
-        </Link>
+        </Link> */}
         {(event?.placesLeft || event?.placesLeft === 0) && (
           <span
             className={block("places-left", {
