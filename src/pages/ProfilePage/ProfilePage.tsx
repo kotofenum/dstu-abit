@@ -12,6 +12,7 @@ import { Brick } from "../../components/utility/Brick";
 import { cn } from "../../services/helpers/classname";
 import { useOvermind } from "../../store";
 import { AccountType } from "../../store/graphql-global-types";
+import { AchievementCard } from "../AchievementsIntroPage/components/AchievementCard";
 import { EventCard } from "../EventListPage/components/EventCard";
 
 import "./styles.scss";
@@ -55,11 +56,23 @@ export function ProfilePage() {
   const { path } = useRouteMatch();
   const history = useHistory();
   const { state } = useOvermind();
-  const [tab, setTab] = useState<"info" | "achievements" | "events">(
-    "info"
-  );
+  const [tab, setTab] = useState<"info" | "achievements" | "events">("info");
 
   const user = state.auth.user;
+
+  const [achievements, setAchievements] = useState<
+    { name: string; reward: number }[]
+  >([]);
+
+  useEffect(() => {
+    const achievements = localStorage.getItem("ach") || "{}";
+    const arr = JSON.parse(achievements) || {};
+    const ar = Object.keys(arr).map((key) => ({
+      name: arr[key].label,
+      reward: arr[key].reward,
+    }));
+    setAchievements(ar);
+  }, []);
 
   return user ? (
     <div className={block()}>
@@ -176,6 +189,17 @@ export function ProfilePage() {
                 />
                 <Brick size={3} />
               </>
+            ))}
+          </div>
+        </Route>
+        <Route exact path={`${path}/achievements`}>
+          <div className={block("cards")}>
+            {achievements.map((achievement) => (
+              <AchievementCard
+                key={achievement.name}
+                name={achievement.name}
+                reward={achievement.reward}
+              />
             ))}
           </div>
         </Route>

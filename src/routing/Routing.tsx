@@ -38,6 +38,7 @@ import { PreUniversityPage } from "../pages/PreUniversityPage";
 import { ToastProvider } from "react-toast-notifications";
 import { CalculatorPage } from "../pages/CalculatorPage";
 import { EditProfilePage } from "../pages/EditProfilePage/EditProfilePage";
+import { ApplicationDraftPage } from "../pages/ApplicationDraftPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -107,6 +108,12 @@ function MainRouting() {
           component={AchievementCompetitionPage}
         />
         <Redirect path="/achievements" to="/achievements/intro" />
+        <Route
+          exact
+          path="/application/draft"
+          component={ApplicationDraftPage}
+        />
+        <Redirect exact path="/application" to="/application/draft" />
         <Route exact path="/pre-university" component={PreUniversityPage} />
         <Route exact path="/calculator" component={CalculatorPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
