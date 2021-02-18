@@ -6,10 +6,11 @@ import {
   RadioGroup,
   TextField,
   Checkbox,
+  Button,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { cn } from "../../services/helpers/classname";
 import { useOvermind } from "../../store";
 import { ICity, ICountry, ICountryCities } from "../RegisterPage/RegisterPage";
@@ -28,13 +29,90 @@ import { ru } from "date-fns/locale";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 
+import { AchievementCard } from "../AchievementsIntroPage/components/AchievementCard";
+import { useHistory } from "react-router-dom";
+import { TagRelationType } from "../../store/graphql-global-types";
+import { AutocompleteOption } from "../../components/SearchBar/components/AutocompleteOption";
+
 const block = cn("application-draft-page");
 
 const countries: ICountry[] = countriesJson;
 const cities: ICountryCities = citiesJson;
 
+interface SearchResultItem {
+  uid: string;
+  title: string;
+  type: TagRelationType;
+}
+
 export function ApplicationDraftPage() {
-  const { state } = useOvermind();
+  const { state, actions } = useOvermind();
+  const history = useHistory();
+  const [searchInput, setSearchInput] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [results, setResuls] = useState<SearchResultItem[]>([]);
+
+  useEffect(() => {
+    const job = async () => {
+      setIsLoading(true);
+      await actions.programs.getPrograms();
+      await actions.specialties.getSpecialties();
+      await actions.majors.getMajors();
+
+      const data: SearchResultItem[] = [];
+      state.programs.list.forEach((program) =>
+        data.push({
+          uid: program.uid,
+          title: program.title,
+          type: TagRelationType.program,
+        })
+      );
+      state.specialties.list.forEach((specialty) =>
+        data.push({
+          uid: specialty.uid,
+          title: specialty.title,
+          type: TagRelationType.specialty,
+        })
+      );
+      state.majors.list.forEach((major) =>
+        data.push({
+          uid: major.uid,
+          title: major.title,
+          type: TagRelationType.major,
+        })
+      );
+      setResuls(data);
+      setIsLoading(false);
+    };
+
+    job();
+  }, [
+    actions.majors,
+    actions.programs,
+    actions.specialties,
+    state.majors.list,
+    state.programs.list,
+    state.specialties.list,
+  ]);
+
+  const routeToItem = (item: SearchResultItem) => {
+    // switch (item.type) {
+    //   case TagRelationType.program: {
+    //     history.push(`/education/programs/${item.uid}`);
+    //     break;
+    //   }
+    //   case TagRelationType.specialty: {
+    //     history.push(`/education/specialties/${item.uid}`);
+    //     break;
+    //   }
+    //   case TagRelationType.major: {
+    //     history.push(`/education/majors/${item.uid}`);
+    //     break;
+    //   }
+    // }
+  };
+
   const [citizenship, setCitizenship] = useState<ICountry | null>(null);
   const [snils, setSnils] = useState<string | null>(null);
   const [gender, setGender] = useState<string | null>(null);
@@ -68,6 +146,42 @@ export function ApplicationDraftPage() {
   const [hundredRight, setHundredRight] = useState<string | null>(null);
   const [diplomaRight, setDiplomaRight] = useState<string | null>(null);
 
+  const [first, setFirst] = useState<SearchResultItem | null>(null);
+  const [second, setSecond] = useState<SearchResultItem | null>(null);
+  const [third, setThird] = useState<SearchResultItem | null>(null);
+
+  const [showSecond, setShowSecond] = useState<boolean>(true);
+  const [showThird, setShowThird] = useState<boolean>(true);
+
+  const [total, setTotal] = useState<number>(0);
+
+  // useEffect(() => {
+  //   setTotal(0);
+  //   if (first) {
+  //     setTotal(total + 1);
+  //   }
+  //   if (second) {
+  //     setTotal(total + 1);
+  //   }
+  //   if (third) {
+  //     setTotal(total + 1);
+  //   }
+  // }, [first, second, third, total]);
+
+  const [achievements, setAchievements] = useState<
+    { name: string; reward: number }[]
+  >([]);
+
+  useEffect(() => {
+    const achievements = localStorage.getItem("ach") || "{}";
+    const arr = JSON.parse(achievements) || {};
+    const ar = Object.keys(arr).map((key) => ({
+      name: arr[key].label,
+      reward: arr[key].reward,
+    }));
+    setAchievements(ar);
+  }, []);
+
   useEffect(() => {
     if (state.auth.user) {
       console.log(state.auth.user);
@@ -79,6 +193,8 @@ export function ApplicationDraftPage() {
       }
     }
   }, [state.auth.user]);
+
+  const save = useCallback(() => {}, []);
 
   return (
     <div className={block()}>
@@ -93,11 +209,7 @@ export function ApplicationDraftPage() {
             value={state.auth.user?.lastName}
             disabled
           />
-          <TextField
-            label="Имя"
-            value={state.auth.user?.firstName}
-            disabled
-          />
+          <TextField label="Имя" value={state.auth.user?.firstName} disabled />
           <TextField
             label="Отчество"
             value={state.auth.user?.patronym}
@@ -251,6 +363,80 @@ export function ApplicationDraftPage() {
             />
           </RadioGroup>
         </FormControl>
+        {/* <span>Заполнено {first && !second &&} из 3 возможных</span> */}
+        <Autocomplete
+          options={results}
+          getOptionLabel={(option) => option.title}
+          loading={isLoading}
+          noOptionsText="Нет результатов"
+          loadingText="Загрузка..."
+          renderOption={(option) => (
+            <AutocompleteOption
+              title={option.title}
+              type={option.type}
+              searchInput={searchInput || ""}
+            />
+          )}
+          onChange={(_, value) => setFirst(value)}
+          renderInput={(params) => (
+            <TextField
+              label="Выбор образовательной программы/направления/УГН (приоритет)"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              {...params}
+            />
+          )}
+        />
+        {showSecond && (
+          <Autocomplete
+            options={results}
+            getOptionLabel={(option) => option.title}
+            loading={isLoading}
+            noOptionsText="Нет результатов"
+            loadingText="Загрузка..."
+            renderOption={(option) => (
+              <AutocompleteOption
+                title={option.title}
+                type={option.type}
+                searchInput={searchInput || ""}
+              />
+            )}
+            onChange={(_, value) => setSecond(value)}
+            renderInput={(params) => (
+              <TextField
+                label="Выбор образовательной программы/направления/УГН"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                {...params}
+              />
+            )}
+          />
+        )}
+        {showThird && (
+          <Autocomplete
+            options={results}
+            getOptionLabel={(option) => option.title}
+            loading={isLoading}
+            noOptionsText="Нет результатов"
+            loadingText="Загрузка..."
+            renderOption={(option) => (
+              <AutocompleteOption
+                title={option.title}
+                type={option.type}
+                searchInput={searchInput || ""}
+              />
+            )}
+            onChange={(_, value) => setThird(value)}
+            renderInput={(params) => (
+              <TextField
+                label="Выбор образовательной программы/направления/УГН"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                {...params}
+              />
+            )}
+          />
+        )}
       </div>
       <span className={block("subheading")}>Образование</span>
       <div className={block("enrolling")}>
@@ -431,7 +617,20 @@ export function ApplicationDraftPage() {
           </RadioGroup>
         </FormControl>
       </div>
-      <span className={block("subheading")}>Индвидуальные достижения</span>
+      <span className={block("subheading")}>Индивидуальные достижения</span>
+      {achievements.map((achievement) => (
+        <>
+          <AchievementCard
+            key={achievement.name}
+            name={achievement.name}
+            reward={achievement.reward}
+          />
+          <Brick size={2} />
+        </>
+      ))}
+      <Button variant="outlined" color="primary" onClick={save}>
+        Сохранить
+      </Button>
     </div>
   );
 }

@@ -150,7 +150,7 @@ export function EventInfoPage() {
                 : "Записаться на мероприятие"
             }
             // isButton
-            disabled={event?.placesLeft === 0}
+            disabled={event?.placesLeft === 0 && (event?.limit || 0) > 0}
             onClick={async (e) => {
               e.preventDefault();
               if (hasPart) {
@@ -177,8 +177,6 @@ export function EventInfoPage() {
             <Button
               variant="outlined"
               color="primary"
-              // isButton
-              disabled={event?.placesLeft === 0}
             >
               Редактировать
             </Button>
