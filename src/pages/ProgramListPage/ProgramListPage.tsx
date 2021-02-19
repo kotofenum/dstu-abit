@@ -53,7 +53,7 @@ export function ProgramListPage() {
       <span className={block("heading")}>
         <span className={block("underline")}>Образовательные программы</span>
       </span>
-      <Brick size={8} />
+      <Brick size={4} />
       <div className={block("items")}>
         {sortedPrograms.map((program) => (
           <Link

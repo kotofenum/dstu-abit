@@ -62,7 +62,7 @@ const Favorite = (props: ITabProps) => {
   useEffect(() => {
     props.setTab("favorite");
   }, [actions.tags, props]);
-  
+
   useEffect(() => {
     actions.tags.getMyTags();
   }, [actions.tags]);
@@ -109,155 +109,167 @@ export function ProfilePage() {
           </span>
         </div>
       </div>
-      <div className={block("details")}>
-        <div className={block("details-tabs")}>
-          <Paper square>
-            <Tabs
-              value={tab}
-              indicatorColor="primary"
-              textColor="primary"
-              onChange={(_, value) => {
-                setTab(value);
-                history.replace(`/profile/${value}`);
-              }}
-            >
-              <Tab label="Данные профиля" value="info" />
-              <Tab label="Мои мероприятия" value="events" />
-              <Tab label="Достижения" value="achievements" />
-              <Tab label="Мне интересно" value="favorite" />
-            </Tabs>
-          </Paper>
+      <div className={block("content")}>
+        <div className={block("details")}>
+          <div className={block("details-tabs")}>
+            <Paper square>
+              <Tabs
+                value={tab}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={(_, value) => {
+                  setTab(value);
+                  history.replace(`/profile/${value}`);
+                }}
+              >
+                <Tab label="Данные профиля" value="info" />
+                <Tab label="Мои мероприятия" value="events" />
+                <Tab label="Достижения" value="achievements" />
+                <Tab label="Мне интересно" value="favorite" />
+              </Tabs>
+            </Paper>
+          </div>
         </div>
-      </div>
-      <Switch>
-        <Route exact path={`${path}/info`}>
-          <div className={block("tab-content")}>
-            <MyInfo setTab={setTab} />
-            <div className={block("details-row")}>
-              <span className={block("details-row-name")}>Страна:</span>
-              <span className={block("details-row-value")}>{user.country}</span>
-            </div>
-            <div className={block("details-row")}>
-              <span className={block("details-row-name")}>
-                Населенный пункт:
-              </span>
-              <span className={block("details-row-value")}>
-                {user.locality}
-              </span>
-            </div>
-            <div className={block("details-row")}>
-              <span className={block("details-row-name")}>Дата рождения:</span>
-              <span className={block("details-row-value")}>
-                {moment(user.birthDate).format("D MMMM YYYY")} г.
-              </span>
-            </div>
-            {user.school && (
+        <Switch>
+          <Route exact path={`${path}/info`}>
+            <div className={block("tab-content")}>
+              <MyInfo setTab={setTab} />
+              <div className={block("details-row")}>
+                <span className={block("details-row-name")}>Страна:</span>
+                <span className={block("details-row-value")}>
+                  {user.country}
+                </span>
+              </div>
               <div className={block("details-row")}>
                 <span className={block("details-row-name")}>
-                  Образовательное учреждение:
+                  Населенный пункт:
                 </span>
                 <span className={block("details-row-value")}>
-                  {user.school}
+                  {user.locality}
                 </span>
               </div>
-            )}
-            {user.child && (
               <div className={block("details-row")}>
-                <span className={block("details-row-name")}>ФИО ребенка:</span>
-                <span className={block("details-row-value")}>{user.child}</span>
-              </div>
-            )}
-            {user.position && (
-              <div className={block("details-row")}>
-                <span className={block("details-row-name")}>Должность:</span>
+                <span className={block("details-row-name")}>
+                  Дата рождения:
+                </span>
                 <span className={block("details-row-value")}>
-                  {user.position}
+                  {moment(user.birthDate).format("D MMMM YYYY")} г.
                 </span>
               </div>
-            )}
-            <div className={block("details-row")}>
-              <span className={block("details-row-name")}>E-mail:</span>
-              <span className={block("details-row-value")}>{user.email}</span>
+              {user.school && (
+                <div className={block("details-row")}>
+                  <span className={block("details-row-name")}>
+                    Образовательное учреждение:
+                  </span>
+                  <span className={block("details-row-value")}>
+                    {user.school}
+                  </span>
+                </div>
+              )}
+              {user.child && (
+                <div className={block("details-row")}>
+                  <span className={block("details-row-name")}>
+                    ФИО ребенка:
+                  </span>
+                  <span className={block("details-row-value")}>
+                    {user.child}
+                  </span>
+                </div>
+              )}
+              {user.position && (
+                <div className={block("details-row")}>
+                  <span className={block("details-row-name")}>Должность:</span>
+                  <span className={block("details-row-value")}>
+                    {user.position}
+                  </span>
+                </div>
+              )}
+              <div className={block("details-row")}>
+                <span className={block("details-row-name")}>E-mail:</span>
+                <span className={block("details-row-value")}>{user.email}</span>
+              </div>
+              <div className={block("details-action")}>
+                <Link to="/profile/edit">
+                  <Button variant="contained" color="primary">
+                    Редактировать
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div className={block("details-action")}>
-              <Link to="/profile/edit">
-                <Button variant="contained" color="primary">
-                  Редактировать
-                </Button>
-              </Link>
+          </Route>
+          <Route exact path={`${path}/events`}>
+            <div className={block("details")}>
+              <FetchMyEvents setTab={setTab} />
+              {state.events.myUserEvents.map((userEvent) => (
+                <>
+                  <EventCard
+                    {...userEvent.event}
+                    tags={[]}
+                    id={userEvent.event.uid}
+                    key={userEvent.event.uid}
+                    url={userEvent.event.link}
+                    date={new Date(userEvent.event.startsAt)}
+                    timeRange={
+                      new Date(userEvent.event.startsAt)
+                        .toLocaleTimeString()
+                        .substr(0, 5) +
+                      " — " +
+                      new Date(userEvent.event.endsAt)
+                        .toLocaleTimeString()
+                        .substr(0, 5)
+                    }
+                  />
+                  <Brick size={3} />
+                </>
+              ))}
             </div>
-          </div>
-        </Route>
-        <Route exact path={`${path}/events`}>
-          <div className={block("details")}>
-            <FetchMyEvents setTab={setTab} />
-            {state.events.myUserEvents.map((userEvent) => (
-              <>
-                <EventCard
-                  {...userEvent.event}
-                  tags={[]}
-                  id={userEvent.event.uid}
-                  key={userEvent.event.uid}
-                  url={userEvent.event.link}
-                  date={new Date(userEvent.event.startsAt)}
-                  timeRange={
-                    new Date(userEvent.event.startsAt)
-                      .toLocaleTimeString()
-                      .substr(0, 5) +
-                    " — " +
-                    new Date(userEvent.event.endsAt)
-                      .toLocaleTimeString()
-                      .substr(0, 5)
-                  }
+          </Route>
+          <Route exact path={`${path}/achievements`}>
+            <div className={block("cards")}>
+              <MyAchievements setTab={setTab} />
+              {achievements.map((achievement) => (
+                <AchievementCard
+                  key={achievement.name}
+                  name={achievement.name}
+                  reward={achievement.reward}
                 />
-                <Brick size={3} />
-              </>
+              ))}
+            </div>
+          </Route>
+          <Route exact path={`${path}/favorite`}>
+            <Favorite setTab={setTab} />
+            {state.tags.tags?.programs?.length ? (
+              <span className={block("subheading")}>
+                Образовательные программы
+              </span>
+            ) : null}
+            {state.tags.tags?.programs.map((program) => (
+              <Link to={`/education/programs/${program.uid}`}>
+                {program.title}
+              </Link>
             ))}
-          </div>
-        </Route>
-        <Route exact path={`${path}/achievements`}>
-          <div className={block("cards")}>
-            <MyAchievements setTab={setTab} />
-            {achievements.map((achievement) => (
-              <AchievementCard
-                key={achievement.name}
-                name={achievement.name}
-                reward={achievement.reward}
-              />
+            {state.tags.tags?.specialties?.length ? (
+              <span className={block("subheading")}>Направления</span>
+            ) : null}
+            {state.tags.tags?.specialties.map((program) => (
+              <Link to={`/education/specialties/${program.uid}`}>
+                {program.title}
+              </Link>
             ))}
-          </div>
-        </Route>
-        <Route exact path={`${path}/favorite`}>
-          <Favorite setTab={setTab} />
-          {state.tags.tags?.programs?.length ? (
-            <span className={block("subheading")}>
-              Образовательные программы
-            </span>
-          ) : null}
-          {state.tags.tags?.programs.map((program) => (
-            <Link to={`/education/programs/${program.uid}`}>
-              {program.title}
-            </Link>
-          ))}
-          {state.tags.tags?.specialties?.length ? (
-            <span className={block("subheading")}>Направления</span>
-          ) : null}
-          {state.tags.tags?.specialties.map((program) => (
-            <Link to={`/education/specialties/${program.uid}`}>
-              {program.title}
-            </Link>
-          ))}
-          {state.tags.tags?.majors?.length ? (
-            <span className={block("subheading")}>
-              Укрупненные группы направлений
-            </span>
-          ) : null}
-          {state.tags.tags?.majors.map((program) => (
-            <Link to={`/education/majors/${program.uid}`}>{program.title}</Link>
-          ))}
-        </Route>
-        <Redirect exact path="/profile" to={`${path}/info`} />
-      </Switch>
+            {state.tags.tags?.majors?.length ? (
+              <span className={block("subheading")}>
+                Укрупненные группы направлений
+              </span>
+            ) : null}
+            {state.tags.tags?.majors.map((program) => (
+              <Link to={`/education/majors/${program.uid}`}>
+                {program.title}
+              </Link>
+            ))}
+          </Route>
+          <Redirect exact path="/profile" to={`${path}/info`} />
+        </Switch>
+      </div>
     </div>
   ) : null;
 }

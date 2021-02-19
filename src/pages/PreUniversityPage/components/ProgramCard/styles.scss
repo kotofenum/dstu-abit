@@ -1,15 +1,18 @@
 .program-card {
   display: flex;
   flex-direction: column;
-  background: #eee;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 8px;
   overflow: hidden;
   user-select: none;
   cursor: pointer;
 
-  &--selected  {
-    background: rgb(198, 209, 190);
+  padding: 20px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+    0 15px 40px rgba(166, 173, 201, 0.2);
+
+  &--selected {
+    background: #bfccfb;
   }
 
   &__title {

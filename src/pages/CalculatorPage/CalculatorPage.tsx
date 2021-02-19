@@ -185,43 +185,45 @@ export function CalculatorPage() {
   // const requiredSubjects: IProgramSubject[] = state.programs.listWithSubjects.map
 
   useEffect(() => {
-    setFilteredPrograms([])
-  }, [educationForm])
+    setFilteredPrograms([]);
+  }, [educationForm]);
 
   return (
     <div className={block()}>
       <span className={block("heading")}>Калькулятор ЕГЭ</span>
-      <FormControl component="fieldset">
-        <FormLabel
-          className={block("form-label").toString()}
-          component="legend"
-        >
-          Выберите форму обучения
-        </FormLabel>
-        <RadioGroup
-          value={educationForm}
-          onChange={(_, value) => setEducationForm(Number(value))}
-        >
-          <FormControlLabel
-            className={block("radio").toString()}
-            control={<Radio className={block("radio-icon").toString()} />}
-            label="Очная"
-            value={0}
-          />
-          <FormControlLabel
-            className={block("radio").toString()}
-            control={<Radio className={block("radio-icon").toString()} />}
-            label="Заочная"
-            value={1}
-          />
-          <FormControlLabel
-            className={block("radio").toString()}
-            control={<Radio className={block("radio-icon").toString()} />}
-            label="Очно-заочная"
-            value={2}
-          />
-        </RadioGroup>
-      </FormControl>
+      <div className={block("education-form-block")}>
+        <FormControl component="fieldset">
+          <FormLabel
+            className={block("form-label").toString()}
+            component="legend"
+          >
+            Выберите форму обучения
+          </FormLabel>
+          <RadioGroup
+            value={educationForm}
+            onChange={(_, value) => setEducationForm(Number(value))}
+          >
+            <FormControlLabel
+              className={block("radio").toString()}
+              control={<Radio className={block("radio-icon").toString()} />}
+              label="Очная"
+              value={0}
+            />
+            <FormControlLabel
+              className={block("radio").toString()}
+              control={<Radio className={block("radio-icon").toString()} />}
+              label="Заочная"
+              value={1}
+            />
+            <FormControlLabel
+              className={block("radio").toString()}
+              control={<Radio className={block("radio-icon").toString()} />}
+              label="Очно-заочная"
+              value={2}
+            />
+          </RadioGroup>
+        </FormControl>
+      </div>
       <AnimatePresence>
         {educationForm !== null && (
           <motion.div

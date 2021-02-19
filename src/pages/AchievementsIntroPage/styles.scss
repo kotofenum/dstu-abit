@@ -16,7 +16,8 @@
     display: grid;
     grid-auto-flow: row;
     justify-content: flex-start;
-    gap: 8px;
+    gap: 16px;
+    margin-bottom: 8px;
   }
 
   &__actions {

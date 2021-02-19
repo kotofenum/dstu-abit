@@ -116,7 +116,7 @@ export function EditEventPage() {
 
   return (
     <div className={block()}>
-      <span className={block("heading")}>Добавление события</span>
+      <span className={block("heading")}>Редактирование события</span>
       {state.events.currentEvent ? (
         <div className={block("form")}>
           <TextField

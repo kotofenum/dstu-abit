@@ -52,7 +52,7 @@ export function EventCard(props: IEventCardProps) {
   // var array = JSON.parse(json);
 
   return (
-    <div  className={block()}>
+    <div className={block()}>
       <div className={block("top-line")}>
         <span className={block("date")}>
           <CalendarIcon className={block("icon")} />
@@ -75,7 +75,7 @@ export function EventCard(props: IEventCardProps) {
             )} */}
             <span>{place || "Онлайн"}</span>
           </span>
-      {!!reward && <span className={block("reward")}>{reward} баллов</span>}
+          {!!reward && <span className={block("reward")}>{reward} баллов</span>}
         </div>
       </div>
       <div className={block("bottom-line")}>

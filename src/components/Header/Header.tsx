@@ -7,6 +7,7 @@ import "./styles.scss";
 import { Link } from "react-router-dom";
 import { Gap } from "../utility/Gap";
 import { useOvermind } from "../../store";
+import { Button } from "@material-ui/core";
 
 const block = cn("header");
 
@@ -21,29 +22,50 @@ export function Header(props: IHeaderProps) {
         <img alt="Логотип" src="/logo.png" />
       </Link>
       <div className={block("user-panel")}>
-        <div className={block("notifications")}>
-          <BellIcon onClick={() => actions.ui.toggleNotifications(!state.ui.notificationsOpened)}/>
-        </div>
+        {state.auth.token && (
+          <div className={block("notifications")}>
+            <BellIcon
+              onClick={() =>
+                actions.ui.toggleNotifications(!state.ui.notificationsOpened)
+              }
+            />
+          </div>
+        )}
         {state.auth.token ? (
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Link to="/profile" className={block("username")}>{state.auth.username}</Link>
+            <Link to="/profile" className={block("username")}>
+              {state.auth.username}
+            </Link>
             {/* <div className={block("userpic")} /> */}
             <Gap size={2} />
-            <span
+            <Button
+              variant="outlined"
+              color="primary"
               onClick={() => actions.auth.logout()}
-              className={block("exit")}
             >
               Выйти
-            </span>
+            </Button>
           </div>
         ) : (
           <>
-            <Link to="/register" className={block("register")}>
-              Регистрация
+            <Link to="/register">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => actions.auth.logout()}
+              >
+                Регистрация
+              </Button>
             </Link>
-            <Gap size={2} />
-            <Link to="/login" className={block("login")}>
-              Вход
+            <Gap size={1} />
+            <Link to="/login">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => actions.auth.logout()}
+              >
+                Вход
+              </Button>
             </Link>
           </>
         )}
