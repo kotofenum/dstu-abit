@@ -19,9 +19,45 @@ import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import { ModuleType } from "../../store/graphql-global-types";
 import { moduleType, moduleTypeLocal } from "../../types/ModuleType";
-import { Button, TextField } from "@material-ui/core";
+import { Backdrop, Button, Modal, TextField } from "@material-ui/core";
+import { AnimatePresence, motion } from "framer-motion";
+import { EventModal } from "./components/EventModal";
 
 const block = cn("event-list-page");
+
+const variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const group = {
+  hidden: {
+    opacity: 0,
+    y: 8,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 8,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 interface IFlattenTag {
   uid: string;
@@ -175,6 +211,15 @@ export function EventListPage() {
   );
   // console.log();
 
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [selectedEvent, setSelectedEvent] = React.useState<string | null>(null);
+
+  const openEvent = (uid: string) => {
+    console.log("opening event ", uid);
+    setSelectedEvent(uid);
+    setOpen(true);
+  };
+
   return (
     <div className={block()} key={location.search}>
       <h1
@@ -273,38 +318,63 @@ export function EventListPage() {
           </Button>
         </Link>
       ) : null}
-      {Object.keys(groupedEvents).map((key) => {
-        const date = moment(key);
+      <motion.div
+        className={block("list")}
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+      >
+        {Object.keys(groupedEvents).map((key, idx) => {
+          const date = moment(key);
 
-        const events = groupedEvents[key];
+          const events = groupedEvents[key];
 
-        return (
-          <>
-            <span className={block("group-date")}>
-              {date.format("D MMMM, dddd")}
-            </span>
-            <Brick size={2} />
-            {events.map((event) => (
-              <>
-                <EventCard
-                  {...event}
-                  tags={[]}
-                  id={event.uid}
-                  key={event.uid}
-                  url={event.link}
-                  date={new Date(event.startsAt)}
-                  timeRange={
-                    new Date(event.startsAt).toLocaleTimeString().substr(0, 5) +
-                    " — " +
-                    new Date(event.endsAt).toLocaleTimeString().substr(0, 5)
-                  }
-                />
-                <Brick size={3} />
-              </>
-            ))}
-          </>
-        );
-      })}
+          return (
+            <motion.div className={block("group")} variants={group}>
+              {idx > 0 && <div className={block("list-separator")} />}
+              <div className={block("group-date")}>
+                {date.format("D MMMM")}
+                <span className={block("group-date-day")}>
+                  {date.format("dddd")}
+                </span>
+              </div>
+              <Brick size={2} />
+              <div className={block("cards")}>
+                <AnimatePresence>
+                  {events.map((event) => (
+                    <motion.div
+                      variants={item}
+                      onClick={() => openEvent(event.uid)}
+                    >
+                      <EventCard
+                        {...event}
+                        tags={[]}
+                        id={event.uid}
+                        key={event.uid}
+                        url={event.link}
+                        date={new Date(event.startsAt)}
+                        timeRange={
+                          new Date(event.startsAt)
+                            .toLocaleTimeString()
+                            .substr(0, 5) +
+                          " — " +
+                          new Date(event.endsAt)
+                            .toLocaleTimeString()
+                            .substr(0, 5)
+                        }
+                      />
+                      <Brick size={3} />
+                    </motion.div>
+                  ))}
+                  {/* {idx + 1 < Object.keys(groupedEvents).length && (
+                  <div className={block("list-separator")} />
+                )} */}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          );
+        })}
+      </motion.div>
       <Brick size={2} />
       {!!groupedOtherEvents.lenght && (
         <>
@@ -321,7 +391,7 @@ export function EventListPage() {
                 </span>
                 <Brick size={2} />
                 {events.map((event) => (
-                  <>
+                  <div onClick={() => openEvent(event.uid)}>
                     <EventCard
                       {...event}
                       tags={[]}
@@ -337,7 +407,7 @@ export function EventListPage() {
                       }
                     />
                     <Brick size={3} />
-                  </>
+                  </div>
                 ))}
               </>
             );
@@ -345,6 +415,34 @@ export function EventListPage() {
         </>
       )}
       <Brick size={5} />
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        className={block("modal")}
+        open={open}
+        onClose={() => setOpen(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        {/* <div className={block("modal-wrapper")}> */}
+        <div className={block("window")}>
+          <AnimatePresence>
+            {selectedEvent && (
+              <motion.div
+                variants={item}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <EventModal id={selectedEvent} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </Modal>
     </div>
   );
 }

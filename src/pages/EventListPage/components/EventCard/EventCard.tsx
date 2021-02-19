@@ -52,26 +52,32 @@ export function EventCard(props: IEventCardProps) {
   // var array = JSON.parse(json);
 
   return (
-    <Link to={`/events/${id}`} className={block()}>
+    <div  className={block()}>
       <div className={block("top-line")}>
         <span className={block("date")}>
           <CalendarIcon className={block("icon")} />
           <span>{date.toLocaleDateString()}</span>
         </span>
-        <span className={block("place", { online: !place })}>
-          {place ? (
-            <SchoolIcon className={block("icon")} />
-          ) : (
-            <LanguageIcon className={block("icon")} />
-          )}
-          <span>{place || "Онлайн"}</span>
-        </span>
       </div>
-      <span className={block("type")}>{(eventTypes as any)[type]}</span>
-      <span className={block("title")}>{title}</span>
-      <span className={block("time-range")}>{timeRange}</span>
-      {!!reward && <span style={{marginBottom: '8px'}}>{reward} баллов</span>}
-      <span className={block("description")}>{description}</span>
+      <div className={block("top")}>
+        <div className={block("info")}>
+          <span className={block("title")}>{title}</span>
+          <span className={block("description")}>{description}</span>
+        </div>
+        <div className={block("meta")}>
+          <span className={block("type")}>{(eventTypes as any)[type]}</span>
+          <span className={block("time-range")}>{timeRange}</span>
+          <span className={block("place", { online: !place })}>
+            {/* {place ? (
+              <SchoolIcon className={block("icon")} />
+            ) : (
+              <LanguageIcon className={block("icon")} />
+            )} */}
+            <span>{place || "Онлайн"}</span>
+          </span>
+      {!!reward && <span className={block("reward")}>{reward} баллов</span>}
+        </div>
+      </div>
       <div className={block("bottom-line")}>
         <div className={block("actions")}>
           <a
@@ -125,6 +131,6 @@ export function EventCard(props: IEventCardProps) {
           {tags.length ? tags.map((tag: string) => <Tag name={tag} />) : null}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

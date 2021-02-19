@@ -5,7 +5,7 @@ import {
   UserEventInput,
   EventInput,
 } from "./../graphql-global-types";
-import { AsyncAction } from "overmind";
+import { Action, AsyncAction } from "overmind";
 import { JoinEvent_visitEvent } from "./effects/gql/graphql-types/JoinEvent";
 import { LeaveEvent_leaveEvent } from "./effects/gql/graphql-types/LeaveEvent";
 import { AddEvent_addEvent } from "./effects/gql/graphql-types/AddEvent";
@@ -108,13 +108,18 @@ export const addEvent: AsyncAction<EventInput, AddEvent_addEvent> = async (
   return addEvent;
 };
 
-export const editEvent: AsyncAction<EditEventInput, EditEvent_editEvent> = async (
-  { state, effects },
-  input
-) => {
+export const editEvent: AsyncAction<
+  EditEventInput,
+  EditEvent_editEvent
+> = async ({ state, effects }, input) => {
   const { editEvent } = await effects.events.gql.mutations.editEvent({
     input,
   });
 
   return editEvent;
+};
+
+export const clearCurrentEvent: Action<void> = ({ state }) => {
+  state.events.currentEvent = null;
+  return;
 };
