@@ -52,7 +52,7 @@ export function EventCard(props: IEventCardProps) {
   // var array = JSON.parse(json);
 
   return (
-    <div className={block()}>
+    <Link to={`/events/${id}`} className={block()}>
       <div className={block("top-line")}>
         <span className={block("date")}>
           <CalendarIcon className={block("icon")} />
@@ -131,6 +131,6 @@ export function EventCard(props: IEventCardProps) {
           {tags.length ? tags.map((tag: string) => <Tag name={tag} />) : null}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

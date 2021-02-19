@@ -344,7 +344,7 @@ export function EventListPage() {
                   {events.map((event) => (
                     <motion.div
                       variants={item}
-                      onClick={() => openEvent(event.uid)}
+                      // onClick={() => openEvent(event.uid)}
                     >
                       <EventCard
                         {...event}

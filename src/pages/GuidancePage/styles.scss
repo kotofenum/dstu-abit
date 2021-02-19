@@ -30,9 +30,31 @@
   }
 
   &__event-title {
+    display: flex;
+    justify-content: space-between;
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 8px;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 6px;
+    color: #000000;
+    background: #ffffff;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+      0 15px 40px rgba(166, 173, 201, 0.2);
+    cursor: pointer;
+    transition: 0.13s background;
+
+    &:hover {
+      background: #eee;
+    }
   }
 
   &__event-date {
