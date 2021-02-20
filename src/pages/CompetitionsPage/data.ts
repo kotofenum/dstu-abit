@@ -387,7 +387,7 @@ export const competitions: ICompetitionGroup[] = [
     ],
   },
   {
-    date: "",
+    date: "В течение учебного года",
     data: [
       {
         date: "В течение учебного года",

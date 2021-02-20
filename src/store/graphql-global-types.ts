@@ -13,6 +13,15 @@ export enum AccountType {
   teacher = "teacher",
 }
 
+export enum CompetitionGroup {
+  april = "april",
+  february = "february",
+  january = "january",
+  march = "march",
+  may = "may",
+  other = "other",
+}
+
 export enum EventType {
   consultation = "consultation",
   discussion = "discussion",
@@ -72,9 +81,26 @@ export interface CodeInput {
   type: AccountType;
 }
 
+export interface CompetitionInput {
+  title: string;
+  date: string;
+  target: string;
+  link?: string | null;
+  group: CompetitionGroup;
+}
+
 export interface ConfirmCodeInput {
   phone: string;
   code: string;
+}
+
+export interface EditCompetitionInput {
+  uid: string;
+  title: string;
+  date: string;
+  target: string;
+  link?: string | null;
+  group: CompetitionGroup;
 }
 
 export interface EditEventInput {

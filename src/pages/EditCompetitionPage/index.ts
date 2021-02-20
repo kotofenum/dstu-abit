@@ -1,0 +1,1 @@
+export { EditCompetitionPage } from "./EditCompetitionPage";

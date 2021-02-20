@@ -13,6 +13,7 @@ import { config as auth } from "./auth";
 import { config as tours } from "./tours";
 import { config as preuniversity } from "./preuniversity";
 import { config as guidance } from "./guidance";
+import { config as competitions } from "./competitions";
 
 export const config = namespaced({
   ui,
@@ -26,6 +27,7 @@ export const config = namespaced({
   tours,
   preuniversity,
   guidance,
+  competitions,
 });
 
 declare module "overmind" {
