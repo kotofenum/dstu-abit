@@ -52,15 +52,17 @@ export function GuidancePage() {
             >
               <span className={block("event-title")}>
                 {event.title}
-                <div
-                  className={block("icon")}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.push(`/guidance/${event.uid}/edit`);
-                  }}
-                >
-                  <EditIcon />
-                </div>
+                {state.auth.isAdmin && (
+                  <div
+                    className={block("icon")}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push(`/guidance/${event.uid}/edit`);
+                    }}
+                  >
+                    <EditIcon />
+                  </div>
+                )}
               </span>
               <span className={block("event-date")}>{event.date}</span>
               <span className={block("event-unit")}>
@@ -71,15 +73,17 @@ export function GuidancePage() {
             <div className={block("event-block")} key={event.title}>
               <span className={block("event-title")}>
                 {event.title}
-                <div
-                  className={block("icon")}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.push(`/guidance/${event.uid}/edit`);
-                  }}
-                >
-                  <EditIcon />
-                </div>
+                {state.auth.isAdmin && (
+                  <div
+                    className={block("icon")}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push(`/guidance/${event.uid}/edit`);
+                    }}
+                  >
+                    <EditIcon />
+                  </div>
+                )}
               </span>
               <span className={block("event-date")}>{event.date}</span>
               <span className={block("event-unit")}>

@@ -100,15 +100,17 @@ export function CompetitionsPage() {
                 >
                   <span className={block("competition-title")}>
                     {competition.title}
-                    <div
-                      className={block("icon")}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        history.push(`/competitions/${competition.uid}/edit`);
-                      }}
-                    >
-                      <EditIcon />
-                    </div>
+                    {state.auth.isAdmin && (
+                      <div
+                        className={block("icon")}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push(`/competitions/${competition.uid}/edit`);
+                        }}
+                      >
+                        <EditIcon />
+                      </div>
+                    )}
                   </span>
                   <span className={block("competition-date")}>
                     {competition.date}
@@ -124,15 +126,17 @@ export function CompetitionsPage() {
                 >
                   <span className={block("competition-title")}>
                     {competition.title}
-                    <div
-                      className={block("icon")}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        history.push(`/competitions/${competition.uid}/edit`);
-                      }}
-                    >
-                      <EditIcon />
-                    </div>
+                    {state.auth.isAdmin && (
+                      <div
+                        className={block("icon")}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push(`/competitions/${competition.uid}/edit`);
+                        }}
+                      >
+                        <EditIcon />
+                      </div>
+                    )}
                   </span>
                   <span className={block("competition-date")}>
                     {competition.date}
