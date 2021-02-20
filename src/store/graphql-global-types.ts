@@ -92,6 +92,14 @@ export interface EditEventInput {
   eventId: string;
 }
 
+export interface EditGuidanceInput {
+  uid: string;
+  title: string;
+  date: string;
+  description: string;
+  link?: string | null;
+}
+
 export interface EditUserInput {
   country?: string | null;
   locality?: string | null;
@@ -115,6 +123,13 @@ export interface EventInput {
   placesLeft?: number | null;
   startsAt: any;
   endsAt: any;
+}
+
+export interface GuidanceInput {
+  title: string;
+  date: string;
+  description: string;
+  link?: string | null;
 }
 
 export interface LoginInput {

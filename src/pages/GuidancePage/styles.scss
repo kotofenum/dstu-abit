@@ -12,6 +12,14 @@
     margin-bottom: 24px;
   }
 
+  &__actions {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 8px;
+    justify-content:flex-end;
+    margin-bottom: 16px;
+  }
+
   &__list {
     display: grid;
     grid-auto-flow: row;
