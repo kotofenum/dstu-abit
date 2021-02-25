@@ -126,6 +126,38 @@ export interface EditGuidanceInput {
   link?: string | null;
 }
 
+export interface EditProgramInput {
+  title: string;
+  score?: number | null;
+  specialtyId: string;
+  fullTimePlaces?: number | null;
+  fullTimeMeta?: PlacesMeta | null;
+  mixedPlaces?: number | null;
+  mixedMeta?: PlacesMeta | null;
+  extramuralPlaces?: number | null;
+  extramuralMeta?: PlacesMeta | null;
+  fullTimeForm: boolean;
+  mixedForm: boolean;
+  extramuralForm: boolean;
+  degree: ProgramDegree;
+  studyPeriod: string;
+  languages: string;
+  description?: string | null;
+  advantages?: string | null;
+  partners?: string | null;
+  projectsAndPractices?: string | null;
+  leadProfessors?: string | null;
+  graduates?: string | null;
+  unit?: string | null;
+  supervisor?: string | null;
+  uid: string;
+}
+
+export interface EditProgramScoreInput {
+  uid: string;
+  score: number;
+}
+
 export interface EditUserInput {
   country?: string | null;
   locality?: string | null;

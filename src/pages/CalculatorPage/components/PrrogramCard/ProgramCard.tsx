@@ -15,16 +15,18 @@ interface IProgramCardProps {
   title: string;
   requiredSubjects: IProgramSubject[];
   optionalSubjects: IProgramSubject[];
-  minScore: number;
+  minScore: number | null;
 }
 
 export function ProgramCard(props: IProgramCardProps) {
   return (
     <div className={block()}>
       <span className={block("title")}>{props.title}</span>
-      {/* <span className={block("min-score")}>
-        Проходной балл 2019 г.: {props.minScore}
-      </span> */}
+      {props.minScore && (
+        <span className={block("min-score")}>
+          Проходной балл 2020 г.: {props.minScore}
+        </span>
+      )}
       <div className={block("required")}>
         <span className={block("subheading")}>Обязательные предметы</span>
         {props.requiredSubjects.map((subject) => (

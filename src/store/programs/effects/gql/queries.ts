@@ -52,6 +52,7 @@ export const programsWithSubjects: Query<ProgramsWithSubjects> = gql`
   query ProgramsWithSubjects {
     programsWithSubjects {
       uid
+      score
       title
       fullTimeForm
       mixedForm
@@ -83,6 +84,7 @@ export const program: Query<Program, { uid: string }> = gql`
     program(uid: $uid) {
       uid
       title
+      score
       specialty {
         uid
         title

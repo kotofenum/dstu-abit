@@ -21,6 +21,7 @@ export interface ProgramsWithSubjects_programsWithSubjects_subjects {
 
 export interface ProgramsWithSubjects_programsWithSubjects {
   uid: string;
+  score: number | null;
   title: string;
   fullTimeForm: boolean;
   mixedForm: boolean;

@@ -6,7 +6,8 @@ import { EducationSummary } from "../../components/EducationSummary";
 
 import "./styles.scss";
 import { useOvermind } from "../../store";
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
+import { ReactComponent as EditIcon } from "../../assets/svg/edit.svg";
 
 export const programDegree = {
   // TODO: нужно как-то по-другому решить
@@ -36,7 +37,7 @@ export function ProgramPage() {
   }, [actions.programs, programId]);
 
   const program = state.programs.currentProgram;
-
+  const history = useHistory();
   useEffect(() => {
     if (program) {
       document.title = `${program.title} | Абитуриент ДГТУ`;
@@ -92,8 +93,20 @@ export function ProgramPage() {
           { name: "Уровень образования", value: programDegree[program.degree] },
           { name: "Срок обучения", value: program.studyPeriod },
           { name: "Языки обучения", value: program.languages },
+          { name: "Проходной балл прошлого года", value: program.score },
         ]}
       />
+      {state.auth.isAdmin && (
+        <div
+          className={block("i")}
+          onClick={(e) => {
+            e.preventDefault();
+            history.push(`/education/programs/${program.uid}/edit`);
+          }}
+        >
+          Редактировать
+        </div>
+      )}
       {program.description && (
         <div className={block("text-block")}>
           <span className={block("text-block-title")}>Описание программы</span>

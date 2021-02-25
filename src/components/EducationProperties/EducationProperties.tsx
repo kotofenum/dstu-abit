@@ -6,17 +6,20 @@ import "./styles.scss";
 const block = cn("education-properties");
 
 interface IEducationPropertiesProps {
-  list: { name: string; value: string }[];
+  list: { name: string; value: string | number | null }[];
 }
 
 export function EducationProperties({ list }: IEducationPropertiesProps) {
   return (
     <div className={block()}>
-      {list.map((property) => (
-        <div className={block("property")}>
-          {property.name}: {property.value}
-        </div>
-      ))}
+      {list.map(
+        (property) =>
+          property.value && (
+            <div className={block("property")}>
+              {property.name}: {property.value}
+            </div>
+          )
+      )}
     </div>
   );
 }

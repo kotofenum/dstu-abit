@@ -48,6 +48,7 @@ import { EditGuidancePage } from "../pages/EditGuidancePage";
 import { AddGuidancePage } from "../pages/AddGuidancePage";
 import { EditCompetitionPage } from "../pages/EditCompetitionPage";
 import { AddCompetitionPage } from "../pages/AddCompetitionPage";
+import { EditProgramPage } from "../pages/EditProgramPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -140,6 +141,7 @@ function MainRouting() {
         />
         <Route exact path="/education/programs" component={ProgramListPage} />
         <Route exact path="/education/programs/:id" component={ProgramPage} />
+        <Route exact path="/education/programs/:id/edit" component={EditProgramPage} />
         <Redirect path="/education" to="/education/programs" />
         <ProtectedRoute exact path="/events/add" component={AddEventPage} />
         <ProtectedRoute

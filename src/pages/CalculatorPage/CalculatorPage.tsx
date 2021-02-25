@@ -324,7 +324,7 @@ export function CalculatorPage() {
             <Link key={program.uid} to={`/education/programs/${program.uid}`}>
               <ProgramCard
                 title={program.title}
-                minScore={163}
+                minScore={program.score}
                 requiredSubjects={mapSubjects(program).required}
                 optionalSubjects={mapSubjects(program).optional}
               />

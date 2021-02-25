@@ -3,30 +3,30 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { PlacesMeta, ProgramDegree } from "./../../../../graphql-global-types";
+import { EditProgramInput, PlacesMeta, ProgramDegree } from "./../../../../graphql-global-types";
 
 // ====================================================
-// GraphQL query operation: Program
+// GraphQL mutation operation: EditProgram
 // ====================================================
 
-export interface Program_program_specialty_major {
+export interface EditProgram_editProgram_specialty_major {
   uid: string;
   title: string;
   code: string;
 }
 
-export interface Program_program_specialty {
+export interface EditProgram_editProgram_specialty {
   uid: string;
   title: string;
   code: string;
-  major: Program_program_specialty_major;
+  major: EditProgram_editProgram_specialty_major;
 }
 
-export interface Program_program {
+export interface EditProgram_editProgram {
   uid: string;
   title: string;
   score: number | null;
-  specialty: Program_program_specialty;
+  specialty: EditProgram_editProgram_specialty;
   fullTimePlaces: number | null;
   fullTimeMeta: PlacesMeta | null;
   mixedPlaces: number | null;
@@ -49,10 +49,10 @@ export interface Program_program {
   supervisor: string | null;
 }
 
-export interface Program {
-  program: Program_program;
+export interface EditProgram {
+  editProgram: EditProgram_editProgram;
 }
 
-export interface ProgramVariables {
-  uid: string;
+export interface EditProgramVariables {
+  input: EditProgramInput;
 }
