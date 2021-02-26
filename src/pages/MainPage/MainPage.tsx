@@ -49,9 +49,9 @@ export function MainPage() {
         <Link to={`/calculator`} className={block("cell", { eight: true })}>
           КАЛЬКУЛЯТОР ЕГЭ
         </Link>
-        <Link to={`/achievements`} className={block("cell", { nine: true })}>
+        {/* <Link to={`/achievements`} className={block("cell", { nine: true })}>
           ПРЕДВАРИТЕЛЬНЫЙ УЧЕТ ИНДИВИДУАЛЬНЫХ ДОСТИЖЕНИЙ
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

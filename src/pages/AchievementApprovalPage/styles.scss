@@ -1,0 +1,68 @@
+.achievement-approval-page {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  font-family: "Open Sans", sans-serif;
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
+  &__cards {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .achievement-card {
+    cursor: pointer;
+    transition: 0.2s all;
+
+    &:hover {
+      background: lighten($color: #e5ecf1, $amount: 3);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__option {
+    margin-bottom: 8px;
+
+    &-name {
+      margin-right: 4px;
+      text-decoration: underline;
+    }
+  }
+
+  &__subheading {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  &__content {
+    display: grid;
+    grid-auto-flow: row;
+
+    &-option {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8px;
+
+      &-name {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__actions {
+    margin-top: 24px;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 8px;
+  }
+}

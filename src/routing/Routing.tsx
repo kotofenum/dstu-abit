@@ -49,6 +49,9 @@ import { AddGuidancePage } from "../pages/AddGuidancePage";
 import { EditCompetitionPage } from "../pages/EditCompetitionPage";
 import { AddCompetitionPage } from "../pages/AddCompetitionPage";
 import { EditProgramPage } from "../pages/EditProgramPage";
+import { AchievementsApprovalPage } from "../pages/AchievementsApprovalPage";
+import { AchievementApprovalPage } from "../pages/AchievementApprovalPage";
+import { WelcomeSwitcher } from "../components/WelcomeSwitcher";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -90,14 +93,25 @@ function MainRouting() {
     <>
       <ScrollToTop />
       <Switch>
-        {/* <Route exact path="/welcome" component={WelcomePage} /> */}
-        <Route exact path="/welcome" component={MainPage} />
+        <Route exact path="/welcome/navigation" component={MainPage} />
+        <Route exact path="/welcome/open-day" component={WelcomePage} />
+        <Redirect path="/welcome" to="/welcome/open-day" />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/profile/edit" component={EditProfilePage} />
         <Route path="/profile" component={ProfilePage} />
         {/* <Route exact path="/education" component={EducationPage} /> */}
+        <Route
+          exact
+          path="/achievements/approval"
+          component={AchievementsApprovalPage}
+        />
+        <Route
+          exact
+          path="/achievements/approval/:id"
+          component={AchievementApprovalPage}
+        />
         <Route
           exact
           path="/achievements/intro"
@@ -125,11 +139,27 @@ function MainRouting() {
         />
         <Redirect exact path="/application" to="/application/draft" />
         <Route exact path="/competitions" component={CompetitionsPage} />
-        <ProtectedRoute exact path="/competitions/add" component={AddCompetitionPage} />
-        <ProtectedRoute exact path="/competitions/:id/edit" component={EditCompetitionPage} />
+        <ProtectedRoute
+          exact
+          path="/competitions/add"
+          component={AddCompetitionPage}
+        />
+        <ProtectedRoute
+          exact
+          path="/competitions/:id/edit"
+          component={EditCompetitionPage}
+        />
         <Route exact path="/guidance" component={GuidancePage} />
-        <ProtectedRoute exact path="/guidance/add" component={AddGuidancePage} />
-        <ProtectedRoute exact path="/guidance/:id/edit" component={EditGuidancePage} />
+        <ProtectedRoute
+          exact
+          path="/guidance/add"
+          component={AddGuidancePage}
+        />
+        <ProtectedRoute
+          exact
+          path="/guidance/:id/edit"
+          component={EditGuidancePage}
+        />
         <Route exact path="/pre-university" component={PreUniversityPage} />
         <Route exact path="/calculator" component={CalculatorPage} />
         <Route exact path="/education/majors" component={MajorListPage} />
@@ -141,7 +171,11 @@ function MainRouting() {
         />
         <Route exact path="/education/programs" component={ProgramListPage} />
         <Route exact path="/education/programs/:id" component={ProgramPage} />
-        <Route exact path="/education/programs/:id/edit" component={EditProgramPage} />
+        <Route
+          exact
+          path="/education/programs/:id/edit"
+          component={EditProgramPage}
+        />
         <Redirect path="/education" to="/education/programs" />
         <ProtectedRoute exact path="/events/add" component={AddEventPage} />
         <ProtectedRoute
@@ -166,6 +200,7 @@ export function Routing() {
       <Router history={browserHistory}>
         <Header />
         <Menu />
+        <WelcomeSwitcher />
         {state.ui.notificationsOpened && <Notifications />}
         <Route component={MainRouting} />
       </Router>
