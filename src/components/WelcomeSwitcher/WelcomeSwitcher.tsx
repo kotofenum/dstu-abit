@@ -9,6 +9,7 @@ const block = cn("welcome-switcher");
 
 export function WelcomeSwitcher() {
   const history = useHistory();
+  const isWelcome = useRouteMatch("/welcome");
   const isNavigation = useRouteMatch("/welcome/navigation");
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export function WelcomeSwitcher() {
 
   const [tab, setTab] = useState<"open-day" | "navigation">("open-day");
 
-  return (
+  return isWelcome ? (
     <div className={block()}>
       <Paper square>
         <Tabs
@@ -38,5 +39,5 @@ export function WelcomeSwitcher() {
         </Tabs>
       </Paper>
     </div>
-  );
+  ) : null;
 }
