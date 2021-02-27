@@ -49,7 +49,7 @@ export function EditProgramPage() {
 
   return (
     <div className={block()}>
-      <span className={block("heading")}>Редактирование события</span>
+      <span className={block("heading")}>Редактирование программы</span>
       {state.programs.currentProgram ? (
         <div className={block("form")}>
           <span>Программа "${state.programs.currentProgram.title}"</span>
