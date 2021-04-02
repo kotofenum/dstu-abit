@@ -85,7 +85,7 @@ export function EventInfoPage() {
                 actions.events.visitEvent({ eventId: event.uid });
               }}
             >
-              Подключиться
+              Подробнее
             </Button>
           </a>
           <span className={block("type")}>
@@ -136,7 +136,7 @@ export function EventInfoPage() {
               actions.events.visitEvent({ eventId: event.uid });
             }}
           >
-            Подключиться
+            Подробнее
           </Button>
         </a>
         {/* {hasPart && <Tag name="Подключиться" isConnectButton />} */}

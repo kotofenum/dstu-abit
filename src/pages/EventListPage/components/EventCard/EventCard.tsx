@@ -94,7 +94,7 @@ export function EventCard(props: IEventCardProps) {
                 actions.events.visitEvent({ eventId: id });
               }}
             >
-              Подключиться
+              Подробнее
             </Button>
           </a>
           {/* <Tag
