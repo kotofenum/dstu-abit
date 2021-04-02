@@ -96,10 +96,10 @@ export function WelcomePage() {
             to={`/events?module=online`}
             className={block("cell", { one: true })}
           >
-            <span className={block("cell-header")}>ДГТУ-ОНЛАЙН</span>
-            <span className={block("cell-row")}>
+            <span className={block("cell-header")}>Встреча с руководством вуза</span>
+            {/* <span className={block("cell-row")}>
               Прямая трансляция с руководством вуза
-            </span>
+            </span> */}
             <span className={block("cell-row")}>
               Круглые столы с деканами факультетов ДГТУ
             </span>
