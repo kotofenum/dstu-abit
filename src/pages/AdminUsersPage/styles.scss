@@ -3,8 +3,10 @@
   flex-direction: column;
   margin: auto;
   max-width: 1000px;
+  max-height: calc(100vh - 36px - 64px - 24px - 20px);
+  overflow: auto;
   margin-top: 24px;
-  margin-bottom: 80px;
+  margin-bottom: 20px;
   font-family: "Open Sans", sans-serif;
 
   &__heading {
@@ -38,6 +40,11 @@
       background-color: #4b92cb;
     }
   }
+
+  &__table {
+    max-width: 100%;
+  }
+
   tbody tr {
     &:nth-child(odd) {
       background-color: #f3f8fc;

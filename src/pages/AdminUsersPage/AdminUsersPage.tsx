@@ -32,7 +32,9 @@ export function AdminUsersPage() {
         type: user.type,
         phone: user.phone,
         email: user.email,
-        birthDate: user.birthDate ? moment(user.birthDate).format("DD.MM.YYYY") : "",
+        birthDate: user.birthDate
+          ? moment(user.birthDate).format("DD.MM.YYYY")
+          : "",
         country: user.country,
         locality: user.locality,
         school: user.school,
@@ -74,7 +76,7 @@ export function AdminUsersPage() {
         ))}
       </div> */}
       {data?.length && (
-        <div style={{ maxWidth: "100%" }}>
+        <div className={block("table")}>
           <MaterialTable
             columns={[
               {
@@ -113,7 +115,7 @@ export function AdminUsersPage() {
               sorting: true,
               thirdSortClick: false,
               pageSize: data?.length,
-              paging: false
+              paging: false,
             }}
             localization={{
               toolbar: {
