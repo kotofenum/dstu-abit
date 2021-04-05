@@ -134,4 +134,20 @@
     height: 100%;
     margin-right: 8px;
   }
+
+  &__members {
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+  }
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  &__member {
+    margin-bottom: 8px;
+    font-size: 19px;
+  }
 }

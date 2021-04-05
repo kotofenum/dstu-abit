@@ -61,6 +61,12 @@ export function EventInfoPage() {
     // setHasPart(p);
   }, [get]);
 
+  useEffect(() => {
+    if (state.auth.isAdmin) {
+      actions.events.getUsersOfEvent(eventId);
+    }
+  }, [actions.events, eventId, state.auth.isAdmin]);
+
   return event ? (
     <div className={block()}>
       <Brick size={8} />
@@ -174,10 +180,7 @@ export function EventInfoPage() {
             to={`/events/${eventId}/edit`}
             style={{ textDecoration: "none" }}
           >
-            <Button
-              variant="outlined"
-              color="primary"
-            >
+            <Button variant="outlined" color="primary">
               Редактировать
             </Button>
           </Link>
@@ -196,6 +199,14 @@ export function EventInfoPage() {
               : `Осталось ${event?.placesLeft} мест`}
           </span>
         )}
+      </div>
+      <div className={block("members")}>
+        <span className={block("heading")}>Участники</span>
+        {state.events.usersOfEvent.map((user) => (
+          <Link to={`/admin/users/${user.uid}`} className={block("member")}>
+            {user.lastName} {user.firstName} {user.patronym}
+          </Link>
+        ))}
       </div>
     </div>
   ) : null;

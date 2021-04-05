@@ -7,6 +7,7 @@ import {
   EventsForModuleVariables,
 } from "./graphql-types/EventsForModule";
 import { MyUserEvents } from "./graphql-types/MyUserEvents";
+import { UsersOfEvent } from "./graphql-types/UsersOfEvent";
 
 export const events: Query<Events> = gql`
   query Events {
@@ -105,6 +106,17 @@ export const myUserEvents: Query<MyUserEvents> = gql`
         startsAt
         endsAt
       }
+    }
+  }
+`;
+
+export const usersOfEvent: Query<UsersOfEvent, { uid: string }> = gql`
+  query UsersOfEvent($uid: ID!) {
+    usersOfEvent(uid: $uid) {
+      uid
+      lastName
+      firstName
+      patronym
     }
   }
 `;

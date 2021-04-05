@@ -25,6 +25,17 @@ export const myUserEvents: AsyncAction = async ({ state, effects }) => {
   state.events.myUserEvents = myUserEvents;
 };
 
+export const getUsersOfEvent: AsyncAction<string> = async (
+  { state, effects },
+  uid
+) => {
+  const { usersOfEvent } = await effects.events.gql.queries.usersOfEvent({
+    uid,
+  });
+
+  state.events.usersOfEvent = usersOfEvent;
+};
+
 export const getEvent: AsyncAction<string> = async (
   { state, effects },
   uid
