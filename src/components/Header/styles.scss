@@ -55,6 +55,19 @@
       }
   }
 
+  &__admin {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    margin-top: 6px;
+
+    &:hover {
+      opacity: 0.8; // TODO: make it without opacity
+    }
+  }
+
   &__notifications {
     display: flex;
     align-items: center;

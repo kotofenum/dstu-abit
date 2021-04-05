@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "../../services/helpers/classname";
 
 import { ReactComponent as BellIcon } from "../../assets/svg/bell.svg";
+import { ReactComponent as AdminIcon } from "../../assets/svg/admin.svg";
 
 import "./styles.scss";
 import { Link } from "react-router-dom";
@@ -22,6 +23,13 @@ export function Header(props: IHeaderProps) {
         <img alt="Логотип" src="/logo.png" />
       </Link>
       <div className={block("user-panel")}>
+        {state.auth.token && state.auth.isAdmin && (
+          <div className={block("admin")}>
+            <Link to="/admin/users">
+              <AdminIcon />
+            </Link>
+          </div>
+        )}
         {state.auth.token && (
           <div className={block("notifications")}>
             <BellIcon

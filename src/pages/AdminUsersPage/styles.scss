@@ -1,0 +1,52 @@
+.admin-users-page {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  font-family: "Open Sans", sans-serif;
+
+  &__heading {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  &__actions {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+  }
+
+  &__user-type {
+    align-self: flex-start;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #ffffff;
+
+    &--enrolee {
+      background-color: #eca448;
+    }
+
+    &--parent {
+      background-color: #7e64ed;
+    }
+
+    &--teacher {
+      background-color: #4b92cb;
+    }
+  }
+  tbody tr {
+    &:nth-child(odd) {
+      background-color: #f3f8fc;
+    }
+
+    &:hover {
+      background-color: #e7f4ff;
+    }
+
+    cursor: pointer;
+  }
+}

@@ -6,6 +6,7 @@ import {
   Redirect,
   useHistory,
   useLocation,
+  Link,
 } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Menu } from "../components/Menu";
@@ -52,6 +53,7 @@ import { EditProgramPage } from "../pages/EditProgramPage";
 import { AchievementsApprovalPage } from "../pages/AchievementsApprovalPage";
 import { AchievementApprovalPage } from "../pages/AchievementApprovalPage";
 import { WelcomeSwitcher } from "../components/WelcomeSwitcher";
+import { AdminUsersPage } from "../pages/AdminUsersPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -186,6 +188,11 @@ function MainRouting() {
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
         <Route exact path="/future-tour" component={FutureTourPage} />
+        <ProtectedRoute
+          exact
+          path="/admin/users"
+          component={AdminUsersPage}
+        />
         <Redirect path="/" to="/welcome" />
       </Switch>
     </>
