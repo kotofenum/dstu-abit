@@ -18,12 +18,11 @@ import { EventCard } from "../EventListPage/components/EventCard";
 
 import "./styles.scss";
 
-const block = cn("profile-page");
+const block = cn("user-page");
 
 interface ITabProps {
-  setTab: React.Dispatch<
-    React.SetStateAction<"info" | "achievements" | "events" | "favorite">
-  >;
+  setTab: React.Dispatch<React.SetStateAction<"info" | "events" | "favorite">>;
+  uid: string;
 }
 
 const MyInfo = (props: ITabProps) => {
@@ -42,16 +41,8 @@ const FetchMyEvents = (props: ITabProps) => {
   }, [props]);
 
   useEffect(() => {
-    actions.events.myUserEvents();
-  }, [actions.events]);
-
-  return null;
-};
-
-const MyAchievements = (props: ITabProps) => {
-  useEffect(() => {
-    props.setTab("achievements");
-  }, [props]);
+    actions.admin.getUserEvents(props.uid);
+  }, [actions.admin, actions.events, props.uid]);
 
   return null;
 };
@@ -61,38 +52,28 @@ const Favorite = (props: ITabProps) => {
 
   useEffect(() => {
     props.setTab("favorite");
-  }, [actions.tags, props]);
+  }, [actions.admin, props]);
 
   useEffect(() => {
-    actions.tags.getMyTags();
-  }, [actions.tags]);
+    actions.admin.getUserTags(props.uid);
+  }, [actions.admin, props.uid]);
 
   return null;
 };
 
-export function ProfilePage() {
-  const { path } = useRouteMatch();
+export function UserPage() {
+  const { actions, state } = useOvermind();
+  const { path, params } = useRouteMatch();
+  const userId = (params as any)["id"] as string;
   const history = useHistory();
-  const { state } = useOvermind();
-  const [tab, setTab] = useState<
-    "info" | "achievements" | "events" | "favorite"
-  >("info");
+  const [tab, setTab] = useState<"info" | "events" | "favorite">("info");
 
-  const user = state.auth.user;
-
-  const [achievements, setAchievements] = useState<
-    { name: string; reward: number }[]
-  >([]);
-
+  const user = state.admin.currentUser;
   useEffect(() => {
-    const achievements = localStorage.getItem("ach") || "{}";
-    const arr = JSON.parse(achievements) || {};
-    const ar = Object.keys(arr).map((key) => ({
-      name: arr[key].label,
-      reward: arr[key].reward,
-    }));
-    setAchievements(ar);
-  }, []);
+    actions.admin.getUser(userId);
+  }, [actions.admin, userId]);
+
+  console.log(path);
 
   return user ? (
     <div className={block()}>
@@ -119,13 +100,12 @@ export function ProfilePage() {
                 textColor="primary"
                 onChange={(_, value) => {
                   setTab(value);
-                  history.replace(`/profile/${value}`);
+                  history.replace(`/admin/users/${userId}/${value}`);
                 }}
               >
                 <Tab label="Данные профиля" value="info" />
-                <Tab label="Мои мероприятия" value="events" />
-                <Tab label="Достижения" value="achievements" />
-                <Tab label="Мне интересно" value="favorite" />
+                <Tab label="Запись на мероприятия" value="events" />
+                <Tab label="Интересы" value="favorite" />
               </Tabs>
             </Paper>
           </div>
@@ -133,7 +113,7 @@ export function ProfilePage() {
         <Switch>
           <Route exact path={`${path}/info`}>
             <div className={block("tab-content")}>
-              <MyInfo setTab={setTab} />
+              <MyInfo setTab={setTab} uid={userId} />
               <div className={block("details-row")}>
                 <span className={block("details-row-name")}>Страна:</span>
                 <span className={block("details-row-value")}>
@@ -188,19 +168,19 @@ export function ProfilePage() {
                 <span className={block("details-row-name")}>E-mail:</span>
                 <span className={block("details-row-value")}>{user.email}</span>
               </div>
-              <div className={block("details-action")}>
+              {/* <div className={block("details-action")}>
                 <Link to="/profile/edit">
                   <Button variant="contained" color="primary">
                     Редактировать
                   </Button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </Route>
           <Route exact path={`${path}/events`}>
             <div className={block("details")}>
-              <FetchMyEvents setTab={setTab} />
-              {state.events.myUserEvents.map((userEvent) => (
+              <FetchMyEvents setTab={setTab} uid={userId} />
+              {state.admin.eventsOfUser.map((userEvent) => (
                 <>
                   <EventCard
                     {...userEvent.event}
@@ -224,7 +204,7 @@ export function ProfilePage() {
               ))}
             </div>
           </Route>
-          <Route exact path={`${path}/achievements`}>
+          {/* <Route exact path={`${path}/achievements`}>
             <div className={block("cards")}>
               <MyAchievements setTab={setTab} />
               {achievements.map((achievement) => (
@@ -235,41 +215,41 @@ export function ProfilePage() {
                 />
               ))}
             </div>
-          </Route>
+          </Route> */}
           <Route exact path={`${path}/favorite`}>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Favorite setTab={setTab} />
-              {state.tags.tags?.programs?.length ? (
+            <Favorite setTab={setTab} uid={userId} />
+              {state.admin.tagsOfUser?.programs?.length ? (
                 <span className={block("subheading")}>
                   Образовательные программы
                 </span>
               ) : null}
-              {state.tags.tags?.programs.map((program) => (
+              {state.admin.tagsOfUser?.programs.map((program) => (
                 <Link to={`/education/programs/${program.uid}`}>
                   {program.title}
                 </Link>
               ))}
-              {state.tags.tags?.specialties?.length ? (
+              {state.admin.tagsOfUser?.specialties?.length ? (
                 <span className={block("subheading")}>Направления</span>
               ) : null}
-              {state.tags.tags?.specialties.map((program) => (
+              {state.admin.tagsOfUser?.specialties.map((program) => (
                 <Link to={`/education/specialties/${program.uid}`}>
                   {program.title}
                 </Link>
               ))}
-              {state.tags.tags?.majors?.length ? (
+              {state.admin.tagsOfUser?.majors?.length ? (
                 <span className={block("subheading")}>
                   Укрупненные группы направлений
                 </span>
               ) : null}
-              {state.tags.tags?.majors.map((program) => (
+              {state.admin.tagsOfUser?.majors.map((program) => (
                 <Link to={`/education/majors/${program.uid}`}>
                   {program.title}
                 </Link>
               ))}
             </div>
           </Route>
-          <Redirect exact path="/profile" to={`${path}/info`} />
+          <Redirect exact path={path} to={`${path}/info`} />
         </Switch>
       </div>
     </div>

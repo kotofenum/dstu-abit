@@ -54,6 +54,7 @@ import { AchievementsApprovalPage } from "../pages/AchievementsApprovalPage";
 import { AchievementApprovalPage } from "../pages/AchievementApprovalPage";
 import { WelcomeSwitcher } from "../components/WelcomeSwitcher";
 import { AdminUsersPage } from "../pages/AdminUsersPage";
+import { UserPage } from "../pages/UserPage";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -188,6 +189,10 @@ function MainRouting() {
         <Route exact path="/events/:id" component={EventInfoPage} />
         <Route exact path="/events" component={EventListPage} />
         <Route exact path="/future-tour" component={FutureTourPage} />
+        <ProtectedRoute
+          path="/admin/users/:id"
+          component={UserPage}
+        />
         <ProtectedRoute
           exact
           path="/admin/users"

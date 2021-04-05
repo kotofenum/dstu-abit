@@ -13,3 +13,25 @@ export const getUser: AsyncAction<string> = async ({ state, effects }, uid) => {
 
   state.admin.currentUser = user;
 };
+
+export const getUserEvents: AsyncAction<string> = async (
+  { state, effects },
+  uid
+) => {
+  const { eventsOfUser } = await effects.admin.gql.queries.eventsOfUser({
+    uid,
+  });
+
+  state.admin.eventsOfUser = eventsOfUser;
+};
+
+export const getUserTags: AsyncAction<string> = async (
+  { state, effects },
+  uid
+) => {
+  const { tagsOfUser } = await effects.admin.gql.queries.tagsOfUser({
+    uid,
+  });
+
+  state.admin.tagsOfUser = tagsOfUser;
+};

@@ -1,0 +1,91 @@
+.user-page {
+  display: flex;
+  flex-direction: column;
+  max-width: 959px;
+  margin: auto;
+  margin-top: 24px;
+  margin-bottom: 40px;
+
+  &__content {
+    margin-top: 16px;
+    padding: 20px;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+      0 15px 40px rgba(166, 173, 201, 0.2);
+  }
+
+  &__person {
+    display: flex;
+  }
+  
+  &__userpic {
+    width: 192px;
+    height: 192px;
+    background-image: url("https://icon-icons.com/downloadimage.php?id=123197&root=1993/PNG/512/&file=account_avatar_face_man_people_profile_user_icon_123197.png");
+    background-size: cover;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+    margin-left: 12px;
+  }
+
+  &__user-name {
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  &__user-type {
+    align-self: flex-start;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #ffffff;
+
+    &--enrolee {
+      background-color: #eca448;
+    }
+
+    &--parent {
+      background-color: #7e64ed;
+    }
+
+    &--teacher {
+      background-color: #4b92cb;
+    }
+  }
+
+  &__details-tabs {
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  &__details-row {
+    display: flex;
+    margin-top: 12px;
+  }
+
+  &__details-row-name {
+    font-weight: 500;
+  }
+
+  &__details-row-value {
+    margin-left: 8px;
+  }
+
+  &__details-action {
+    margin-top: 16px;
+
+    > a {
+      text-decoration: none;
+    }
+  }
+
+  &__subheading {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+  }
+}

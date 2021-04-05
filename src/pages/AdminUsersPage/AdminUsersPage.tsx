@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import MaterialTable from "@material-table/core";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { cn } from "../../services/helpers/classname";
 import { useOvermind } from "../../store";
 import { Users_users } from "../../store/admin/effects/gql/graphql-types/Users";
@@ -17,6 +17,8 @@ export function AdminUsersPage() {
   const { state, actions } = useOvermind();
   const [data, setData] = useState<null | any[]>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const history = useHistory();
 
   useEffect(() => {
     actions.admin.getUsers();
@@ -121,7 +123,7 @@ export function AdminUsersPage() {
             data={data!}
             // page={currentPage}
             // onChangePage={(page) => setCurrentPage(page)}
-            onRowClick={(_, row) => console.log(row)}
+            onRowClick={(_, row) => history.push("/admin/users/" + row.uid)}
             title=""
           />
         </div>
