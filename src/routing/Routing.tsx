@@ -97,8 +97,8 @@ function MainRouting() {
       <ScrollToTop />
       <Switch>
         <Route exact path="/welcome/navigation" component={MainPage} />
-        <Route exact path="/welcome/open-day" component={WelcomePage} />
-        <Redirect path="/welcome" to="/welcome/open-day" />
+        {/* <Route exact path="/welcome/open-day" component={WelcomePage} /> */}
+        <Redirect path="/welcome" to="/welcome/navigation" />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={LogoutPage} />
@@ -212,7 +212,7 @@ export function Routing() {
       <Router history={browserHistory}>
         <Header />
         <Menu />
-        <WelcomeSwitcher />
+        {/* <WelcomeSwitcher /> */}
         {state.ui.notificationsOpened && <Notifications />}
         <Route component={MainRouting} />
       </Router>
