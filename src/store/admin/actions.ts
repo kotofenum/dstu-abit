@@ -6,6 +6,12 @@ export const getUsers: AsyncAction = async ({ state, effects }) => {
   state.admin.users = users;
 };
 
+export const getUsersWithInterests: AsyncAction = async ({ state, effects }) => {
+  const { usersWithInterests } = await effects.admin.gql.queries.usersWithInterests();
+
+  state.admin.usersWithInterests = usersWithInterests;
+};
+
 export const getUser: AsyncAction<string> = async ({ state, effects }, uid) => {
   const { user } = await effects.admin.gql.queries.user({
     uid,

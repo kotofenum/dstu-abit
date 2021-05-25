@@ -21,10 +21,12 @@ export function AdminUsersPage() {
   const history = useHistory();
 
   useEffect(() => {
-    actions.admin.getUsers();
+    actions.admin.getUsersWithInterests();
+  }, [actions.admin]);
 
+  useEffect(() => {
     setData(
-      state.admin.users.map((user) => ({
+      state.admin.usersWithInterests.map((user) => ({
         uid: user.uid,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -41,9 +43,16 @@ export function AdminUsersPage() {
         course: user.course,
         child: user.child,
         position: user.position,
+        events: Array.from(
+          new Map(
+            user.userEvents
+              .filter(userEvent => userEvent.attending)
+              .map((userEvent) => [userEvent.event.uid, userEvent.event.title])
+          ).values()
+        ),
       }))
     );
-  }, [actions.admin, state.admin.users]);
+  }, [state.admin.usersWithInterests]);
 
   return (
     <div className={block()}>
@@ -104,6 +113,11 @@ export function AdminUsersPage() {
               { title: "Курс", field: "course" },
               { title: "Ребенок", field: "child" },
               { title: "Должность", field: "position" },
+              {
+                title: "Мероприятия",
+                field: "events",
+                render: (rowData) => <span>{rowData.events.join(", ")}</span>,
+              },
               // { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
               // {
               //   title: "Doğum Yeri",

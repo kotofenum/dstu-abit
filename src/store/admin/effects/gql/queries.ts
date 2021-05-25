@@ -3,6 +3,7 @@ import { EventsOfUser } from "./graphql-types/EventsOfUser";
 import { TagsOfUser } from "./graphql-types/TagsOfUser";
 import { User } from "./graphql-types/User";
 import { Users } from "./graphql-types/Users";
+import { UsersWithInterests } from "./graphql-types/UsersWithInterests";
 
 export const users: Query<Users> = gql`
   query Users {
@@ -21,6 +22,35 @@ export const users: Query<Users> = gql`
       course
       child
       position
+    }
+  }
+`;
+
+export const usersWithInterests: Query<UsersWithInterests> = gql`
+  query UsersWithInterests {
+    usersWithInterests {
+      uid
+      type
+      lastName
+      firstName
+      patronym
+      phone
+      email
+      birthDate
+      country
+      locality
+      school
+      course
+      child
+      position
+      userEvents {
+        uid
+        event {
+          uid
+          title
+        }
+        attending
+      }
     }
   }
 `;
@@ -67,7 +97,6 @@ export const eventsOfUser: Query<EventsOfUser, { uid: string }> = gql`
     }
   }
 `;
-
 
 export const tagsOfUser: Query<TagsOfUser, { uid: string }> = gql`
   query TagsOfUser($uid: ID!) {
