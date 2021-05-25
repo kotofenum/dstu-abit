@@ -50,6 +50,9 @@ export function AdminUsersPage() {
               .map((userEvent) => [userEvent.event.uid, userEvent.event.title])
           ).values()
         ),
+        majors: user.majors.map((major) => major.title),
+        specialties: user.specialties.map((specialty) => specialty.title),
+        programs: user.programs.map((program) => program.title),
       }))
     );
   }, [state.admin.usersWithInterests]);
@@ -117,6 +120,21 @@ export function AdminUsersPage() {
                 title: "Мероприятия",
                 field: "events",
                 render: (rowData) => <span>{rowData.events.join(", ")}</span>,
+              },
+              {
+                title: "УГН",
+                field: "events",
+                render: (rowData) => <span>{rowData.majors.join(", ")}</span>,
+              },
+              {
+                title: "Специальности",
+                field: "events",
+                render: (rowData) => <span>{rowData.specialties.join(", ")}</span>,
+              },
+              {
+                title: "Программы",
+                field: "events",
+                render: (rowData) => <span>{rowData.programs.join(", ")}</span>,
               },
               // { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
               // {

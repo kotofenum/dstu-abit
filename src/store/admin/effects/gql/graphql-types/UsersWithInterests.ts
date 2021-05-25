@@ -20,6 +20,21 @@ export interface UsersWithInterests_usersWithInterests_userEvents {
   attending: boolean;
 }
 
+export interface UsersWithInterests_usersWithInterests_majors {
+  uid: string;
+  title: string;
+}
+
+export interface UsersWithInterests_usersWithInterests_specialties {
+  uid: string;
+  title: string;
+}
+
+export interface UsersWithInterests_usersWithInterests_programs {
+  uid: string;
+  title: string;
+}
+
 export interface UsersWithInterests_usersWithInterests {
   uid: string;
   type: AccountType;
@@ -36,6 +51,9 @@ export interface UsersWithInterests_usersWithInterests {
   child: string | null;
   position: string | null;
   userEvents: UsersWithInterests_usersWithInterests_userEvents[];
+  majors: UsersWithInterests_usersWithInterests_majors[];
+  specialties: UsersWithInterests_usersWithInterests_specialties[];
+  programs: UsersWithInterests_usersWithInterests_programs[];
 }
 
 export interface UsersWithInterests {

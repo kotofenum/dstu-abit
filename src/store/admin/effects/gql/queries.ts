@@ -51,6 +51,18 @@ export const usersWithInterests: Query<UsersWithInterests> = gql`
         }
         attending
       }
+      majors {
+        uid
+        title
+      }
+      specialties {
+        uid
+        title
+      }
+      programs {
+        uid
+        title
+      }
     }
   }
 `;
