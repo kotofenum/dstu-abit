@@ -9,13 +9,40 @@ import { Users_users } from "../../store/admin/effects/gql/graphql-types/Users";
 import { user } from "../../store/admin/effects/gql/queries";
 import { AccountType } from "../../store/graphql-global-types";
 
+import ReactExport from "react-export-excel";
+
 import "./styles.scss";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const block = cn("admin-users-page");
 
+interface ITableData {
+  uid: string;
+  firstName: string | null;
+  lastName: string | null;
+  patronym: string | null;
+  type: AccountType;
+  phone: string;
+  email: string | null;
+  birthDate: string;
+  country: string | null;
+  locality: string | null;
+  school: string | null;
+  course: string | null;
+  child: string | null;
+  position: string | null;
+  events: string[];
+  majors: string[];
+  specialties: string[];
+  programs: string[];
+}
+
 export function AdminUsersPage() {
   const { state, actions } = useOvermind();
-  const [data, setData] = useState<null | any[]>(null);
+  const [data, setData] = useState<null | ITableData[]>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const history = useHistory();
@@ -46,7 +73,7 @@ export function AdminUsersPage() {
         events: Array.from(
           new Map(
             user.userEvents
-              .filter(userEvent => userEvent.attending)
+              .filter((userEvent) => userEvent.attending)
               .map((userEvent) => [userEvent.event.uid, userEvent.event.title])
           ).values()
         ),
@@ -89,6 +116,9 @@ export function AdminUsersPage() {
       </div> */}
       {data?.length && (
         <div className={block("table")}>
+          <div style={{display: "flex", justifyContent: "flex-end", margin: '8px 0 16px'}}>
+          <Download data={data} />
+          </div>
           <MaterialTable
             columns={[
               {
@@ -129,7 +159,9 @@ export function AdminUsersPage() {
               {
                 title: "Специальности",
                 field: "events",
-                render: (rowData) => <span>{rowData.specialties.join(", ")}</span>,
+                render: (rowData) => (
+                  <span>{rowData.specialties.join(", ")}</span>
+                ),
               },
               {
                 title: "Программы",
@@ -157,11 +189,73 @@ export function AdminUsersPage() {
             data={data!}
             // page={currentPage}
             // onChangePage={(page) => setCurrentPage(page)}
-            onRowClick={(_, row) => history.push("/admin/users/" + row.uid)}
+            onRowClick={(_, row) => history.push("/admin/users/" + row?.uid)}
             title=""
           />
         </div>
       )}
     </div>
+  );
+}
+
+interface IDownloadProps {
+  data: ITableData[];
+}
+
+export function Download({ data }: IDownloadProps) {
+  return (
+    <ExcelFile element={
+      <Button
+        variant="outlined"
+        color="primary"
+        // onClick={() => {}}
+      >
+        Скачать в Excel
+      </Button>}>
+      <ExcelSheet data={data} name="Employees">
+        <ExcelColumn
+          label="Тип"
+          value={(data: ITableData) => {
+            if (data.type === AccountType.enrolee) {
+              return "Абитуриент";
+            }
+            if (data.type === AccountType.parent) {
+              return "Родитель";
+            }
+            if (data.type === AccountType.teacher) {
+              return "Педагог";
+            }
+          }}
+        />
+        <ExcelColumn label="Фамилия" value="lastName" />
+        <ExcelColumn label="Имя" value="firstName" />
+        <ExcelColumn label="Отчество" value="patronym" />
+        <ExcelColumn label="Телефон" value="phone" />
+        <ExcelColumn label="E-mail" value="email" />
+        <ExcelColumn label="Дата рождения" value="birthDate" />
+        <ExcelColumn label="Страна" value="country" />
+        <ExcelColumn label="Нас. пункт" value="locality" />
+        <ExcelColumn label="Обр. учреждение" value="school" />
+        <ExcelColumn label="Курс" value="course" />
+        <ExcelColumn label="Ребенок" value="child" />
+        <ExcelColumn label="Должность" value="position" />
+        <ExcelColumn
+          label="Мероприятия"
+          value={(data: ITableData) => data.events.join(", ")}
+        />
+        <ExcelColumn
+          label="УГН"
+          value={(data: ITableData) => data.majors.join(", ")}
+        />
+        <ExcelColumn
+          label="Специальности"
+          value={(data: ITableData) => data.specialties.join(", ")}
+        />
+        <ExcelColumn
+          label="Программы"
+          value={(data: ITableData) => data.programs.join(", ")}
+        />
+      </ExcelSheet>
+    </ExcelFile>
   );
 }
