@@ -10,6 +10,14 @@ export function MainPage() {
   return (
     <div className={block()}>
       <div className={block("grid")}>
+        <a
+          href="https://online.donstu.ru"
+          target="_blank"
+          rel="noreferrer"
+          className={block("cell", { six: true, wide: true })}
+        >
+          ПОДАТЬ ЗАЯВЛЕНИЕ
+        </a>
         <Link to={`/education`} className={block("cell", { one: true })}>
           ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ
         </Link>

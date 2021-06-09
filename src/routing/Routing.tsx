@@ -55,6 +55,7 @@ import { AchievementApprovalPage } from "../pages/AchievementApprovalPage";
 import { WelcomeSwitcher } from "../components/WelcomeSwitcher";
 import { AdminUsersPage } from "../pages/AdminUsersPage";
 import { UserPage } from "../pages/UserPage";
+import { Banner } from "../components/Banner";
 
 export const useScrollToTop = (): null => {
   const location = useLocation();
@@ -211,6 +212,7 @@ export function Routing() {
     <ToastProvider>
       <Router history={browserHistory}>
         <Header />
+        <Banner />
         <Menu />
         {/* <WelcomeSwitcher /> */}
         {state.ui.notificationsOpened && <Notifications />}

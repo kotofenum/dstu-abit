@@ -65,5 +65,9 @@
     &--nine {
       grid-column: 1 / 3;
     }
+    &--wide {
+      align-items: center;
+      grid-column: 1 / 3;
+    }
   }
 }

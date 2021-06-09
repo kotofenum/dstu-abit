@@ -1,0 +1,11 @@
+.banner {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+
+
+  @media (max-width: 600px) {
+    bottom: 80px;
+  }
+
+}
